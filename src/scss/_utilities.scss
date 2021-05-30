@@ -1,0 +1,6 @@
+// Margenes
+@each $nom, $val in $sizes {
+  .m-#{$nom} {
+    margin: #{$val};
+  }
+}
