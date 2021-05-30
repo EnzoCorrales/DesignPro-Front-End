@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-red">Perfil estas en el perfil</p>
+    <p class="text-red">Estas en el perfil</p>
     <VentanaPerfil />
   </div>
 </template>
