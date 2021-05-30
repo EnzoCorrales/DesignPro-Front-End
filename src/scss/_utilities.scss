@@ -1,6 +1,60 @@
+// Display
+@each $display in $displays {
+  .#{$display} {
+    display: #{$display};
+  }
+}
+
 // Margenes
 @each $nom, $val in $sizes {
   .m-#{$nom} {
     margin: #{$val};
+  }
+  .mx-#{$nom} {
+    margin-left: #{$val};
+    margin-right: #{$val};
+  }
+  .my-#{$nom} {
+    margin-top: #{$val};
+    margin-bottom: #{$val};
+  }
+  .ml-#{$nom} {
+    margin-left: #{$val};
+  }
+  .mr-#{$nom} {
+    margin-right: #{$val};
+  }
+  .mt-#{$nom} {
+    margin-top: #{$val};
+  }
+  .mb-#{$nom} {
+    margin-bottom: #{$val};
+  }
+}
+
+// Padding
+@each $nom, $val in $sizes {
+  .p-#{$nom} {
+    padding: #{$val};
+  }
+  .px-#{$nom} {
+    padding-left: #{$val};
+    padding-right: #{$val};
+  }
+  .py-#{$nom} {
+    padding-top: #{$val};
+    padding-bottom: #{$val};
+  }
+  .pl-#{$nom} {
+    padding-left: #{$val};
+  }
+  .pr-#{$nom} {
+    padding-right: #{$val};
+  }
+  .pt-#{$nom} {
+    padding-top: #{$val};
+  }
+  .pb-#{$nom} {
+    padding-bottom: #{$val};
   }
 }
