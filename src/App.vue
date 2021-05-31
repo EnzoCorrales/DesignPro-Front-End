@@ -3,7 +3,9 @@
     <nav class="px-4 py-3 shadow-sm">
       <div class="flex justify-between int">
         <div>
-          <h3 class="m-0 title">DesignPro</h3>
+          <h3 class="m-0 title">
+            <router-link to="/" class="text-decoration-none" style="color:black"> DesignPro </router-link>
+          </h3>
         </div>
         <div class="flex align-center px-2 btn-profile">
           <svg
