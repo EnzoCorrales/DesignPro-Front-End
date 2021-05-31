@@ -58,3 +58,43 @@
     padding-bottom: #{$val};
   }
 }
+
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.align-center {
+  align-items: center;
+}
+
+// Tamaños =======================
+$heightWidth: (
+  ("1", 0.1rem),
+  ("2", 0.25rem),
+  ("3", 0.5rem),
+  ("4", 1rem),
+  ("5", 1.5rem),
+  ("6", 2rem),
+  ("7", 3rem)
+);
+@each $nom, $val in $heightWidth {
+  .h-#{$nom} {
+    height: #{$val};
+  }
+  .w-#{$nom} {
+    width: #{$val};
+  }
+}
+.max-w-sm {
+  min-width: 18rem;
+}
+.w-full {
+  width: 100%;
+}
+
+// Sombras
+.shadow-sm {
+  box-shadow: 7px 7px 15px -6px rgba(0, 0, 0, 0.2);
+}
