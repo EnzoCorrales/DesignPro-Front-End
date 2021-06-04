@@ -14,15 +14,16 @@ const routes = [
     name: "Home",
     component: () => import("../views/Home.vue"),
   },
+  // AUTH =============
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/auth/Login.vue"),
   },
   {
-    path: "/perfil",
-    name: "Perfil",
-    component: () => import("../views/Perfil.vue"),
+    path: "/register",
+    name: "Registro",
+    component: () => import("../views/auth/Registro.vue"),
   },
 ];
 

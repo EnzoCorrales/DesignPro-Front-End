@@ -1,0 +1,25 @@
+.btn {
+  padding: 0.55rem 1rem;
+  border: 1px;
+  border-radius: 0.5rem;
+  color: whitesmoke;
+  text-decoration: none;
+  text-align: center;
+  font-size: large;
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+$btnColors: (
+  ("red", "crimson"),
+  ("blue", "blue"),
+  ("pink", "lightcoral"),
+  ("green", "green")
+);
+
+@each $nom, $color in $btnColors {
+  .btn-#{$nom} {
+    background-color: #{$color};
+  }
+}

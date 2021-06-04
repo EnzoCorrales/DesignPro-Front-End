@@ -1,33 +1,59 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/perfil">Perfil</router-link>
-    </div>
+    <nav class="px-4 py-3 shadow-sm">
+      <div class="flex justify-between int">
+        <div>
+          <h3 class="m-0 title">DesignPro</h3>
+        </div>
+        <div class="flex align-center px-2 btn-profile">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 mr-1"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          Guille
+        </div>
+      </div>
+    </nav>
     <router-view />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {};
+</script>
 
-#nav {
-  padding: 30px;
+<style lang="scss" scoped>
+nav {
+  border-bottom: 1px lightgray solid;
+  & .int {
+    margin: auto;
+  }
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+@media (min-width: 768px) {
+  nav div {
+    max-width: 80%;
+  }
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.btn-profile {
+  border: 1px solid lightgray;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  border-radius: 0.25rem;
+  color: darkslategray;
+  &:hover {
+    background-color: lightcoral;
+    color: white;
+    cursor: pointer;
+    border: transparent;
+  }
 }
 </style>
