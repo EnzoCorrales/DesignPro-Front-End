@@ -20,7 +20,7 @@ a {
 }
 
 // COLORES DE TEXTO
-$colors: (red, blue, pink, green, yellow, gray, black, white);
+$colors: ("red", "blue", "pink", "green", "yellow", "gray", "black", "white");
 
 @each $color in $colors {
   .text-#{$color} {
