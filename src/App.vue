@@ -3,7 +3,12 @@
     <nav class="px-4 py-3 shadow-sm">
       <div class="flex justify-between int">
         <div>
-          <h3 class="m-0 title">DesignPro</h3>
+          <router-link
+            to="/"
+            class="m-0 title text-black fw-bold"
+            style="font-size:1.2rem"
+            >DesignPro</router-link
+          >
         </div>
         <div class="flex align-center px-2 btn-profile">
           <svg
@@ -29,7 +34,9 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {},
+};
 </script>
 
 <style lang="scss" scoped>
