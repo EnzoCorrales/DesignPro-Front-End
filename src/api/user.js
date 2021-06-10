@@ -18,7 +18,7 @@ export default {
    * @param {request} data
    */
   register(data) {
-    return axios.post(RUTA_API + "/register", data);
+    return axios.post(RUTA_API + "/Register", data);
   },
   /**
    * Devuelve los datos del usuario.

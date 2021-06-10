@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Auth from '@okta/okta-vue';
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,10 @@ Vue.use(VueRouter);
  * @path @name @component
  */
 const routes = [
+  {
+    path: '/implicit/callback',
+    component: Auth.handleCallback()
+  },
   {
     path: "/",
     name: "Index",

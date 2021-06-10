@@ -5,60 +5,51 @@
     >
       <h2 class="title my-0">DesignPro</h2>
       <p class="mt-1 mb-3">Completa el formulario para ingresar</p>
-      <form>
+      <form @submit.prevent="register" >
         <input
-          v-model="form.email"
-          type="text"
-          name="email"
+          v-model="form.Correo"
+          type="email"
+          name="Correo"
           class="input mt-2"
           placeholder="Correo"
+          required
         />
         <input
-          v-model="form.nick"
+          v-model="form.Nombre"
           type="text"
-          name="email"
-          class="input mt-2"
-          placeholder="Nombre único de usuario"
-        />
-        <input
-          v-model="form.nombre"
-          type="text"
-          name="nombre"
+          name="Nombre"
           class="input mt-2"
           placeholder="Nombre"
+          required
         />
         <input
-          v-model="form.apellido"
+          v-model="form.Apellido"
           type="text"
-          name="apellido"
+          name="Apellido"
           class="input mt-2"
           placeholder="Apellido"
+          required
         />
         <input
-          v-model="form.password"
+          v-model="form.Password"
           type="password"
-          name="password"
+          name="Password"
           class="input mt-2"
           placeholder="Contraseña"
+          required
+          min="6"
         />
         <input
-          v-model="form.password_confirm"
-          type="password"
-          name="password"
-          class="input mt-2"
-          placeholder="Repetir contraseña"
-        />
-        <input
-          v-model="form.fechaNacimiento"
+          v-model="form.FNac"
           type="date"
-          name="fecha"
+          name="FNac"
           class="input mt-2"
           placeholder="Fecha de Nacimiento"
+          required
         />
         <button
           type="submit"
           class="btn btn-blue w-full mt-3"
-          @click.prevent="login"
         >
           Registrarme
         </button>
@@ -71,24 +62,26 @@
 </template>
 
 <script>
+import auth from '@/api/user';
 export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
-        password_confirm: "",
-        nick: "",
-        nombre: "",
-        apellido: "",
-        fechaNacimiento: "",
-        pais: "",
+        Correo: "",
+        Password: "",
+        Nombre: "",
+        Apellido: "",
+        FNac: "",
       },
     };
   },
   methods: {
     register() {
-      console.log(this.form);
+      auth.register(this.form).then(res => {
+        console.log(res);
+      }).catch(e => {
+        console.log(e);
+      });
     },
   },
 };
