@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Auth from '@okta/okta-vue';
 
 Vue.use(VueRouter);
 
@@ -10,9 +11,13 @@ Vue.use(VueRouter);
  */
 const routes = [
   {
+    path: '/implicit/callback',
+    component: Auth.handleCallback()
+  },
+  {
     path: "/",
-    name: "Home",
-    component: () => import("../views/Home.vue"),
+    name: "Index",
+    component: () => import("../views/Index.vue"),
   },
   // AUTH =============
   {
