@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const RUTA_API = process.env.VUE_APP_RUTA_API;
+export const RUTA_API = process.env.VUE_APP_RUTA_API + "/usuario";
 
 /**
  *  DECLARAMOS EL ACCESO A LA API DESDE AQUI

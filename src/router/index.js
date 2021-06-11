@@ -19,6 +19,31 @@ const routes = [
     name: "Index",
     component: () => import("../views/Index.vue"),
   },
+  {
+    path: "/home",
+    name: "Home",
+    component: () => import("../views/Home.vue"),
+  },
+  {
+    path: "/explorar",
+    name: "Explorar",
+    component: () => import("../views/Explorar.vue"),
+  },
+  {
+    path: "/crear-proyecto",
+    name: "CrearProyecto",
+    component: () => import("../views/CrearProyecto.vue"),
+  },
+  {
+    path: "/mis-proyectos",
+    name: "MisProyectos",
+    component: () => import("../views/MisProyectos.vue"),
+  },
+  {
+    path: "/proyectos-valorados",
+    name: "ProyectosValorados",
+    component: () => import("../views/ProyectosValorados.vue"),
+  },
   // AUTH =============
   {
     path: "/login",

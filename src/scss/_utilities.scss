@@ -4,6 +4,11 @@
     display: #{$display};
   }
 }
+.grid{
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
 
 // Margenes
 @each $nom, $val in $sizes {
@@ -80,7 +85,8 @@ $heightWidth: (
   ("4", 1rem),
   ("5", 1.5rem),
   ("6", 2rem),
-  ("7", 3rem)
+  ("7", 3rem),
+  ("8", 18.9rem)
 );
 @each $nom, $val in $heightWidth {
   .h-#{$nom} {

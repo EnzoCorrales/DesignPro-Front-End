@@ -2,13 +2,19 @@
   <div id="app">
     <nav class="px-4 py-3 shadow-sm">
       <div class="flex justify-between int">
-        <div>
+        <div class="flex">
           <router-link
             to="/"
             class="m-0 title text-black fw-bold"
             style="font-size:1.2rem"
             >DesignPro</router-link
           >
+          <div class="flex align-center px-2 mx-3">
+            <router-link to="/explorar" class="mx-2 title text-black"> Explorar </router-link>
+            <router-link to="/crear-proyecto" class="mx-2 title text-black"> Crear Proyecto </router-link>
+            <router-link to="/mis-proyectos" class="mx-2 title text-black"> Mis Proyectos </router-link>
+            <router-link to="/proyectos-valorados" class="mx-2 title text-black"> Proyectos Valorados </router-link>
+          </div>
         </div>
         <div class="flex align-center px-2 btn-profile">
           <svg
