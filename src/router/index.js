@@ -24,25 +24,26 @@ const routes = [
     name: "Home",
     component: () => import("../views/Home.vue"),
   },
+  // TABS ============
   {
     path: "/explorar",
     name: "Explorar",
-    component: () => import("../views/Explorar.vue"),
+    component: () => import("../views/tabs/Explorar.vue"),
   },
   {
     path: "/crear-proyecto",
     name: "CrearProyecto",
-    component: () => import("../views/CrearProyecto.vue"),
+    component: () => import("../views/tabs/CrearProyecto.vue"),
   },
   {
     path: "/mis-proyectos",
     name: "MisProyectos",
-    component: () => import("../views/MisProyectos.vue"),
+    component: () => import("../views/tabs/MisProyectos.vue"),
   },
   {
     path: "/proyectos-valorados",
     name: "ProyectosValorados",
-    component: () => import("../views/ProyectosValorados.vue"),
+    component: () => import("../views/tabs/ProyectosValorados.vue"),
   },
   // AUTH =============
   {
