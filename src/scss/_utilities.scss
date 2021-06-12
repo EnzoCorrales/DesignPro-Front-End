@@ -64,6 +64,10 @@
   }
 }
 
+.nowrap{
+  white-space: nowrap;
+}
+
 .justify-between {
   justify-content: space-between;
 }
@@ -75,6 +79,12 @@
 }
 .dir-col {
   flex-direction: column;
+}
+.float-left{
+  float: inline-start;
+}
+.float-right{
+  float: inline-end;
 }
 
 // Tamaños =======================
