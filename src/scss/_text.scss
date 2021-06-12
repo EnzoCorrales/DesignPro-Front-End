@@ -18,6 +18,18 @@ a {
 .fw-bold {
   font-weight: bold;
 }
+.val-error{
+  color: red;
+  display: flex;
+  font-weight: 700;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  text-align: left;
+  align-items: center;
+  & svg {
+    margin-right: .25rem;
+  }
+}
 
 // COLORES DE TEXTO
 $colors: ("red", "blue", "pink", "green", "yellow", "gray", "black", "white");
