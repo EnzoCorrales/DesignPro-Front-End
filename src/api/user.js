@@ -25,7 +25,7 @@ export default {
    * @param {int} id
    */
   find(id) {
-    return axios.get(RUTA_API + `/users/${id}`);
+    return axios.get(RUTA_API + `/Get?idUsuario=${id}`);
   },
   /**
    * Elimina el usuario indicado.
@@ -33,7 +33,7 @@ export default {
    * @param {request} data
    */
   update(id, data) {
-    return axios.put(RUTA_API + `/users/${id}`, data);
+    return axios.put(RUTA_API + `/usuario/${id}`, data);
   },
   /**
    * Elimina el usuario indicado.
@@ -41,7 +41,7 @@ export default {
    * @param {request} data
    */
   delete(id, data) {
-    return axios.delete(RUTA_API + `/users/${id}`, data);
+    return axios.delete(RUTA_API + `/usuario/${id}`, data);
   },
   /** Cierra la sesión */
   logout() {

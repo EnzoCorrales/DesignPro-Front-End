@@ -37,6 +37,10 @@
   }
 }
 
+.ma{
+  margin: auto;
+}
+
 // Padding
 @each $nom, $val in $sizes {
   .p-#{$nom} {
@@ -73,6 +77,12 @@
 }
 .justify-center {
   justify-content: center;
+}
+.justify-right {
+  justify-content: right;
+}
+.justify-left {
+  justify-content: left;
 }
 .align-center {
   align-items: center;

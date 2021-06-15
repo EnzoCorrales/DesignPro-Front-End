@@ -9,5 +9,9 @@ export default {
      */
     GetAll() {
         return axios.get(RUTA_API + `/GetAll`);
-    }
+    },
+
+    Get(id){
+        return axios.get(RUTA_API + `/Get?id=${id}`);
+    },
 }
