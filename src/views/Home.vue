@@ -1,15 +1,13 @@
 <template>
-    <div class="flex grid justify-between">
-        <!--<div class="border" v-for="(proyecto, index) in Proyectos" :key="index">-->
-            <div class="border w-8 my-2 mx-3" v-for="index in 22" :key="index"><!-- TEST -->
+    <div class="flex grid justify-between w-10 px-2">
+        <div class="border mx-1 mt-1" v-for="(proyecto, index) in Proyectos" :key="index">
             <div class="flex align-center">
-            <iframe  scrolling="no" src="https://pbs.twimg.com/profile_images/947786051434766336/P2XB90Pb_400x400.jpg">
+            <iframe  class="w-full" scrolling="no" src="https://pbs.twimg.com/profile_images/947786051434766336/P2XB90Pb_400x400.jpg">
             </iframe>
             </div>
             <br />
             <div class="justify-between flex px-3">
-                <!--<p class="title text-black">{{proyecto.Title}} </p>-->
-                <p class="title text-black">Title </p>
+                <p class="title text-black">{{proyecto.Titulo}} </p>
                 <div class="flex align-center px-2 btn-profile">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -28,8 +26,7 @@
                 </div>
             </div>
             <div class="justify-between flex px-3">
-                <!--<p class="title text-black">{{proyecto.Descripcion}}</p>-->
-                <p class="title text-black">Descripcion</p>
+                <p class="title text-black">{{proyecto.Descripcion}}</p>
                 <div class="flex align-center px-2 btn-profile">
                     <svg 
                         xmlns="http://www.w3.org/2000/svg" 
@@ -51,8 +48,7 @@
                             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" 
                         />
                     </svg>
-                    <!--<span class="title">{{proyecto.Visitas}}</span>-->
-                    <span class="title">Visitas</span>
+                    <span class="title">{{proyecto.Visitas}}</span>
                 </div>
             </div> 
         </div>
@@ -66,11 +62,20 @@ export default {
         Proyectos : {}
     };
   },
+  mounted(){
+    this.getall();
+  },
+
   methods: {
     getall() {
-      response.GetAll(this.form)
-      .then( res =>{ console.log(res); } )
-      .catch( e => { console.log(e); } );
+        response.GetAll()
+        .then(res => {
+            console.log(res.data);
+            this.Proyectos=res.data;
+        })
+        .catch(e => { 
+            console.log(e); 
+        });
     },
   },
 };

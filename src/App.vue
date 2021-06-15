@@ -176,6 +176,7 @@
         Proyectos Valorados
       </router-link>
     </nav>
+    <router-view />
   </div>
 </template>
 
