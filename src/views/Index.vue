@@ -1,14 +1,25 @@
 <template>
-  <div class="flex align-center justify-center">
+  <div class="flex align-center justify-center dir-col">
     <div
-      class="mt-5 mx-auto max-w-sm px-4 pb-5 pt-4 text-center border rounded-md shadow-sm"
+      class="
+        mt-5
+        mb-4
+        mx-auto
+        max-w-sm
+        px-4
+        py-4
+        text-center
+        border
+        rounded-md
+        shadow-sm
+      "
     >
       <h2 class="title mt-0">DesignPro</h2>
       <p class="mb-2">Un lugar para compartir tus proyectos fotograficos!</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6 mb-3 mt-2"
-        style="color:#5499C7"
+        style="color: #5499c7"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -23,7 +34,7 @@
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6 mb-3 mt-2 mx-2"
-        style="color:#8E44AD"
+        style="color: #8e44ad"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -44,7 +55,7 @@
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6 mb-3 mt-2"
-        style="color:#17A589"
+        style="color: #17a589"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
@@ -64,11 +75,49 @@
         Registrarte
       </router-link>
     </div>
+
+    <div class="flex align-center dir-col text-center my-3">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5 mt-2"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M17 13l-5 5m0 0l-5-5m5 5V6"
+        />
+      </svg>
+    </div>
+
+    <router-link
+      to="/home"
+      class="mb-5 mt-2 border rounded-md shadow-sm text-black"
+    >
+      <img :src="img" id="imgIndex" />
+      <p class="text-center title">Encuentra los proyectos más interesantes</p>
+    </router-link>
   </div>
 </template>
 
 <script>
-export default {};
+import img from "@/assets/mountains.jpg";
+export default {
+  data() {
+    return {
+      img: img,
+    };
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#imgIndex {
+  height: 16rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+}
+</style>

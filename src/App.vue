@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <nav class="px-4 py-3 shadow-sm">
+    <nav class="px-4 py-3 mb-4 shadow-sm">
       <div class="flex justify-between int">
         <div>
           <router-link
-            to="/"
+            :to="defineAuthRoute()"
             class="m-0 title text-black fw-bold"
-            style="font-size:1.2rem"
+            style="font-size: 1.2rem"
             >DesignPro</router-link
           >
         </div>
-        <div class="flex align-center px-2 btn-profile">
+        <router-link
+          v-if="$store.getters.auth"
+          :to="'/usuario/' + user.id"
+          class="flex align-center px-2 btn-profile"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-4 w-4 mr-1"
@@ -25,7 +29,15 @@
               d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          Guille
+          {{ user.nombre }}
+        </router-link>
+        <div v-else class="flex">
+          <router-link to="/login" class="btn btn-sm btn-green mr-2"
+            >Inicia sesión</router-link
+          >
+          <router-link to="/register" class="btn btn-sm btn-blue"
+            >Registrate</router-link
+          >
         </div>
       </div>
     </nav>
@@ -35,12 +47,25 @@
 
 <script>
 export default {
-}
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
+  methods: {
+    defineAuthRoute() {
+      return this.$store.getters.auth ? "/home" : "/";
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 nav {
   border-bottom: 1px lightgray solid;
+  position: sticky;
+  top: 0;
+  background-color: white;
   & .int {
     margin: auto;
   }

@@ -1,14 +1,35 @@
 <template>
   <div class="flex align-center justify-center dir-col">
     <div
-      class="mt-5 mx-auto max-w-sm px-4 py-4 text-center border rounded-md shadow-sm"
+      class="
+        mt-5
+        mx-auto
+        max-w-sm
+        px-4
+        py-4
+        text-center
+        border
+        rounded-md
+        shadow-sm
+      "
     >
       <h2 class="title my-0">DesignPro</h2>
       <p class="mt-1 mb-3">Completa el formulario para ingresar</p>
-      <form @submit.prevent="register" >
+      <form @submit.prevent="register">
         <small v-if="error" class="val-error">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
           </svg>
           {{ error }}
         </small>
@@ -53,10 +74,7 @@
           placeholder="Fecha de Nacimiento"
           required
         />
-        <button
-          type="submit"
-          class="btn btn-blue w-full mt-3"
-        >
+        <button type="submit" class="btn btn-blue w-full mt-3">
           Registrarme
         </button>
       </form>
@@ -68,7 +86,7 @@
 </template>
 
 <script>
-import auth from '@/api/user';
+import auth from "@/api/user";
 export default {
   data() {
     return {
@@ -84,11 +102,14 @@ export default {
   },
   methods: {
     register() {
-      auth.register(this.form).then(res => {
-        console.log(res);
-      }).catch(e => {
-        this.error = e.response.data.Message;
-      });
+      auth
+        .register(this.form)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((e) => {
+          this.error = e.response.data.Message;
+        });
     },
   },
 };
