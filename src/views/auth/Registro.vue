@@ -34,54 +34,100 @@
           {{ error }}
         </small>
         <input
-          v-model="form.Correo"
+          v-model="form.correo"
           type="email"
-          name="Correo"
-          class="input mt-2"
+          name="correo"
+          class="input"
           placeholder="Correo"
           required
         />
         <input
-          v-model="form.Nombre"
+          v-model="form.nombre"
           type="text"
-          name="Nombre"
+          name="nombre"
           class="input mt-2"
           placeholder="Nombre"
           required
         />
         <input
-          v-model="form.Apellido"
+          v-model="form.apellido"
           type="text"
-          name="Apellido"
+          name="apellido"
           class="input mt-2"
           placeholder="Apellido"
           required
         />
         <input
-          v-model="form.Password"
+          v-model="form.password"
           type="password"
-          name="Password"
+          name="password"
           class="input mt-2"
           placeholder="Contraseña"
           required
           minlength="6"
         />
         <input
-          v-model="form.FNac"
+          v-model="form.fNac"
           type="date"
-          name="FNac"
+          name="fNac"
           class="input mt-2"
           placeholder="Fecha de Nacimiento"
           required
         />
-        <button type="submit" class="btn btn-blue w-full mt-3">
+        <select v-model="form.pais" class="input mt-2" name="pais" required>
+          <option value="Andorra">Andorra</option>
+          <option value="Angola">Angola</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Armenia">Armenia</option>
+          <option value="Benin">Benin</option>
+          <option value="Brazil">Brazil</option>
+          <option value="Chile">Chile</option>
+          <option value="China">China</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Croatia">Croatia</option>
+          <option value="Germany">Germany</option>
+          <option value="Great Britain">Great Britain</option>
+          <option value="Guatemala">Guatemala</option>
+          <option value="Haiti">Haiti</option>
+          <option value="Israel">Israel</option>
+          <option value="Italy">Italy</option>
+          <option value="Jamaica">Jamaica</option>
+          <option value="Malaysia">Malaysia</option>
+          <option value="Malta">Malta</option>
+          <option value="Monaco">Monaco</option>
+          <option value="Mongolia">Mongolia</option>
+          <option value="New Zealand">New Zealand</option>
+          <option value="Nicaragua">Nicaragua</option>
+          <option value="Niger">Niger</option>
+          <option value="Nigeria">Nigeria</option>
+          <option value="Norway">Norway</option>
+          <option value="Paraguay">Paraguay</option>
+          <option value="Peru">Peru</option>
+          <option value="Portugal">Portugal</option>
+          <option value="Puerto Rico">Puerto Rico</option>
+          <option value="Russia">Russia</option>
+          <option value="Singapore">Singapore</option>
+          <option value="South Africa">South Africa</option>
+          <option value="Spain">Spain</option>
+          <option value="Swaziland">Swaziland</option>
+          <option value="Sweden">Sweden</option>
+          <option value="Switzerland">Switzerland</option>
+          <option value="Turkey">Turkey</option>
+          <option value="Uganda">Uganda</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Ukraine">Ukraine</option>
+          <option value="Uruguay">Uruguay</option>
+          <option value="Venezuela">Venezuela</option>
+          <option value="Vietnam">Vietnam</option>
+        </select>
+        <button type="submit" class="btn btn-blue w-full mt-2">
           Registrarme
         </button>
       </form>
     </div>
-    <router-link to="/login" class="text-blue mt-3 fw-bold"
-      >Ya tienes cuenta? Inicia sesion.</router-link
-    >
+    <router-link to="/login" class="text-blue mt-3 fw-bold">
+      Ya tienes cuenta? Inicia sesion.
+    </router-link>
   </div>
 </template>
 
@@ -91,11 +137,12 @@ export default {
   data() {
     return {
       form: {
-        Correo: "",
-        Password: "",
-        Nombre: "",
-        Apellido: "",
-        FNac: "",
+        correo: "",
+        password: "",
+        nombre: "",
+        apellido: "",
+        fNac: "",
+        pais: "Uruguay",
       },
       error: "",
     };
@@ -105,9 +152,16 @@ export default {
       auth
         .register(this.form)
         .then((res) => {
+          auth.findByCorreo(this.form.correo).then((user) => {
+            console.log(user.data);
+            this.$store.dispatch("registrarUsuario", user.data);
+            console.log(this.$store.state.user);
+            this.$router.push({ path: "/home" });
+          });
           console.log(res);
         })
         .catch((e) => {
+          console.log(e);
           this.error = e.response.data.Message;
         });
     },
