@@ -1,7 +1,17 @@
 <template>
-  <div class="flex align-center justify-center dir-col">
+  <div class="flex align-center justify-center dir-col px-3">
     <div
-      class="mt-5 mx-auto max-w-sm px-4 py-4 text-center border rounded-md shadow-sm"
+      class="
+        mt-5
+        mx-auto
+        max-w-sm
+        px-4
+        py-4
+        text-center
+        border
+        rounded-md
+        shadow-sm
+      "
     >
       <h2 class="title my-0">DesignPro</h2>
       <p class="mt-1 mb-3">Accede a tus proyectos</p>
@@ -10,7 +20,7 @@
           v-model="form.email"
           type="text"
           name="email"
-          class="input mt-2"
+          class="input mt-2 max-w-sm"
           placeholder="Correo electrónico"
         />
         <input
