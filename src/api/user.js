@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const RUTA_API = process.env.VUE_APP_RUTA_API;
+export const RUTA_API = process.env.VUE_APP_RUTA_API + "/usuario";
 
 /**
  *  DECLARAMOS EL ACCESO A LA API DESDE AQUI
@@ -25,7 +25,14 @@ export default {
    * @param {int} id
    */
   find(id) {
-    return axios.get(RUTA_API + `/users/${id}`);
+    return axios.get(RUTA_API + `/${id}`);
+  },
+  /**
+   * Devuelve los datos del usuario mediante correo.
+   * @param {string} correo
+   */
+  findByCorreo(correo) {
+    return axios.get(RUTA_API + `/GetByCorreo?correoUsuario=${correo}`);
   },
   /**
    * Elimina el usuario indicado.
@@ -33,7 +40,7 @@ export default {
    * @param {request} data
    */
   update(id, data) {
-    return axios.put(RUTA_API + `/users/${id}`, data);
+    return axios.put(RUTA_API + `/${id}`, data);
   },
   /**
    * Elimina el usuario indicado.
@@ -41,7 +48,7 @@ export default {
    * @param {request} data
    */
   delete(id, data) {
-    return axios.delete(RUTA_API + `/users/${id}`, data);
+    return axios.delete(RUTA_API + `/${id}`, data);
   },
   /** Cierra la sesión */
   logout() {
