@@ -19,8 +19,6 @@
               </i>
           </span>
         </div>
-
-
         <div class="dropbox title mx-12">
         <p>
             Drag your file(s) here to begin<br />
