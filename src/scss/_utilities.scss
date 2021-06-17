@@ -107,7 +107,7 @@ $heightWidth: (
   ("6", 2rem),
   ("7", 3rem),
   ("8", 18.9rem),
-  ("9",25rem)
+  ("9", 25rem)
 );
 @each $nom, $val in $heightWidth {
   .h-#{$nom} {

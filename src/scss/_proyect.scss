@@ -6,3 +6,90 @@
     margin-right: 2rem;
     margin-top: 2rem;
 }
+
+.dropbox {
+    outline: 2px dashed grey; /* the dash box */
+    outline-offset: -10px;
+    background: lightcyan;
+    color: dimgray;
+    padding: 1rem 1rem;
+    cursor: pointer;
+    text-align: center;
+}
+
+.dropbox:hover {
+    background: lightblue; /* when mouse over to the drop zone, change color */
+}
+
+.dropbox p {
+    font-size: 1.2em;
+    text-align: center;
+    padding: 2rem 0rem;
+}
+
+.input-file {
+    cursor: pointer;
+    padding: 1rem;
+}
+
+.proyect-info{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    margin: 2rem 10rem 0rem 10rem;
+    outline: 2px grey;
+    background: lightcyan;
+    color: dimgray;
+    padding: 1rem 1rem 0.5rem 1rem;
+    text-align: center;
+}
+
+.left-side{
+    border: 1px solid black;
+    padding: 1rem 1rem;
+}
+
+.right-side{
+    text-align: left;
+    border: 1px solid black;
+    padding: 1rem 3rem;
+    padding-bottom: 0;
+}
+
+.right-side ul{
+    padding: 0 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    list-style-type: none;
+    height: 10rem;
+}
+
+.right-side input[type=text]{
+    height: 2.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px lightgray solid;
+    border-radius: 4px;
+}
+
+.Opciones{
+    text-align: right;
+}
+
+#btn-1{
+    width: 5rem;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: black;
+    border: 1px solid black;
+}
+
+#btn-2{
+    width: 5rem;
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+    color: white;
+    background: rgb(26, 115, 232);
+    border: 1px solid transparent;
+}
