@@ -1,5 +1,5 @@
 <template>
-  <div class="flex grid justify-between w-10 px-2">
+  <div class="flex grid col-rows-5 justify-between w-full">
     <div
       class="border mx-1 mt-1"
       v-for="(proyecto, index) in Proyectos"

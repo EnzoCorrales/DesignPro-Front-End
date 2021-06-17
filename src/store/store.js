@@ -10,17 +10,17 @@ export const store = new Vuex.Store({
   state: {
     // Este usuario de debe obtener de la BD
     user: {
-      // id: 1,
-      // nombre: "Guillermo",
-      // apellido: "De León",
-      // fNac: "31/12/1998",
-      // correo: "guilledll20@gmail.com",
-      // pais: "Uruguay",
-      // ciudad: "Maldonado",
-      // url: "https://mishorasweb.com",
-      // profesion: "Programador",
-      // empresa: "MisHoras",
-      // descripcion: "Un pibe que hace de todo, Front, Back, Medio y coso pum",
+       id: 1,
+       nombre: "Guillermo",
+       apellido: "De León",
+       fNac: "31/12/1998",
+       correo: "guilledll20@gmail.com",
+       pais: "Uruguay",
+       ciudad: "Maldonado",
+       url: "https://mishorasweb.com",
+       profesion: "Programador",
+       empresa: "MisHoras",
+       descripcion: "Un pibe que hace de todo, Front, Back, Medio y coso pum",
     },
     // Los proyectos del usuario autenticado
     proyectos: {},
@@ -29,10 +29,10 @@ export const store = new Vuex.Store({
   getters: {
     auth: (state) => {
       // Verifica si el usuario inicio sesion
-      return Object.keys(state.user).length === 0 &&
+      return Object.keys(state.user).length !== 0 &&
         state.user.constructor === Object
-        ? false
-        : true;
+        ? true
+        : false;
     },
   },
   // Permiten modificar los datos del store

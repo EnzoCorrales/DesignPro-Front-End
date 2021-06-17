@@ -56,9 +56,13 @@ export default {
     };
   },
   methods: {
+    wipe(){
+      this.$store.state.user=null;
+    },
     login() {
       console.log(this.form);
     },
+
   },
 };
 </script>
