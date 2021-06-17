@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="px-3 py-3 shadow-sm w-full">
+    <nav id="main-nav" class="py-3 shadow-sm w-full">
       <div class="flex justify-between int w-full">
         <div class="flex justify-between" id="leftside">
           <!--<div class="btn btn-red mt-2" v-show="mostrarsb" @click="mostrarSB()">
@@ -18,15 +18,28 @@
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-          </div>-->
+          </div>
+          <nav class="px-4 py-3 mb-4 shadow-sm">
+            <div class="flex justify-between int">
+              <div>
+                <router-link
+                  :to="defineAuthRoute()"
+                  class="m-0 title text-black fw-bold"
+
+                  style="font-size: 1.2rem"
+                  >
+                </div>
+              </div> -->
           <router-link
+            id="Logo"
             to="/"
             v-show="!mostrarsb"
             class="mt-2 title text-black fw-bold"
           >
             DesignPro
           </router-link>
-          <!--<div class="flex align-center px-2 mx-3 nowrap" id="tabs">
+
+          <div  v-if="$store.getters.auth" class="flex align-center px-2 mp-0 x-3 nowrap m-0" id="tabs">
             <router-link to="/explorar" class="mx-2 title text-black">
               Explorar
             </router-link>
@@ -44,8 +57,9 @@
             </router-link>
           </div>-->
         </div>
-        <div class="flex w-9 justify-between" id="rightside">
-          <!--<div class="flex justify-between nowrap" id="tabs">
+
+        <div class="flex max-w-xs justify-between" id="rightside">
+          <div class="flex justify-between nowrap" id="tabs">
             <form class="flex" v-show="!mostrarsb">
               <input
                 v-model="form.buscar"
@@ -72,29 +86,8 @@
               </button>
             </form>
           </div>
-          <div
-            class="flex align-center px-2 btn-profile float-right"
-            v-show="!mostrarsb"
-            id="tabs"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            Guille
-          </div>
           <div class="flex" id="mobile-tabs">
-            <form class="flex" v-show="mostrarsb">
+            <form id="Buscador" class="flex" v-show="mostrarsb">
               <input
                 v-model="form.buscar"
                 type="text"
@@ -102,7 +95,7 @@
                 class="input mt-2 w-9"
                 placeholder="Search"
               />
-              <button type="submit" class="btn btn-red mt-2">
+              <button id="lupasearch" type="submit" class="btn btn-red mt-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-4 w-4"
@@ -120,6 +113,7 @@
               </button>
             </form>
             <div
+              id="lupa-falsa"
               class="btn btn-red mt-2"
               v-show="!mostrarsb"
               @click="mostrarSB()"
@@ -140,10 +134,10 @@
               </svg>
             </div>
           </div>
-          <div class="flex align-center px-2 btn-profile">
+          <!-- <div class="flex align-center px-2 mx-3 btn-profile" @click="mostrarNav()" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 mr-1"
+              class="h-4 w-4 mr-1 "
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -156,15 +150,12 @@
               />
             </svg>
             Guille
-          </div>
-          -->
-          <router-link
+          </div> -->
+          <div
             v-if="$store.getters.auth"
             v-show="!mostrarsb"
-            id="mobile-tabs"
-            @click="mostrarNav"
-            :to="'/usuario/' + user.id"
-            class="flex align-center px-2 btn-profile"
+            class="flex align-center px-2 btn-profile mx-3"
+            @click="mostrarnav = !mostrarnav"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -180,9 +171,9 @@
                 d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            {{ user.nombre }}
-          </router-link>
-          <div v-else class="flex">
+             {{user.nombre}}
+          </div>
+          <div v-else class="flex mx-3">
             <router-link to="/login" class="btn btn-sm btn-green mr-2"
               >Inicia sesión</router-link
             >
@@ -193,35 +184,49 @@
         </div>
       </div>
     </nav>
-    <nav class="nowrap flex dir-col float-right" v-show="mostrarnav">
-      <router-link
-        to="/explorar"
-        class="mx-2 title text-black"
-        v-on:click.native="mostrarNav"
-      >
-        Explorar
-      </router-link>
-      <router-link
-        to="/crear-proyecto"
-        class="mx-2 title text-black"
-        v-on:click.native="mostrarNav"
-      >
-        Crear Proyecto
-      </router-link>
-      <router-link
-        to="/mis-proyectos"
-        class="mx-2 title text-black"
-        v-on:click.native="mostrarNav"
-      >
-        Mis Proyectos
-      </router-link>
-      <router-link
-        to="/proyectos-valorados"
-        class="mx-2 title text-black"
-        v-on:click.native="mostrarNav"
-      >
-        Proyectos Valorados
-      </router-link>
+    <nav
+      class="flex dir-col nowrap text-end w-full py-3 px-3"
+      v-show="mostrarnav"
+    >
+      <div id="mobile-tabs" class="flex dir-col">
+        <router-link
+          to="/explorar"
+          class="mx-2 title text-black"
+          v-on:click.native="mostrarNav"
+        >
+          Explorar
+        </router-link>
+        <router-link
+          to="/crear-proyecto"
+          class="mx-2 title text-black"
+          v-on:click.native="mostrarNav"
+        >
+          Crear Proyecto
+        </router-link>
+        <router-link
+          to="/mis-proyectos"
+          class="mx-2 title text-black"
+          v-on:click.native="mostrarNav"
+        >
+          Mis Proyectos
+        </router-link>
+        <router-link
+          to="/proyectos-valorados"
+          class="mx-2 title text-black"
+          v-on:click.native="mostrarNav"
+        >
+          Proyectos Valorados
+        </router-link>
+      </div>
+      <div>
+        <router-link
+          to="/login"
+          class="mx-2 title text-black"
+          v-on:click.native="mostrarNav"
+        >
+          Cerrar Sesion
+        </router-link>
+      </div>
     </nav>
     <router-view />
   </div>
@@ -238,14 +243,10 @@ export default {
       mostrarnav: false,
     };
   },
-  //computed: {
-  //  user() {
-  //    return this.$store.state.user;
-  //  },
-  //},
-  mounted() {
-    // console.log(this.$store.state.user);
-    // console.log(this.$store.state.token);
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
   },
   methods: {
     login() {
@@ -260,9 +261,9 @@ export default {
     mostrarNav() {
       this.mostrarnav = !this.mostrarnav;
     },
-    //defineAuthRoute() {
-    //  return this.$store.getters.auth ? "/home" : "/";
-    //},
+    defineAuthRoute() {
+      return this.$store.getters.auth ? "/home" : "/";
+    },
   },
 };
 </script>
@@ -295,6 +296,10 @@ nav {
     justify-content: flex-end;
     margin-right: 2rem;
     width: 11rem;
+  }
+  #main-nav {
+    padding-right: 2rem;
+    padding-left: 2rem;
   }
 }
 
