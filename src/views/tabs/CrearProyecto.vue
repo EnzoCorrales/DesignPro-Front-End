@@ -3,6 +3,24 @@
         <!-- Contenido del Proyecto -->
         <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
         <h1 class="title text-center px-2">Upload Content</h1>
+
+        <div class="text-center mx-12" v-for="(input,k) in inputs" :key="k">
+          <textarea class="text-input title w-full h-8"  :id="'textarea '+k" type="text" v-model="input.name" placeholder="Ingrese su texto aqui!"></textarea>
+          <span>
+              <i @click="remove(k)" v-show="k || ( !k && inputs.length > 1)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                </svg>
+              </i>
+              <i @click="add(k)" v-show="k == inputs.length-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </i>
+          </span>
+        </div>
+
+
         <div class="dropbox title mx-12">
         <p>
             Drag your file(s) here to begin<br />
@@ -58,6 +76,11 @@ import axios from "axios";
 export default {
   data() {
     return {
+        inputs: [
+            {
+                name: ''
+            }
+        ],
         form: {
             tituloProyecto:"",
             etiquetasProyecto:"",
@@ -89,6 +112,17 @@ export default {
           console.log("FAILURE!!");
         });
     },
+    add() {
+            this.inputs.push({ name: '' });
+    },
+    remove(index) {
+            this.inputs.splice(index, 1);
+    },
   },
 };
 </script>
+<style lang="scss">
+  div{
+    overflow: hidden;
+  }
+</style>
