@@ -27,7 +27,7 @@ export default {
    * @param {int} id
    */
   find(id) {
-    return axios.get(RUTA_API + `/${id}`);
+    return axios.get(RUTA_API + `/Get?idUsuario=${id}`);
   },
   /**
    * Devuelve los datos del usuario mediante correo.

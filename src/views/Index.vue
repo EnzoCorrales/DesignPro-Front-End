@@ -74,6 +74,24 @@
       <router-link to="/register" class="btn btn-blue block w-full px-0">
         Registrarte
       </router-link>
+      <br />
+      <router-link to="/home" class="text-center text-black title a align-center">
+        Continuar
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="h-4 w-4 ml-1" fill="none" 
+          style="color:#5499C7"
+          viewBox="0 0 20 20" 
+          stroke="currentColor"
+        >
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" 
+          />
+        </svg> 
+      </router-link>
     </div>
 
     <div class="flex align-center dir-col text-center my-3">
