@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Auth from '@okta/okta-vue';
+import { store } from "../store/store";
 
 Vue.use(VueRouter);
 
@@ -10,10 +10,6 @@ Vue.use(VueRouter);
  * @path @name @component
  */
 const routes = [
-  {
-    path: '/implicit/callback',
-    component: Auth.handleCallback()
-  },
   {
     path: "/",
     name: "Index",
@@ -40,6 +36,9 @@ const routes = [
     path: "/usuario/:id/modificar",
     name: "Modificar Usuario",
     component: () => import("../views/user/ModificarUsuario.vue"),
+    meta: {
+      auth: true,
+    },
   },
 ];
 
@@ -47,6 +46,18 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.auth)) {
+    if (store.getters.isAuth) {
+      next();
+      return;
+    }
+    next("/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

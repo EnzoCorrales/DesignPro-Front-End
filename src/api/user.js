@@ -11,7 +11,9 @@ export default {
    * @param {request} data
    */
   login(data) {
-    return axios.post(RUTA_API + "/login", data);
+    return axios.post(
+      RUTA_API + `/Login?correo=${data.correo}&password=${data.password}`
+    );
   },
   /**
    * Elimina el usuario indicado.
@@ -32,7 +34,7 @@ export default {
    * @param {string} correo
    */
   findByCorreo(correo) {
-    return axios.get(RUTA_API + `/GetByCorreo?correoUsuario=${correo}`);
+    return axios.get(RUTA_API + `/${correo}`);
   },
   /**
    * Elimina el usuario indicado.
@@ -52,6 +54,6 @@ export default {
   },
   /** Cierra la sesión */
   logout() {
-    return axios.post(RUTA_API + "/logout");
+    return axios.post(RUTA_API + "/Logout");
   },
 };

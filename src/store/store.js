@@ -1,5 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
+import user from "@/api/user";
 
 Vue.use(Vuex);
 
@@ -8,6 +10,8 @@ export const store = new Vuex.Store({
   strict: true,
   // Variables globales
   state: {
+    // Obtiene el token local
+    token: localStorage.getItem("token") || "",
     // Este usuario de debe obtener de la BD
     user: {
       // id: 1,
@@ -27,13 +31,7 @@ export const store = new Vuex.Store({
   },
   // Obtiene los datos y devuelve procesados
   getters: {
-    auth: (state) => {
-      // Verifica si el usuario inicio sesion
-      return Object.keys(state.user).length === 0 &&
-        state.user.constructor === Object
-        ? false
-        : true;
-    },
+    isAuth: (state) => !!state.token,
   },
   // Permiten modificar los datos del store
   mutations: {
@@ -43,31 +41,54 @@ export const store = new Vuex.Store({
       state.user.correo = data.Correo;
       state.user.fNac = data.FNac;
       state.user.pais = data.Pais;
-      console.log(state.user);
     },
-    modificarStateUsuario: (state, data) => {
-      state.user.nombre = data.nombre;
-      state.user.apellido = data.apellido;
-      state.user.correo = data.correo;
-      state.user.fNac = data.fNac;
-      state.user.pais = data.pais;
-      state.user.ciudad = data.ciudad;
-      state.user.profesion = data.profesion;
-      state.user.empresa = data.empresa;
-      state.user.img = data.img;
-      state.user.url = data.url;
-      state.user.descripcion = data.descripcion;
-      console.log(state.user);
+    cargarStateUsuario: (state, data) => {
+      state.user.nombre = data.Nombre;
+      state.user.apellido = data.Apellido;
+      state.user.correo = data.Correo;
+      state.user.fNac = data.FNac;
+      state.user.pais = data.Pais;
+      state.user.ciudad = data.Ciudad;
+      state.user.profesion = data.Profesion;
+      state.user.empresa = data.Empresa;
+      state.user.img = data.Img;
+      state.user.url = data.UrlWeb;
+      state.user.descripcion = data.Descripcion;
+    },
+    // Apica el token
+    auth_success(state, token) {
+      state.token = token;
     },
   },
   // Donde se conecta a la BD y se realizan las mutaciones de los state
   actions: {
+    login: ({ commit }, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .login(data)
+          .then((res) => {
+            const token = res.data.Token;
+            const user = res.data.Usuario;
+            //console.log(res.data);
+            //console.log(token);
+            localStorage.setItem("token", token);
+            axios.defaults.headers.common["Authorization"] = token;
+            commit("auth_success", token);
+            commit("cargarStateUsuario", user);
+            resolve(res);
+          })
+          .catch((e) => {
+            localStorage.removeItem("token");
+            reject(e.response.data.Message);
+          });
+        commit("cargarStateUsuario", data);
+      });
+    },
     registrarUsuario: (context, data) => {
       context.commit("registrarStateUsuario", data);
     },
     modificarUsuario: (context, data) => {
-      // Aqui se hace el llamado a la API y se ejecuta todo
-      context.commit("modificarStateUsuario", data);
+      context.commit("cargarStateUsuario", data);
     },
   },
 });
