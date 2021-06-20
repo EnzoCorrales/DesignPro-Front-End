@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-link :to="'/usuario/' + user.id + '/modificar'"
+    <router-link :to="'/usuario/' + user.Id + '/modificar'"
       >Modificar</router-link
     >
   </div>
@@ -16,5 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

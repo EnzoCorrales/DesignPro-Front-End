@@ -3,7 +3,7 @@
     <nav class="px-3 py-3 shadow-sm w-full">
       <div class="flex justify-between int w-full">
         <div class="flex justify-between" id="leftside">
-          <div class="btn btn-red mt-2" v-show="mostrarsb" @click="mostrarSB()">
+          <!--<div class="btn btn-red mt-2" v-show="mostrarsb" @click="mostrarSB()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-4 w-4"
@@ -18,7 +18,7 @@
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-          </div>
+          </div>-->
           <router-link
             to="/"
             v-show="!mostrarsb"
@@ -26,7 +26,7 @@
           >
             DesignPro
           </router-link>
-          <div class="flex align-center px-2 mx-3 nowrap" id="tabs">
+          <!--<div class="flex align-center px-2 mx-3 nowrap" id="tabs">
             <router-link to="/explorar" class="mx-2 title text-black">
               Explorar
             </router-link>
@@ -42,10 +42,10 @@
             >
               Proyectos Valorados
             </router-link>
-          </div>
+          </div>-->
         </div>
         <div class="flex w-9 justify-between" id="rightside">
-          <div class="flex justify-between nowrap" id="tabs">
+          <!--<div class="flex justify-between nowrap" id="tabs">
             <form class="flex" v-show="!mostrarsb">
               <input
                 v-model="form.buscar"
@@ -157,11 +157,12 @@
             </svg>
             Guille
           </div>
-          <!--<router-link
+          -->
+          <router-link
             v-if="$store.getters.auth"
-                        v-show="!mostrarsb"
-              id="mobile-tabs"
-              @click="mostrarNav"
+            v-show="!mostrarsb"
+            id="mobile-tabs"
+            @click="mostrarNav"
             :to="'/usuario/' + user.id"
             class="flex align-center px-2 btn-profile"
           >
@@ -188,7 +189,7 @@
             <router-link to="/register" class="btn btn-sm btn-blue"
               >Registrate</router-link
             >
-          </div>-->
+          </div>
         </div>
       </div>
     </nav>
@@ -242,6 +243,10 @@ export default {
   //    return this.$store.state.user;
   //  },
   //},
+  mounted() {
+    // console.log(this.$store.state.user);
+    // console.log(this.$store.state.token);
+  },
   methods: {
     login() {
       console.log(this.form);

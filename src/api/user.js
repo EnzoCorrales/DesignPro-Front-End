@@ -30,19 +30,12 @@ export default {
     return axios.get(RUTA_API + `/Get?idUsuario=${id}`);
   },
   /**
-   * Devuelve los datos del usuario mediante correo.
-   * @param {string} correo
-   */
-  findByCorreo(correo) {
-    return axios.get(RUTA_API + `/${correo}`);
-  },
-  /**
    * Elimina el usuario indicado.
    * @param {int} id
    * @param {request} data
    */
-  update(id, data) {
-    return axios.put(RUTA_API + `/${id}`, data);
+  update(data) {
+    return axios.put(RUTA_API + "/Update", data);
   },
   /**
    * Elimina el usuario indicado.
@@ -51,9 +44,5 @@ export default {
    */
   delete(id, data) {
     return axios.delete(RUTA_API + `/${id}`, data);
-  },
-  /** Cierra la sesión */
-  logout() {
-    return axios.post(RUTA_API + "/Logout");
   },
 };

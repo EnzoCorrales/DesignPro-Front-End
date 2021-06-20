@@ -132,7 +132,6 @@
 </template>
 
 <script>
-import auth from "@/api/user";
 export default {
   data() {
     return {
@@ -149,21 +148,12 @@ export default {
   },
   methods: {
     register() {
-      auth
-        .register(this.form)
-        .then((res) => {
-          auth.findByCorreo(this.form.correo).then((user) => {
-            console.log(user.data);
-            this.$store.dispatch("registrarUsuario", user.data);
-            console.log(this.$store.state.user);
-            this.$router.push({ path: "/home" });
-          });
-          console.log(res);
+      this.$store
+        .dispatch("register", this.form)
+        .then(() => {
+          this.$router.push({ path: "/home" });
         })
-        .catch((e) => {
-          console.log(e);
-          this.error = e.response.data.Message;
-        });
+        .catch((e) => (this.error = e));
     },
   },
 };
