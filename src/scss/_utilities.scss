@@ -4,6 +4,27 @@
     display: #{$display};
   }
 }
+.grid {
+  display: grid;
+}
+$cols: ("1", "2", "3", "4", "5");
+@each $col in $cols {
+  .col-rows-#{$col} {
+    grid-template-columns: repeat(#{$col}, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  @each $col in $cols {
+    .col-rows-#{$col} {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+@each $gap, $val in $sizes {
+  .gap-#{$gap} {
+    grid-gap: $val;
+  }
+}
 
 // Margenes
 @each $nom, $val in $sizes {
@@ -30,6 +51,10 @@
   .mb-#{$nom} {
     margin-bottom: #{$val};
   }
+}
+
+.ma{
+  margin: auto;
 }
 
 // Padding
@@ -59,17 +84,33 @@
   }
 }
 
+.nowrap{
+  white-space: nowrap;
+}
+
 .justify-between {
   justify-content: space-between;
 }
 .justify-center {
   justify-content: center;
 }
+.justify-end {
+  justify-content: flex-end;
+}
+.justify-start {
+  justify-content: flex-start;
+}
 .align-center {
   align-items: center;
 }
 .dir-col {
   flex-direction: column;
+}
+.float-left{
+  float: inline-start;
+}
+.float-right{
+  float: inline-end;
 }
 
 // Tamaños =======================
@@ -80,7 +121,10 @@ $heightWidth: (
   ("4", 1rem),
   ("5", 1.5rem),
   ("6", 2rem),
-  ("7", 3rem)
+  ("7", 3rem),
+  ("8", 3.5rem),
+  ("9", 4rem),
+  ("10", 5rem)
 );
 @each $nom, $val in $heightWidth {
   .h-#{$nom} {
@@ -90,8 +134,26 @@ $heightWidth: (
     width: #{$val};
   }
 }
+.min-w-fit {
+  min-width: fit-content;
+}
+.max-w-xs {
+  max-width: 10rem;
+}
 .max-w-sm {
-  min-width: 18rem;
+  max-width: 18rem;
+}
+.max-w-md {
+  max-width: 32rem;
+}
+.max-w-lg {
+  max-width: 44rem;
+}
+.max-w-xl {
+  max-width: 60rem;
+}
+.max-w-2xl {
+  max-width: 70rem;
 }
 .w-full {
   width: 100%;
@@ -100,4 +162,11 @@ $heightWidth: (
 // Sombras
 .shadow-sm {
   box-shadow: 7px 7px 15px -6px rgba(0, 0, 0, 0.2);
+}
+
+// BACKGROUND
+@each $color in $colors {
+  .bg-#{$color} {
+    background-color: #{$color};
+  }
 }

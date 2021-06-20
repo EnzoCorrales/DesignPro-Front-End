@@ -1,4 +1,4 @@
-.btn {
+.btn{
   padding: 0.55rem 1rem;
   border: 1px;
   border-radius: 0.5rem;
@@ -9,13 +9,21 @@
   font-family: Calibri, "Trebuchet MS", sans-serif;
   font-weight: 600;
   cursor: pointer;
+  &:hover{
+    filter: brightness(80%);
+  }
+}
+.btn-sm{
+  padding: .3rem .5rem;
 }
 
 $btnColors: (
   ("red", "crimson"),
   ("blue", "blue"),
   ("pink", "lightcoral"),
-  ("green", "green")
+  ("green", "green"),
+  ("orange", "orange"),
+  ("purple", "purple"),
 );
 
 @each $nom, $color in $btnColors {
