@@ -11,9 +11,16 @@ $sizes: (
   ("9", 7rem),
   ("10", 8rem),
   ("11", 9rem),
-  ("12", 10rem),
+  ("12", 10rem)
 );
 
-$displays: (("flex"), ("block"), ("inline"), ("inline-block"), ("grid"));
+$displays: (
+  ("flex"),
+  ("inline-flex"),
+  ("block"),
+  ("inline"),
+  ("inline-block"),
+  ("grid")
+);
 
 $colors: ("red", "blue", "pink", "green", "yellow", "gray", "black", "white");

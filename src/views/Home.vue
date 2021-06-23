@@ -1,7 +1,6 @@
 <template>
   <div class="flex grid justify-between w-10 px-2">
     <router-link to="/usuario/5">Perfil</router-link>
-    <button @click="logout">Cerrar sesión</button>
     <div
       class="border mx-1 mt-1"
       v-for="(proyecto, index) in Proyectos"

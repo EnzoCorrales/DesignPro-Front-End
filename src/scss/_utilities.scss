@@ -7,6 +7,15 @@
 .grid {
   display: grid;
 }
+.sm-none {
+  display: inherit;
+}
+@media (max-width: 640px) {
+  .sm-none {
+    display: none;
+  }
+}
+
 $cols: ("1", "2", "3", "4", "5");
 @each $col in $cols {
   .col-rows-#{$col} {
@@ -53,7 +62,7 @@ $cols: ("1", "2", "3", "4", "5");
   }
 }
 
-.ma{
+.ma {
   margin: auto;
 }
 
@@ -84,7 +93,7 @@ $cols: ("1", "2", "3", "4", "5");
   }
 }
 
-.nowrap{
+.nowrap {
   white-space: nowrap;
 }
 
@@ -106,10 +115,10 @@ $cols: ("1", "2", "3", "4", "5");
 .dir-col {
   flex-direction: column;
 }
-.float-left{
+.float-left {
   float: inline-start;
 }
-.float-right{
+.float-right {
   float: inline-end;
 }
 

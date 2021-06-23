@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-center justify-center dir-col">
+  <div class="flex align-center justify-center dir-col mt-3">
     <div class="max-w-lg mx-auto py-3 px-4 mb-4 border border-blue rounded-md">
       <h2 class="mt-0 title text-center">Información personal</h2>
       <form @submit.prevent="modificarUsuario">
@@ -241,9 +241,9 @@ export default {
     this.form.FNac = this.fechaNac;
   },
   methods: {
-    modificarUsuario() {
+    async modificarUsuario() {
       console.log(this.form);
-      this.$store
+      await this.$store
         .dispatch("updateUser", this.form)
         .then(() => {
           this.$router.push({ path: "/usuario/" + this.user.Id });

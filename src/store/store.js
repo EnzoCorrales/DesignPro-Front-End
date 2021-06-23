@@ -120,6 +120,10 @@ export const store = new Vuex.Store({
           });
       });
     },
+    logout: ({ commit }) => {
+      commit("removeToken");
+      commit("removeUser");
+    },
     updateUser: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
         user
@@ -130,14 +134,16 @@ export const store = new Vuex.Store({
             commit("setUserInfo", res.data.Usuario);
             resolve(res);
           })
-          .catch((e) => {
-            reject(e.response.data.Message);
-          });
+          .catch((e) => reject(e.response.data.Message));
       });
     },
-    logout: ({ commit }) => {
-      commit("removeToken");
-      commit("removeUser");
+    getUser: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .find(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
     },
   },
 });

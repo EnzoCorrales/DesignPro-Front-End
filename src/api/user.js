@@ -27,7 +27,7 @@ export default {
    * @param {int} id
    */
   find(id) {
-    return axios.get(RUTA_API + `/Get?idUsuario=${id}`);
+    return axios.get(RUTA_API + `/Get?id=${id}`);
   },
   /**
    * Elimina el usuario indicado.
