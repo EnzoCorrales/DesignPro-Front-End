@@ -1,6 +1,9 @@
 <template>
   <div class="flex grid col-rows-5 justify-between w-full">
+<<<<<<< HEAD
     <router-link to="/usuario/5">Perfil</router-link>
+=======
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
     <div
       class="border mx-1 mt-1"
       v-for="(proyecto, index) in Proyectos"

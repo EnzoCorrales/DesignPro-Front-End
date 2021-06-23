@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
     // Obtiene el token local
     token: sessionStorage.getItem("token") || null,
     // Este usuario de debe obtener de la BD
+<<<<<<< HEAD
     user:
       JSON.parse(sessionStorage.getItem("user")) ||
       {
@@ -32,6 +33,33 @@ export const store = new Vuex.Store({
   // Obtiene los datos y devuelve procesados
   getters: {
     isAuth: (state) => !!state.token,
+=======
+    user: {
+       id: 1,
+       nombre: "Guillermo",
+       apellido: "De León",
+       fNac: "31/12/1998",
+       correo: "guilledll20@gmail.com",
+       pais: "Uruguay",
+       ciudad: "Maldonado",
+       url: "https://mishorasweb.com",
+       profesion: "Programador",
+       empresa: "MisHoras",
+       descripcion: "Un pibe que hace de todo, Front, Back, Medio y coso pum",
+    },
+    // Los proyectos del usuario autenticado
+    proyectos: {},
+  },
+  // Obtiene los datos y devuelve procesados
+  getters: {
+    auth: (state) => {
+      // Verifica si el usuario inicio sesion
+      return Object.keys(state.user).length !== 0 &&
+        state.user.constructor === Object
+        ? true
+        : false;
+    },
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
   },
   // Permiten modificar los datos del store
   mutations: {

@@ -3,7 +3,16 @@
     <nav id="main-nav" class="py-3 shadow-sm w-full">
       <div class="flex justify-between int w-full">
         <div class="flex justify-between" id="leftside">
+<<<<<<< HEAD
           <!--<div class="btn btn-red mt-2" v-show="mostrarsb" @click="mostrarSB()">
+=======
+          <div
+            class="btn btn-red mt-2"
+            id="flechabackmobile"
+            v-show="mostrarsb"
+            @click="mostrarSB()"
+          >
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-4 w-4"
@@ -19,7 +28,11 @@
               />
             </svg>
           </div>
+<<<<<<< HEAD
           <nav class="px-4 py-3 mb-4 shadow-sm">
+=======
+          <!-- nav class="px-4 py-3 mb-4 shadow-sm">
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
             <div class="flex justify-between int">
               <div>
                 <router-link
@@ -39,7 +52,11 @@
             DesignPro
           </router-link>
 
+<<<<<<< HEAD
           <div  v-if="$store.getters.auth" class="flex align-center px-2 mp-0 x-3 nowrap m-0" id="tabs">
+=======
+          <div  v-if="$store.getters.auth" class="flex align-center px-2 mx-3 nowrap p-0 m-0" id="tabs">
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
             <router-link to="/explorar" class="mx-2 title text-black">
               Explorar
             </router-link>
@@ -258,9 +275,12 @@ export default {
         this.mostrarnav = false;
       }
     },
+<<<<<<< HEAD
     mostrarNav() {
       this.mostrarnav = !this.mostrarnav;
     },
+=======
+>>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
     defineAuthRoute() {
       return this.$store.getters.auth ? "/home" : "/";
     },
