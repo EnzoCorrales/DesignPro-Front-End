@@ -17,7 +17,7 @@
         </div>
       </div>
       <div v-if="!itsMe" class="flex btn-container">
-        <router-link class="btn btn-msg flex align-center" to="">
+        <button class="btn btn-msg flex align-center" @click="mensaje">
           <span class="sm-none mr-2">Enviar mensaje</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@
               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
             />
           </svg>
-        </router-link>
+        </button>
         <button
           class="btn btn-blue btn-follow ml-2 flex align-center"
           @click="seguir"
@@ -101,6 +101,14 @@
         </button>
       </div>
     </div>
+    <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
+      <span class="mr-2 pill">Seguidores: {{ perfil.Seguidores.length }}</span>
+      <span class="mr-2 pill">Cantidad de visitas: N</span>
+      <span class="mr-2 pill">Valoraciones: K</span>
+      <a class="pill text-black url-web" href="perfil.UrlWeb" target="_blank">
+        Sitio:{{ perfil.UrlWeb }}
+      </a>
+    </div>
   </div>
 </template>
 
@@ -113,15 +121,17 @@ export default {
   },
   computed: {
     auth() {
+      return this.$store.getters.isAuth;
+    },
+    user() {
       return this.$store.state.user;
     },
     itsMe() {
-      return this.auth.Id == this.$route.params.id ? true : false;
+      return this.user.Id == this.$route.params.id ? true : false;
     },
   },
   async mounted() {
     await this.getperfil();
-    console.log(this.auth);
   },
   methods: {
     async getperfil() {
@@ -130,7 +140,16 @@ export default {
         .then((res) => (this.perfil = res))
         .catch(() => this.$router.push({ path: "/home" }));
     },
-    seguir() {},
+    seguir() {
+      if (!this.auth) this.$router.push({ path: "/login" });
+      else {
+        return this.auth;
+      }
+    },
+    mensaje() {
+      if (!this.auth) this.$router.push({ path: "/login" });
+      else this.$router.push({ path: "#" });
+    },
     logout() {
       this.$store.dispatch("logout");
       this.$router.push({ path: "/login" });
@@ -164,6 +183,22 @@ export default {
   }
   .btn-container {
     display: block;
+  }
+  .sub-profile {
+    padding: 1rem 10px;
+    justify-content: flex-start;
+  }
+}
+.sub-profile {
+  border-top: none;
+}
+.pill {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.url-web {
+  &:hover {
+    color: blue;
   }
 }
 </style>
