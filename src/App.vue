@@ -1,18 +1,14 @@
 <template>
   <div id="app">
     <nav id="main-nav" class="py-3 shadow-sm w-full">
-      <div class="flex justify-between int w-full">
-        <div class="flex justify-between" id="leftside">
-<<<<<<< HEAD
-          <!--<div class="btn btn-red mt-2" v-show="mostrarsb" @click="mostrarSB()">
-=======
+      <div class="flex justify-between ma w-full">
+        <div class="flex max-w-md justify-between" id="leftside">
           <div
             class="btn btn-red mt-2"
             id="flechabackmobile"
             v-show="mostrarsb"
             @click="mostrarSB()"
           >
->>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-4 w-4"
@@ -28,35 +24,23 @@
               />
             </svg>
           </div>
-<<<<<<< HEAD
-          <nav class="px-4 py-3 mb-4 shadow-sm">
-=======
-          <!-- nav class="px-4 py-3 mb-4 shadow-sm">
->>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
-            <div class="flex justify-between int">
+            <div class="flex justify-between ma">
               <div>
                 <router-link
-                  :to="defineAuthRoute()"
-                  class="m-0 title text-black fw-bold"
-
-                  style="font-size: 1.2rem"
-                  >
-                </div>
-              </div> -->
-          <router-link
-            id="Logo"
-            to="/"
-            v-show="!mostrarsb"
-            class="mt-2 title text-black fw-bold"
+                  id="Logo"
+                  to="/"
+                  v-show="!mostrarsb"
+                  class="mt-2 title text-black fw-bold"
+                >
+                  DesignPro
+                </router-link>
+              </div>
+            </div>
+          <div
+            v-if="$store.getters.isAuth"
+            class="flex align-center px-2 mx-3 nowrap p-0 m-0"
+            id="tabs"
           >
-            DesignPro
-          </router-link>
-
-<<<<<<< HEAD
-          <div  v-if="$store.getters.auth" class="flex align-center px-2 mp-0 x-3 nowrap m-0" id="tabs">
-=======
-          <div  v-if="$store.getters.auth" class="flex align-center px-2 mx-3 nowrap p-0 m-0" id="tabs">
->>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
             <router-link to="/explorar" class="mx-2 title text-black">
               Explorar
             </router-link>
@@ -72,11 +56,10 @@
             >
               Proyectos Valorados
             </router-link>
-          </div>-->
+          </div>
         </div>
-
-        <div class="flex max-w-xs justify-between" id="rightside">
-          <div class="flex justify-between nowrap" id="tabs">
+        <div class="flex w-49 justify-between" id="rightside">
+          <div class="flex justify-between nowrap mr-5" id="tabs">
             <form class="flex" v-show="!mostrarsb">
               <input
                 v-model="form.buscar"
@@ -151,25 +134,8 @@
               </svg>
             </div>
           </div>
-          <!-- <div class="flex align-center px-2 mx-3 btn-profile" @click="mostrarNav()" >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 mr-1 "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            Guille
-          </div> -->
           <div
-            v-if="$store.getters.auth"
+            v-if="$store.getters.isAuth"
             v-show="!mostrarsb"
             class="flex align-center px-2 btn-profile mx-3"
             @click="mostrarnav = !mostrarnav"
@@ -188,13 +154,13 @@
                 d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-             {{user.nombre}}
+             {{user.nombre}} 
           </div>
           <div v-else class="flex mx-3">
-            <router-link to="/login" class="btn btn-sm btn-green mr-2"
+            <router-link to="/login" class="block btn btn-green mr-2 mt-2"
               >Inicia sesión</router-link
             >
-            <router-link to="/register" class="btn btn-sm btn-blue"
+            <router-link to="/register" class="btn btn-blue mt-2 "
               >Registrate</router-link
             >
           </div>
@@ -275,12 +241,9 @@ export default {
         this.mostrarnav = false;
       }
     },
-<<<<<<< HEAD
     mostrarNav() {
       this.mostrarnav = !this.mostrarnav;
     },
-=======
->>>>>>> e133bc5ffd7bbbfc290dfea84e977d400670e777
     defineAuthRoute() {
       return this.$store.getters.auth ? "/home" : "/";
     },
@@ -294,9 +257,6 @@ nav {
   position: sticky;
   top: 0;
   background-color: white;
-  & .int {
-    margin: auto;
-  }
 }
 
 @media (min-width: 768px) {
