@@ -13,7 +13,10 @@
     "core-js": "^3.6.5",
     "js-cookie": "^2.2.1",
     "vue": "^2.6.11",
+    "vue-quill": "^1.5.1",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.5.1",
+    "vue2-editor": "^2.10.2",
     "vuex": "^3.6.2",
     "vuex-persistedstate": "^4.0.0-beta.3"
   },

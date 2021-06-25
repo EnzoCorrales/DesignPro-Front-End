@@ -1,18 +1,15 @@
 <template>
   <div class="flex grid col-rows-5 justify-between w-full">
-    <router-link to="/usuario/5">Perfil</router-link>
     <div
       class="border mx-1 mt-1"
       v-for="(proyecto, index) in Proyectos"
       :key="index"
     >
       <div class="flex align-center">
-        <iframe
-          class="w-full"
-          scrolling="no"
+        <img
+          class="h-10 w-10"
           src="https://pbs.twimg.com/profile_images/947786051434766336/P2XB90Pb_400x400.jpg"
         >
-        </iframe>
       </div>
       <br />
       <div class="justify-between flex px-3">
@@ -144,15 +141,19 @@ export default {
       mostraroverlay: false,
       idProyecto: null,
       proyect: {},
-      userID: null,
-      user: {},
       form: {
         comentario: "",
       },
     };
   },
+  computed: {
+    user() {
+      return this.$store.state.user;
+    },
+  },
   mounted() {
     this.getall();
+
   },
 
   methods: {

@@ -14,24 +14,24 @@ export const store = new Vuex.Store({
     token: sessionStorage.getItem("token") || null,
     // Este usuario de debe obtener de la BD
     user:
-      //JSON.parse(sessionStorage.getItem("user")) ||
+      JSON.parse(sessionStorage.getItem("user")) ||
       {
-        id: 1,
-        nombre: "Guillermo",
-        apellido: "De León",
-        fNac: "31/12/1998",
-        correo: "guilledll20@gmail.com",
-        pais: "Uruguay",
-        ciudad: "Maldonado",
-        url: "https://mishorasweb.com",
-        profesion: "Programador",
-        empresa: "MisHoras",
-        descripcion: "Un pibe que hace de todo, Front, Back, Medio y coso pum",
+        // id: 1,
+        // nombre: "Guillermo",
+        // apellido: "De León",
+        // fNac: "31/12/1998",
+        // correo: "guilledll20@gmail.com",
+        // pais: "Uruguay",
+        // ciudad: "Maldonado",
+        // url: "https://mishorasweb.com",
+        // profesion: "Programador",
+        // empresa: "MisHoras",
+        // descripcion: "Un pibe que hace de todo, Front, Back, Medio y coso pum",
       },
   },
   // Obtiene los datos y devuelve procesados
   getters: {
-    isAuth: () => true,
+    isAuth: (state) => !!state.token,
   },
   // Permiten modificar los datos del store
   mutations: {

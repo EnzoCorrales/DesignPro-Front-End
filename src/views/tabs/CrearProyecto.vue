@@ -3,19 +3,23 @@
     <!-- Contenido del Proyecto -->
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
     <h1 class="title text-center px-2">Upload Content</h1>
-    <form name="CrearProyecto">
+    <div>
+    <!-- <vue-editor v-model="content">
+
+    </vue-editor> -->
+    </div>
+    <form name="CrearProyecto ">
       <div
         class="text-center mx-12"
         v-for="(input, k) in proyect.inputs"
         :key="k"
       >
-        <textarea
-          class="text-input title w-full h-8"
+        <vue-editor
+          class="Proyect-Content my-3"
           :id="'textarea ' + k"
-          type="text"
           v-model="input.name"
           placeholder="Ingrese su texto aqui!"
-        ></textarea>
+        ></vue-editor>
         <span>
           <i @click="remove(k)" v-show="k || (!k && proyect.inputs.length > 1)">
             <svg
@@ -51,7 +55,7 @@
           </i>
         </span>
       </div>
-      <div class="dropbox title mx-12">
+      <!-- <div class="dropbox title mx-12">
         <p>
           Drag your file(s) here to begin<br />
           or click to browse
@@ -63,7 +67,7 @@
           type="file"
           multiple
         />
-      </div>
+      </div> -->  
       <!-- </form> -->
       <!-- Informacion del Proyecto -->
       <div class="justify-between proyect-info mb-0">
@@ -168,9 +172,16 @@
     </form>
   </div>
 </template>
+
 <script>
 import axios from "axios";
+
+import { VueEditor } from "vue2-editor";
+
 export default {
+  components: {
+    VueEditor
+  },
   data() {
     return {
       proyect: {
@@ -190,8 +201,12 @@ export default {
       },
       urlIMG: "",
       file: "",
+      content: {
+        ops: [],
+      },
     };
   },
+
   methods: {
     uploadContenido() {
       const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
@@ -262,7 +277,4 @@ export default {
 };
 </script>
 <style lang="scss">
-div {
-  overflow: hidden;
-}
 </style>

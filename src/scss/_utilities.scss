@@ -140,6 +140,9 @@ $heightWidth: (
   ("8", 3.5rem),
   ("9", 4rem),
   ("10", 5rem),
+  ("11", 6rem),
+  ("12", 7rem),
+  ("13", 8rem),
   ("40", 40rem)
 );
 @each $nom, $val in $heightWidth {
@@ -148,7 +151,7 @@ $heightWidth: (
   }
   .w-#{$nom} {
     width: #{$val};
-  }
+  } 
 }
 .min-w-fit {
   min-width: fit-content;

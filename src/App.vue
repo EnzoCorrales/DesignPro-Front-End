@@ -24,18 +24,18 @@
               />
             </svg>
           </div>
-            <div class="flex justify-between ma">
-              <div>
-                <router-link
-                  id="Logo"
-                  to="/"
-                  v-show="!mostrarsb"
-                  class="mt-2 title text-black fw-bold"
-                >
-                  DesignPro
-                </router-link>
-              </div>
+          <div class="flex justify-between ma">
+            <div>
+              <router-link
+                id="Logo"
+                to="/"
+                v-show="!mostrarsb"
+                class="mt-2 title text-black fw-bold"
+              >
+                DesignPro
+              </router-link>
             </div>
+          </div>
           <div
             v-if="$store.getters.isAuth"
             class="flex align-center px-2 mx-3 nowrap p-0 m-0"
@@ -154,63 +154,79 @@
                 d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-             {{user.nombre}} 
+            {{ user.Nombre }}
           </div>
           <div v-else class="flex mx-3">
             <router-link to="/login" class="block btn btn-green mr-2 mt-2"
               >Inicia sesión</router-link
             >
-            <router-link to="/register" class="btn btn-blue mt-2 "
+            <router-link to="/register" class="btn btn-blue mt-2"
               >Registrate</router-link
             >
           </div>
         </div>
       </div>
     </nav>
-    <nav
-      class="flex dir-col nowrap text-end w-full py-3 px-3"
-      v-show="mostrarnav"
-    >
-      <div id="mobile-tabs" class="flex dir-col">
-        <router-link
-          to="/explorar"
-          class="mx-2 title text-black"
-          v-on:click.native="mostrarNav"
-        >
-          Explorar
-        </router-link>
-        <router-link
-          to="/crear-proyecto"
-          class="mx-2 title text-black"
-          v-on:click.native="mostrarNav"
-        >
-          Crear Proyecto
-        </router-link>
-        <router-link
-          to="/mis-proyectos"
-          class="mx-2 title text-black"
-          v-on:click.native="mostrarNav"
-        >
-          Mis Proyectos
-        </router-link>
-        <router-link
-          to="/proyectos-valorados"
-          class="mx-2 title text-black"
-          v-on:click.native="mostrarNav"
-        >
-          Proyectos Valorados
-        </router-link>
-      </div>
-      <div>
-        <router-link
-          to="/login"
-          class="mx-2 title text-black"
-          v-on:click.native="mostrarNav"
-        >
-          Cerrar Sesion
-        </router-link>
+    <div class="flex justify-end w-full ma">
+    <nav class="nowrap flex justify-end max-w-md" v-show="mostrarnav">
+      <div class="mr-7">
+        <ul>
+          <li id="mobile-tabs">
+            <router-link
+              to="/explorar"
+              class="mx-2 title text-black"
+              v-on:click.native="mostrarNav"
+            >
+              Explorar
+            </router-link>
+          </li>
+          <li id="mobile-tabs">
+            <router-link
+              to="/crear-proyecto"
+              class="mx-2 title text-black"
+              v-on:click.native="mostrarNav"
+            >
+              Crear Proyecto
+            </router-link>
+          </li>
+          <li id="mobile-tabs"> 
+            <router-link
+              to="/mis-proyectos"
+              class="mx-2 title text-black"
+              v-on:click.native="mostrarNav"
+            >
+              Mis Proyectos
+            </router-link>
+          </li>
+          <li id="mobile-tabs">
+            <router-link
+              to="/proyectos-valorados"
+              class="mx-2 title text-black"
+              v-on:click.native="mostrarNav"
+            >
+              Proyectos Valorados
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              :to="'/usuario/' + user.Id"
+              class="mx-2 title text-black"
+              >Perfil
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/login"
+              class="mx-2 title text-black"
+              v-on:click.native="mostrarNav"
+            >
+              Cerrar Sesion
+            </router-link>
+          </li>
+        </ul>
       </div>
     </nav>
+    </div>
     <router-view />
   </div>
 </template>
@@ -281,6 +297,10 @@ nav {
     padding-right: 2rem;
     padding-left: 2rem;
   }
+}
+
+ul {
+  list-style: none;
 }
 
 .btn-profile {
