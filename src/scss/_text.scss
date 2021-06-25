@@ -30,6 +30,15 @@ a {
     margin-right: 0.25rem;
   }
 }
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.text-sm {
+  font-size: 0.9rem;
+}
+.line-height {
+  line-height: 1.5;
+}
 
 // COLORES DE TEXTO
 @each $color in $colors {
