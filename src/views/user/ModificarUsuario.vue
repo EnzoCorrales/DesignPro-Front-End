@@ -2,12 +2,37 @@
   <div class="flex align-center justify-center dir-col mt-3">
     <div class="max-w-lg mx-auto py-3 px-4 mb-4 border border-blue rounded-md">
       <h2 class="mt-0 title text-center">Información personal</h2>
-      <form @submit.prevent="modificarUsuario">
+      <form @submit.prevent="modificarUsuario" enctype="multipart/form-data">
         <div class="mt-2 mb-3 flex justify-center align-center">
-          <div class="h-8 w-8 mr-2 rounded-circle bg-black"></div>
-          <label for="img" class="my-0">Cambiar imagen</label>
+          <div class="h-8 w-8 mr-2 rounded-circle bg-blue img-input">
+            <input
+              type="file"
+              accept="image/*"
+              name="img"
+              id="img"
+              class=""
+              @change="imgUploaded($event.target.name, $event.target.files)"
+            />
+          </div>
+          <label for="img" class="my-0 pointer">Cambiar imagen</label>
         </div>
-        <input type="hidden" name="Id" v-model="form.Id" />
+        <small v-if="error" class="val-error">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+          {{ error }}
+        </small>
         <div class="grid col-rows-2 gap-3 mb-2">
           <div>
             <label for="nombre">Nombre</label>
@@ -32,23 +57,6 @@
             />
           </div>
         </div>
-        <small v-if="error" class="val-error">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            />
-          </svg>
-          {{ error }}
-        </small>
         <div class="mb-2">
           <label for="correo">Correo Electrónico</label>
           <input
@@ -241,8 +249,16 @@ export default {
     this.form.FNac = this.fechaNac;
   },
   methods: {
+    imgUploaded(fieldName, fileList) {
+      if (!fileList.length) return;
+      Array.from(Array(fileList.length).keys()).map((x) => {
+        console.log(fieldName, fileList[x], fileList[x].name);
+      });
+      //this.save(formData);
+    },
     async modificarUsuario() {
-      console.log(this.form);
+      if (this.form.Password == "") this.form.Password = this.user.Password;
+      if (this.form.Correo == "") this.form.Correo = this.user.Correo;
       await this.$store
         .dispatch("updateUser", this.form)
         .then(() => {
@@ -250,11 +266,23 @@ export default {
         })
         .catch((e) => {
           this.error = e;
-          console.log(e);
+          //console.log(e);
         });
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.img-input {
+  //position: relative;
+  cursor: pointer;
+}
+#img {
+  opacity: 0;
+  position: absolute;
+  cursor: pointer;
+  width: inherit;
+  height: inherit;
+}
+</style>

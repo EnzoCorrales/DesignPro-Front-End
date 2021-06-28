@@ -17,7 +17,7 @@
         </div>
       </div>
       <div v-if="!itsMe" class="flex btn-container">
-        <button class="btn btn-msg flex align-center" @click="mensaje">
+        <button class="btn btn-msg flex align-center" @click="enviarMensaje">
           <span class="sm-none mr-2">Enviar mensaje</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -102,21 +102,38 @@
       </div>
     </div>
     <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
-      <span class="mr-2 pill">Seguidores: {{ perfil.Seguidores.length }}</span>
+      <span v-if="perfil.Seguidores" class="mr-2 pill"
+        >Seguidores: {{ perfil.Seguidores.length }}</span
+      >
       <span class="mr-2 pill">Cantidad de visitas: N</span>
       <span class="mr-2 pill">Valoraciones: K</span>
-      <a class="pill text-black url-web" href="perfil.UrlWeb" target="_blank">
+      <a
+        v-if="perfil.UrlWeb"
+        class="pill text-black url-web"
+        href="perfil.UrlWeb"
+        target="_blank"
+      >
         Sitio:{{ perfil.UrlWeb }}
       </a>
     </div>
+    <MensajeTab
+      v-if="showMensajeModal"
+      :perfil="perfil"
+      :user="user"
+      @close="showMensajeModal = !showMensajeModal"
+    />
   </div>
 </template>
 
 <script>
 export default {
+  components: {
+    MensajeTab: () => import("@/components/EnviarMensaje"),
+  },
   data() {
     return {
       perfil: {},
+      showMensajeModal: false,
     };
   },
   computed: {
@@ -146,9 +163,10 @@ export default {
         return this.auth;
       }
     },
-    mensaje() {
+    enviarMensaje() {
       if (!this.auth) this.$router.push({ path: "/login" });
-      else this.$router.push({ path: "#" });
+
+      this.showMensajeModal = true;
     },
     logout() {
       this.$store.dispatch("logout");

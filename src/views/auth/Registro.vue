@@ -67,6 +67,15 @@
           minlength="6"
         />
         <input
+          v-model="form.password_repeat"
+          type="password"
+          name="password_repeat"
+          class="input mt-2"
+          placeholder="Repetir contraseña"
+          minlength="6"
+          required
+        />
+        <input
           v-model="form.fNac"
           type="date"
           name="fNac"
@@ -138,6 +147,7 @@ export default {
       form: {
         correo: "",
         password: "",
+        password_repeat: "",
         nombre: "",
         apellido: "",
         fNac: "",
@@ -148,6 +158,9 @@ export default {
   },
   methods: {
     register() {
+      if (this.form.password !== this.form.password_repeat)
+        this.error = "Las contraseñas no coinciden!";
+
       this.$store
         .dispatch("register", this.form)
         .then(() => {
