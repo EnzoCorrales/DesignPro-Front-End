@@ -179,3 +179,7 @@ $heightWidth: (
     background-color: #{$color};
   }
 }
+
+.pointer:hover {
+  cursor: pointer;
+}

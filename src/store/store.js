@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
+import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
 
@@ -145,5 +146,24 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    enviarMensaje: (context, data) => {
+      return new Promise((resolve, reject) => {
+        mensaje
+          .send(data)
+          .then((res) => {
+            console.log(res.data);
+            resolve(res);
+          })
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    // obtenerMensajes: (context, data) => {
+    //   return new Promise((resolve, reject) => {
+    //     mensaje
+    //       .getAll(data)
+    //       .then((res) => resolve(res.data))
+    //       .catch((e) => reject(e.response.data.Message));
+    //   });
+    // },
   },
 });
