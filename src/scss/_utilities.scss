@@ -7,7 +7,16 @@
 .grid {
   display: grid;
 }
-$cols: ("1", "2", "3");
+.sm-none {
+  display: inherit;
+}
+@media (max-width: 640px) {
+  .sm-none {
+    display: none;
+  }
+}
+
+$cols: ("1", "2", "3", "4", "5");
 @each $col in $cols {
   .col-rows-#{$col} {
     grid-template-columns: repeat(#{$col}, 1fr);
@@ -53,6 +62,10 @@ $cols: ("1", "2", "3");
   }
 }
 
+.ma {
+  margin: auto;
+}
+
 // Padding
 @each $nom, $val in $sizes {
   .p-#{$nom} {
@@ -80,6 +93,10 @@ $cols: ("1", "2", "3");
   }
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .justify-between {
   justify-content: space-between;
 }
@@ -97,6 +114,12 @@ $cols: ("1", "2", "3");
 }
 .dir-col {
   flex-direction: column;
+}
+.float-left {
+  float: inline-start;
+}
+.float-right {
+  float: inline-end;
 }
 
 // Tamaños =======================
@@ -155,4 +178,8 @@ $heightWidth: (
   .bg-#{$color} {
     background-color: #{$color};
   }
+}
+
+.pointer:hover {
+  cursor: pointer;
 }

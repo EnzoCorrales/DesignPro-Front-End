@@ -67,6 +67,15 @@
           minlength="6"
         />
         <input
+          v-model="form.password_repeat"
+          type="password"
+          name="password_repeat"
+          class="input mt-2"
+          placeholder="Repetir contraseña"
+          minlength="6"
+          required
+        />
+        <input
           v-model="form.fNac"
           type="date"
           name="fNac"
@@ -132,13 +141,13 @@
 </template>
 
 <script>
-import auth from "@/api/user";
 export default {
   data() {
     return {
       form: {
         correo: "",
         password: "",
+        password_repeat: "",
         nombre: "",
         apellido: "",
         fNac: "",
@@ -149,21 +158,15 @@ export default {
   },
   methods: {
     register() {
-      auth
-        .register(this.form)
-        .then((res) => {
-          auth.findByCorreo(this.form.correo).then((user) => {
-            console.log(user.data);
-            this.$store.dispatch("registrarUsuario", user.data);
-            console.log(this.$store.state.user);
-            this.$router.push({ path: "/home" });
-          });
-          console.log(res);
+      if (this.form.password !== this.form.password_repeat)
+        this.error = "Las contraseñas no coinciden!";
+
+      this.$store
+        .dispatch("register", this.form)
+        .then(() => {
+          this.$router.push({ path: "/home" });
         })
-        .catch((e) => {
-          console.log(e);
-          this.error = e.response.data.Message;
-        });
+        .catch((e) => (this.error = e));
     },
   },
 };
