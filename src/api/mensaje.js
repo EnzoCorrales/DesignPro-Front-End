@@ -11,10 +11,17 @@ export default {
     return axios.post(RUTA_API + "/Create", data);
   },
   /**
-   * Obtiene todos los mensajes del usuario
+   * Actualiza el visto
    * @param {request} data
    */
-  // getAll(data) {
-  //   return axios.post(RUTA_API + "/Register", data);
-  // },
+  visto(data) {
+    return axios.put(RUTA_API + "/Visto", data);
+  },
+  /**
+   * Obtiene todos los mensajes del usuario
+   * @param {request} id
+   */
+  getAll(id) {
+    return axios.get(RUTA_API + `/GetAllByReceptor?id=${id}`);
+  },
 };

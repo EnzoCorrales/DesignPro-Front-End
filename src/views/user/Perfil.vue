@@ -101,6 +101,9 @@
         </button>
       </div>
     </div>
+    <router-link :to="'/usuario/' + user.Id + '/mensajes'">
+      Mensajes
+    </router-link>
     <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
       <span v-if="perfil.Seguidores" class="mr-2 pill"
         >Seguidores: {{ perfil.Seguidores.length }}</span
@@ -128,7 +131,7 @@
 <script>
 export default {
   components: {
-    MensajeTab: () => import("@/components/EnviarMensaje"),
+    MensajeTab: () => import("@/components/Mensajes/EnviarMensaje"),
   },
   data() {
     return {
