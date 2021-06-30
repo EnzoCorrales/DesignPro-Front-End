@@ -3,7 +3,7 @@
     <div class="max-w-lg">
       <div class="close-button-container max-w-lg mx-auto mt-4 mb-3">
         <svg
-          @click="$emit('close', !showModal)"
+          @click="$emit('close')"
           xmlns="http://www.w3.org/2000/svg"
           class="h-6 w-6 text-white"
           fill="none"
@@ -33,7 +33,7 @@
             name="Asunto"
             id="Asunto"
             placeholder="Asunto"
-            max="100"
+            maxlength="100"
             required
             :readonly="send"
           />
@@ -46,6 +46,7 @@
             rows="10"
             :placeholder="'Redáctale algo hermoso a ' + perfil.Nombre + '...'"
             required
+            maxlength="5000"
             :readonly="send"
           ></textarea>
           <div class="flex justify-end mt-1" v-if="!send">
@@ -92,6 +93,7 @@ export default {
     this.form.Fecha = this.setFecha;
     this.form.IdUsuarioE = this.user.Id;
     this.form.IdUsuarioR = this.perfil.Id;
+    console.log(this.form);
   },
   methods: {
     async enviarMensaje() {

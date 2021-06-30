@@ -157,13 +157,24 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
-    // obtenerMensajes: (context, data) => {
-    //   return new Promise((resolve, reject) => {
-    //     mensaje
-    //       .getAll(data)
-    //       .then((res) => resolve(res.data))
-    //       .catch((e) => reject(e.response.data.Message));
-    //   });
-    // },
+    setVisto: (context, data) => {
+      return new Promise((resolve, reject) => {
+        mensaje
+          .visto(data)
+          .then((res) => {
+            console.log(res.data);
+            resolve(res);
+          })
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    obtenerMensajes: (context, data) => {
+      return new Promise((resolve, reject) => {
+        mensaje
+          .getAll(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
   },
 });

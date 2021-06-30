@@ -20,6 +20,17 @@ const routes = [
     name: "Home",
     component: () => import("../views/Home.vue"),
   },
+  // AUTH =============
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/auth/Login.vue"),
+  },
+  {
+    path: "/register",
+    name: "Registro",
+    component: () => import("../views/auth/Registro.vue"),
+  },
   // TABS ============
   {
     path: "/explorar",
@@ -41,17 +52,6 @@ const routes = [
     name: "ProyectosValorados",
     component: () => import("../views/tabs/ProyectosValorados.vue"),
   },
-  // AUTH =============
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/auth/Login.vue"),
-  },
-  {
-    path: "/register",
-    name: "Registro",
-    component: () => import("../views/auth/Registro.vue"),
-  },
   // USUARIO ==========
   {
     path: "/usuario/:id",
@@ -62,6 +62,14 @@ const routes = [
     path: "/usuario/:id/modificar",
     name: "Modificar Usuario",
     component: () => import("../views/user/ModificarUsuario.vue"),
+    meta: {
+      auth: true,
+    },
+  },
+  {
+    path: "/usuario/:id/mensajes",
+    name: "Mensajes del Usuario",
+    component: () => import("../views/user/Mensajes.vue"),
     meta: {
       auth: true,
     },
