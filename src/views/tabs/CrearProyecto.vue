@@ -4,9 +4,6 @@
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
     <h1 class="title text-center px-2">Upload Content</h1>
     <div>
-    <!-- <vue-editor v-model="content">
-
-    </vue-editor> -->
     </div>
     <form name="CrearProyecto ">
       <div
@@ -37,7 +34,7 @@
               />
             </svg>
           </i>
-          <i @click="add(k)" v-show="k == proyect.inputs.length - 1">
+          <i @click="add(k)" v-show="k == proyect.inputs.length - 1"> 
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -55,6 +52,7 @@
           </i>
         </span>
       </div>
+      <!-- esta parte se puede eliminar hay que testear si el vue editor maneja bien las imagenes, asi usamos el mismo input para texto y imagenes -->
       <!-- <div class="dropbox title mx-12">
         <p>
           Drag your file(s) here to begin<br />
