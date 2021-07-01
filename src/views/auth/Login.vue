@@ -72,6 +72,9 @@ export default {
     };
   },
   methods: {
+    wipe(){
+      this.$store.state.user=null;
+    },
     login() {
       this.$store
         .dispatch("login", this.form)
@@ -81,6 +84,7 @@ export default {
         })
         .catch((e) => (this.error = e));
     },
+
   },
 };
 </script>

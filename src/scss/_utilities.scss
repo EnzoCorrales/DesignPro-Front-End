@@ -35,6 +35,9 @@ $cols: ("1", "2", "3", "4", "5");
   }
 }
 
+
+
+
 // Margenes
 @each $nom, $val in $sizes {
   .m-#{$nom} {
@@ -112,6 +115,9 @@ $cols: ("1", "2", "3", "4", "5");
 .align-center {
   align-items: center;
 }
+.align-end{
+  align-items: flex-end;
+}
 .dir-col {
   flex-direction: column;
 }
@@ -133,7 +139,11 @@ $heightWidth: (
   ("7", 3rem),
   ("8", 3.5rem),
   ("9", 4rem),
-  ("10", 5rem)
+  ("10", 5rem),
+  ("11", 6rem),
+  ("12", 7rem),
+  ("13", 8rem),
+  ("40", 40rem)
 );
 @each $nom, $val in $heightWidth {
   .h-#{$nom} {
@@ -141,7 +151,7 @@ $heightWidth: (
   }
   .w-#{$nom} {
     width: #{$val};
-  }
+  } 
 }
 .min-w-fit {
   min-width: fit-content;
