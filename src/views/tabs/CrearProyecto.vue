@@ -3,9 +3,10 @@
     <!-- Contenido del Proyecto -->
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
     <h1 class="title text-center px-2">Upload Content</h1>
-    <div>
-    </div>
     <form name="CrearProyecto ">
+    <div>
+      Add-Content
+    </div>
       <div
         class="text-center mx-12"
         v-for="(input, k) in proyect.inputs"
@@ -16,6 +17,8 @@
           :id="'textarea ' + k"
           v-model="input.name"
           placeholder="Ingrese su texto aqui!"
+          v-if="mostrartext"
+          
         ></vue-editor>
         <span>
           <i @click="remove(k)" v-show="k || (!k && proyect.inputs.length > 1)">
@@ -53,7 +56,7 @@
         </span>
       </div>
       <!-- esta parte se puede eliminar hay que testear si el vue editor maneja bien las imagenes, asi usamos el mismo input para texto y imagenes -->
-      <!-- <div class="dropbox title mx-12">
+     <div class="dropbox title mx-12" v-show="mostrartext">
         <p>
           Drag your file(s) here to begin<br />
           or click to browse
@@ -65,7 +68,7 @@
           type="file"
           multiple
         />
-      </div> -->  
+      </div> 
       <!-- </form> -->
       <!-- Informacion del Proyecto -->
       <div class="justify-between proyect-info mb-0">
@@ -197,6 +200,7 @@ export default {
         videosProyecto: [{}],
         contenidoProyecto: [],
       },
+      mostrartext: false,
       urlIMG: "",
       file: "",
       content: {
@@ -266,10 +270,13 @@ export default {
         });
     },
     add() {
+      this.mostrartext = true;
       this.proyect.inputs.push({ name: "" });
     },
     remove(index) {
       this.proyect.inputs.splice(index, 1);
+      if(this.proyect.inputs.length==0)
+      this.mostrartext= false;
     },
   },
 };
