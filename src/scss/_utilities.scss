@@ -35,8 +35,12 @@ $cols: ("1", "2", "3", "4", "5");
   }
 }
 
-
-
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
 
 // Margenes
 @each $nom, $val in $sizes {
@@ -115,7 +119,7 @@ $cols: ("1", "2", "3", "4", "5");
 .align-center {
   align-items: center;
 }
-.align-end{
+.align-end {
   align-items: flex-end;
 }
 .dir-col {
@@ -151,7 +155,7 @@ $heightWidth: (
   }
   .w-#{$nom} {
     width: #{$val};
-  } 
+  }
 }
 .min-w-fit {
   min-width: fit-content;

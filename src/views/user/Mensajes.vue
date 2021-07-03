@@ -38,7 +38,7 @@
     >
       <h3 class="title m-0 pill">Tu bandeja de mensajes está vacia!</h3>
       <router-link class="link mt-4" to="/home">
-        Voler al inicio
+        Volver al inicio
       </router-link>
     </div>
     <EnviarMensje
