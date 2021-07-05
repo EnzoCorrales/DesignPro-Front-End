@@ -36,13 +36,6 @@ export const store = new Vuex.Store({
   },
   // Permiten modificar los datos del store
   mutations: {
-    registrarStateUsuario: (state, data) => {
-      state.user.nombre = data.Nombre;
-      state.user.apellido = data.Apellido;
-      state.user.correo = data.Correo;
-      state.user.fNac = data.FNac;
-      state.user.pais = data.Pais;
-    },
     cargarStateUsuario: (state, data) => {
       state.user.nombre = data.Nombre;
       state.user.apellido = data.Apellido;
@@ -108,7 +101,7 @@ export const store = new Vuex.Store({
             sessionStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
             commit("setToken", token);
-            commit("registrarStateUsuario", user);
+            commit("setUserInfo", user);
             resolve(res);
           })
           .catch((e) => {

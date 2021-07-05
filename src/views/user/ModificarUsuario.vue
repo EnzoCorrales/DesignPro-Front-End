@@ -6,16 +6,22 @@
         <form @submit.prevent="modificarUsuario" enctype="multipart/form-data">
           <div class="mt-2 mb-3 flex justify-center align-center">
             <img
-              v-if="form.ImgPerfil"
-              :src="form.ImgPerfil"
+              v-if="img != null && img == form.ImgPerfil"
+              :src="'data:image/jpg;base64,' + img"
               class="h-8 w-8 mr-2 rounded-circle bg-white img-input"
+            />
+            <img
+              v-else
+              :src="img"
+              class="h-8 w-8 mr-2 rounded-circle bg-black img-input"
             />
             <input
               type="file"
               accept="image/*"
               name="img"
               id="img"
-              @change="onFileChange($event)"
+              ref="img"
+              @change="imgUploaded($event)"
             />
             <label
               for="img"
@@ -24,7 +30,6 @@
               >Cambiar imagen</label
             >
           </div>
-
           <small v-if="error" class="val-error">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -222,6 +227,7 @@
 </template>
 
 <script>
+import imageToBase64 from "image-to-base64/browser";
 export default {
   data() {
     return {
@@ -230,7 +236,7 @@ export default {
         Nombre: "",
         Apellido: "",
         Correo: "",
-        FNac: "",
+        FNac: "05/06/2020",
         Pais: "",
         Profesion: "",
         Empresa: "",
@@ -239,6 +245,7 @@ export default {
         Descripcion: "",
         Password: "",
       },
+      img: null,
       error: "",
     };
   },
@@ -261,19 +268,16 @@ export default {
     this.form.UrlWeb = this.user.UrlWeb;
     this.form.Pais = this.user.Pais;
     this.form.Ciudad = this.user.Ciudad;
-    this.form.FNac = this.fechaNac;
+    //this.form.FNac = this.fechaNac;
+    if (this.user.ImgPerfil != null)
+      this.form.ImgPerfil = this.img = this.user.ImgPerfil;
   },
   methods: {
-    imgUploaded(fieldName, fileList) {
-      if (!fileList.length) return;
-      Array.from(Array(fileList.length).keys()).map((x) => {
-        console.log(fieldName, fileList[x], fileList[x].name);
-      });
-      //this.save(formData);
-    },
-    onFileChange(e) {
-      const file = e.target.files[0];
-      this.form.ImgPerfil = URL.createObjectURL(file);
+    imgUploaded(e) {
+      this.img = URL.createObjectURL(e.target.files[0]); // ACTIVA LA PREVIEW DE LA IMAGEN SUBIDA
+      imageToBase64(this.img) // CONVIERTE A BASE 64
+        .then((res) => (this.form.ImgPerfil = res))
+        .catch((error) => console.log(error));
     },
     async modificarUsuario() {
       if (this.form.Password == "") this.form.Password = this.user.Password;
@@ -285,7 +289,7 @@ export default {
         })
         .catch((e) => {
           this.error = e;
-          //console.log(e);
+          console.log(e);
         });
     },
   },
@@ -298,16 +302,15 @@ export default {
   .internal {
     border: 1px solid black;
   }
-}
-.img-input {
-  //position: relative;
-  cursor: pointer;
-}
-#img {
-  opacity: 0;
-  position: absolute;
-  cursor: pointer;
-  width: inherit;
-  height: inherit;
+  .img-input {
+    cursor: pointer;
+  }
+  #img {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    width: inherit;
+    height: inherit;
+  }
 }
 </style>

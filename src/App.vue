@@ -203,7 +203,7 @@
       <div class="absolute bg-white shadow-sm border mt-2 mr-2">
         <ul class="mx-4 p-0" @click="mostrarnav = !mostrarnav">
           <li class="mb-2">
-            <router-link to="/explorar" class="title text-black">
+            <router-link :to="'/usuario/' + user.Id" class="title text-black">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 mr-2"
@@ -215,12 +215,35 @@
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
-              Explorar
+              Perfil
             </router-link>
           </li>
+          <li class="mb-2">
+            <router-link
+              :to="'/usuario/' + user.Id + '/mensajes'"
+              class="title text-black"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                />
+              </svg>
+              Mensajes
+            </router-link>
+          </li>
+          <hr />
           <li class="mb-2">
             <router-link to="/crear-proyecto" class="title text-black">
               <svg
@@ -278,47 +301,7 @@
               Proyectos Valorados
             </router-link>
           </li>
-          <li class="mb-2">
-            <router-link
-              :to="'/usuario/' + user.Id + '/mensajes'"
-              class="title text-black"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-              </svg>
-              Mensajes
-            </router-link>
-          </li>
-          <li class="mb-2">
-            <router-link :to="'/usuario/' + user.Id" class="title text-black">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 mr-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Perfil
-            </router-link>
-          </li>
+          <hr />
           <li>
             <a @click="logout" class="title text-black logout">
               <svg
