@@ -109,3 +109,22 @@
     background: rgb(26, 115, 232);
     border: 1px solid transparent;
 }
+
+.image-preview{
+    width: 250px;
+    height: 250px;
+    display: block;
+    cursor: pointer;
+    margin: 0 auto 30px;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Proyect-Content{
+    background: lightcyan;
+    border: 1px solid black;
+    color: dimgray;
+}
+::-webkit-scrollbar {
+    width: 10px;
+  }

@@ -3,7 +3,12 @@
     <div class="profile-container max-w-xl p-5 align-center justify-between">
       <div class="flex">
         <div class="inline-flex">
-          <div class="rounded-circle h-10 w-10 bg-black"></div>
+          <img
+            v-if="perfil.ImgPerfil"
+            class="rounded-circle h-10 w-10"
+            :src="'data:image/jpg;base64,' + perfil.ImgPerfil"
+          />
+          <img v-else class="rounded-circle h-10 w-10" src="/user.svg" />
         </div>
         <div class="inline-flex align-center ml-3">
           <div>
@@ -101,9 +106,6 @@
         </button>
       </div>
     </div>
-    <router-link :to="'/usuario/' + user.Id + '/mensajes'">
-      Mensajes
-    </router-link>
     <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
       <span v-if="perfil.Seguidores" class="mr-2 pill"
         >Seguidores: {{ perfil.Seguidores.length }}</span
@@ -212,6 +214,7 @@ export default {
 }
 .sub-profile {
   border-top: none;
+  line-height: 1.5;
 }
 .pill {
   padding-top: 3px;

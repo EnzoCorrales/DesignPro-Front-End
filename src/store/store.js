@@ -36,13 +36,6 @@ export const store = new Vuex.Store({
   },
   // Permiten modificar los datos del store
   mutations: {
-    registrarStateUsuario: (state, data) => {
-      state.user.nombre = data.Nombre;
-      state.user.apellido = data.Apellido;
-      state.user.correo = data.Correo;
-      state.user.fNac = data.FNac;
-      state.user.pais = data.Pais;
-    },
     cargarStateUsuario: (state, data) => {
       state.user.nombre = data.Nombre;
       state.user.apellido = data.Apellido;
@@ -57,12 +50,8 @@ export const store = new Vuex.Store({
       state.user.descripcion = data.Descripcion;
     },
     setUserInfo(state, user) {
-      //console.log("DataSetUser: ");
-      //console.log(userData);
       sessionStorage.setItem("user", JSON.stringify(user));
       state.user = user;
-      //console.log("User: ");
-      //console.log(JSON.parse(sessionStorage.getItem("user")));
     },
     removeUser(state) {
       sessionStorage.removeItem("user");
@@ -90,9 +79,9 @@ export const store = new Vuex.Store({
           .then((res) => {
             const token = res.data.Token;
             const user = res.data.Usuario;
-            //console.log(res.data);
-            //console.log(token);
-            axios.defaults.headers.common["Authorization"] = token;
+            axios.defaults.headers.common = {
+              Authorization: `Bearer ${token}`,
+            };
             commit("setToken", token);
             commit("setUserInfo", user);
             resolve(res);
@@ -115,7 +104,7 @@ export const store = new Vuex.Store({
             sessionStorage.setItem("token", token);
             axios.defaults.headers.common["Authorization"] = token;
             commit("setToken", token);
-            commit("registrarStateUsuario", user);
+            commit("setUserInfo", user);
             resolve(res);
           })
           .catch((e) => {

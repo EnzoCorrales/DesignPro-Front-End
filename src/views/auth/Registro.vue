@@ -161,6 +161,9 @@ export default {
       if (this.form.password !== this.form.password_repeat)
         this.error = "Las contraseñas no coinciden!";
 
+      let aux = this.form.fNac.split("-");
+      this.form.fNac = aux[2] + "-" + aux[1] + "-" + aux[0];
+
       this.$store
         .dispatch("register", this.form)
         .then(() => {

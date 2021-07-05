@@ -76,7 +76,6 @@ export default {
       this.$store
         .dispatch("login", this.form)
         .then(() => {
-          console.log(this.$store.state.user);
           this.$router.push({ path: "/home" });
         })
         .catch((e) => (this.error = e));
