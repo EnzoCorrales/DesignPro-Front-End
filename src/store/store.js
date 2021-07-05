@@ -68,6 +68,9 @@ export const store = new Vuex.Store({
       sessionStorage.removeItem("user");
       state.user = {};
     },
+    seguir(state, idSeguido){
+      state.user.Siguiendo.push(idSeguido);
+    },
     // TOKEN ============
     setToken(state, token) {
       sessionStorage.setItem("token", token);
@@ -172,6 +175,14 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         mensaje
           .getAll(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    seguir: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .seguir(data)
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
       });
