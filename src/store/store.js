@@ -110,6 +110,12 @@ export const store = new Vuex.Store({
           });
       });
     },
+    setTokenOnLoad: () => {
+      let token = sessionStorage.getItem("token");
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${token}`,
+      };
+    },
     logout: ({ commit }) => {
       commit("removeToken");
       commit("removeUser");
@@ -139,10 +145,7 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         mensaje
           .send(data)
-          .then((res) => {
-            console.log(res.data);
-            resolve(res);
-          })
+          .then((res) => resolve(res))
           .catch((e) => reject(e.response.data.Message));
       });
     },

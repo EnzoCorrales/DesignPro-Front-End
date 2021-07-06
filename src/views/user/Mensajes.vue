@@ -68,6 +68,10 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    fecha() {
+      let fecha = this.user.FNac.split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+    },
   },
   mounted() {
     this.obtenerMensajes();

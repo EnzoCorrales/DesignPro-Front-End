@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
@@ -85,15 +86,16 @@ export default {
   },
   computed: {
     setFecha() {
-      let d = new Date();
-      return d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+      let fecha = moment()
+        .format("L")
+        .split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
     },
   },
   mounted() {
     this.form.Fecha = this.setFecha;
     this.form.IdUsuarioE = this.user.Id;
     this.form.IdUsuarioR = this.perfil.Id;
-    console.log(this.form);
   },
   methods: {
     async enviarMensaje() {

@@ -343,6 +343,14 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
+  mounted() {
+    if (this.isAuth) {
+      this.$store.dispatch("setTokenOnLoad");
+    }
   },
   methods: {
     login() {
