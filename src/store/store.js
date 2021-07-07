@@ -99,7 +99,9 @@ export const store = new Vuex.Store({
             //console.log(res.data);
             //console.log(token);
             sessionStorage.setItem("token", token);
-            axios.defaults.headers.common["Authorization"] = token;
+            axios.defaults.headers.common = {
+              Authorization: `Bearer ${token}`,
+            };
             commit("setToken", token);
             commit("setUserInfo", user);
             resolve(res);
