@@ -45,8 +45,8 @@
       </svg>
     </div>
     <div class="text-container ml-1">
-      <p class="m-0">- {{ msg.Fecha.split("T")[0] }}</p>
-      <span>{{ msg.Asunto }}</span>
+      <p class="m-0">- {{ auxMsg.Fecha }}</p>
+      <span>{{ auxMsg.Asunto }}</span>
     </div>
   </div>
 </template>
@@ -59,16 +59,25 @@ export default {
   data() {
     return {
       setVistoClass: false,
+      auxMsg: {},
     };
   },
+  mounted() {
+    this.auxMsg = this.msg;
+    this.auxMsg.Fecha = this.formatFecha(this.msg.Fecha);
+  },
   methods: {
+    formatFecha(f) {
+      let fecha = f.split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+    },
     emitMensaje(message) {
       this.$emit("setMensaje", message);
     },
     async setVisto(msg) {
       if (msg.Visto == 0) {
         await this.$store
-          .dispatch("setVisto", msg)
+          .dispatch("setVisto", this.auxMsg)
           .then(() => (this.setVistoClass = true))
           .catch((e) => console.log(e));
       }

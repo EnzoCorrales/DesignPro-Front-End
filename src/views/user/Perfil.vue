@@ -115,7 +115,7 @@
       <a
         v-if="perfil.UrlWeb"
         class="pill text-black url-web"
-        href="perfil.UrlWeb"
+        :href="perfil.UrlWeb"
         target="_blank"
       >
         Sitio:{{ perfil.UrlWeb }}
@@ -208,8 +208,11 @@ export default {
     display: block;
   }
   .sub-profile {
-    padding: 1rem 10px;
+    padding: 10px;
     justify-content: flex-start;
+  }
+  .pill {
+    display: block;
   }
 }
 .sub-profile {

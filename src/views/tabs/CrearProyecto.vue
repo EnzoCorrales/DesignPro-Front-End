@@ -3,25 +3,24 @@
     <!-- Contenido del Proyecto -->
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
     <h1 class="title text-center px-2">Upload Content</h1>
-    <form name="CrearProyecto ">
-    <div>
-      Add-Content
-    </div>
+    <form name="CrearProyecto " @submit.prevent="createProyect">
       <div
         class="text-center mx-12"
-        v-for="(input, k) in proyect.inputs"
+        v-for="(input, k) in proyect.Portafolios"
         :key="k"
+        id="AddText"
       >
         <vue-editor
           class="Proyect-Content my-3"
-          :id="'textarea ' + k"
-          v-model="input.name"
+          :id="'content ' + k"
+          v-model="input.Contenido"
           placeholder="Ingrese su texto aqui!"
-          v-if="mostrartext"
-          
         ></vue-editor>
         <span>
-          <i @click="remove(k)" v-show="k || (!k && proyect.inputs.length > 1)">
+          <i
+            @click="remove(k)"
+            v-show="k || (!k && proyect.Portafolios.length > 1)"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -37,7 +36,7 @@
               />
             </svg>
           </i>
-          <i @click="add(k)" v-show="k == proyect.inputs.length - 1"> 
+          <i @click="add()">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -55,23 +54,8 @@
           </i>
         </span>
       </div>
-      <!-- esta parte se puede eliminar hay que testear si el vue editor maneja bien las imagenes, asi usamos el mismo input para texto y imagenes -->
-     <div class="dropbox title mx-12" v-show="mostrartext">
-        <p>
-          Drag your file(s) here to begin<br />
-          or click to browse
-        </p>
-        <input
-          class="input-file"
-          ref="contenido"
-          @change="uploadContenido()"
-          type="file"
-          multiple
-        />
-      </div> 
-      <!-- </form> -->
       <!-- Informacion del Proyecto -->
-      <div class="justify-between proyect-info mb-0">
+      <div class="justify-between proyect-info mb-0 mx-12">
         <div class="left-side title">
           <p>Portada del Proyecto</p>
           <div class="dropbox">
@@ -80,10 +64,15 @@
               ref="portada"
               @change="onFileChange()"
               type="file"
+              required
             />
           </div>
-          <div class="image-preview" v-if="urlIMG.length > 0">
-            <img class="preview" :src="urlIMG" />
+          <div
+            class="image-preview"
+            v-if="proyect.Portada.length > 0"
+            id="isMobile"
+          >
+            <img class="preview" :src="proyect.Portada" />
           </div>
         </div>
         <div class="right-side title">
@@ -91,21 +80,17 @@
           <input
             type="text"
             placeholder="Titulo"
-            v-model="proyect.tituloProyecto"
+            v-model="proyect.Titulo"
+            required
           />
-
           <p>Etiquetas</p>
-          <input
-            type="text"
-            placeholder="Etiquetas"
-            v-model="proyect.etiquetasProyecto"
-          />
-
+          <input type="text" placeholder="Etiquetas" v-model="Etiquetas" />
           <p>Descripcion</p>
           <input
             type="text"
             placeholder="Descripción"
-            v-model="proyect.descripcionProyecto"
+            v-model="proyect.Descripcion"
+            required
           />
           <div class="categorias">
             <br />
@@ -114,50 +99,46 @@
               <li>
                 <input
                   value="Fotografia"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Fotografía
               </li>
               <li>
                 <input
                   value="Publicidad"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Publicidad
               </li>
               <li>
                 <input
                   value="Video"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Video
               </li>
               <li>
                 <input
                   value="Diseño Grafico"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Diseño Grafico
               </li>
               <li>
-                <input
-                  value="3D"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
-                />3D
+                <input value="3D" type="radio" v-model="proyect.Categoria" />3D
               </li>
               <li>
                 <input
                   value="Pintura"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Pintura
               </li>
               <li>
                 <input
                   value="Audio"
-                  type="checkbox"
-                  v-model="proyect.categoriasProyecto"
+                  type="radio"
+                  v-model="proyect.Categoria"
                 />Audio
               </li>
             </ul>
@@ -175,111 +156,91 @@
 </template>
 
 <script>
-import axios from "axios";
-
 import { VueEditor } from "vue2-editor";
-
+import moment from "moment";
 export default {
   components: {
-    VueEditor
+    VueEditor,
   },
   data() {
     return {
+      Etiquetas: "",
       proyect: {
-        tituloProyecto: "",
-        portadaProyecto: "",
-        idAutorProyecto: null,
-        visitasProyecto: null,
-        categoriasProyecto: [],
-        descripcionProyecto: "",
-        fechaProyecto: null,
-        comentariosProyecto: [],
-        etiquetasProyecto: "",
-        inputs: [{ name: "" }],
-        imagenesProyecto: [{}],
-        videosProyecto: [{}],
-        contenidoProyecto: [],
+        Titulo: "",
+        Portada: {},
+        Visitas: 0,
+        Categoria: "",
+        Descripcion: "",
+        FechaPub: null,
+        Tags: [],
+        Portafolios: [{}],
       },
-      mostrartext: false,
-      urlIMG: "",
-      file: "",
-      content: {
-        ops: [],
-      },
+      img: "",
     };
   },
-
-  methods: {
-    uploadContenido() {
-      const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-      const validVideoTypes= ['video/mp4', 'video/mkv'];
-      console.log("Contenido del proyecto es");
-      for(let i=0;i < this.$refs.contenido.files.length;i++){
-        console.log( this.$refs.contenido.files[i]);
-        this.proyect.contenidoProyecto.push(this.$refs.contenido.files[i]);
-      }
-      for(let i=0;i < this.proyect.contenidoProyecto.length ;i++){
-          const  fileType = this.proyect.contenidoProyecto[i]['type'];
-          if (validImageTypes.includes(fileType)) {
-              console.log("Contenido del IMAGENES es");
-              console.log(this.$refs.contenido.files[i]);
-              this.proyect.imagenesProyecto.push(this.proyect.contenidoProyecto[i]);
-          }
-          if (validVideoTypes.includes(fileType)) {
-              console.log("Contenido de VIDEOS es");
-              console.log(this.$refs.contenido.files[i]);
-              this.proyect.videosProyecto.push(this.proyect.contenidoProyecto[i]);
-          }
-      }
-
+  computed: {
+    user: function() {
+      return this.$store.state.user;
     },
-
+    setFecha() {
+      let fecha = moment()
+        .format("L")
+        .split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+    },
+  },
+  methods: {
     onFileChange() {
-      this.proyect.portadaProyecto = this.$refs.portada.files[0];
+      this.img = this.$refs.portada.files[0];
       var reader = new FileReader();
       reader.onload = (e) => {
-        this.urlIMG = e.target.result;
+        this.proyect.Portada = e.target.result;
       };
-      reader.readAsDataURL(this.proyect.portadaProyecto);
-      console.log(this.proyect.portadaProyecto);
+      reader.readAsDataURL(this.img);
     },
-
     createProyect() {
-      const current = new Date();
-      this.proyect.fechaProyecto = `${current.getDate()}/${
-        current.getMonth() + 1
-      }/${current.getFullYear()}`;
-    },
-    handleFileUpload() {
-      this.file = this.$refs.file.files[0];
-    },
-    submitFile() {
-      let formData = new formData();
-      formData.append("file", this.file);
-      axios
-        .post("/single-file", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      let array = this.Etiquetas.split(/[,#+_" "]/);
+      array.forEach((input) => {
+        console.log("Contenido " + input);
+        this.proyect.Tags.push({ Tag: input });
+      });
+      this.proyect.FechaPub = this.setFecha;
+      this.proyect.IdAutor = this.user.Id;
+      this.$store
+        .dispatch("createProyect", this.proyect)
+        .then(() => {
+          this.$router.push({ path: "/crear-proyecto" });
         })
-        .then(function () {
-          console.log("SUCCESS!!");
-        })
-        .catch(function () {
-          console.log("FAILURE!!");
-        });
+        .catch((e) => (this.error = e));
     },
     add() {
-      this.mostrartext = true;
-      this.proyect.inputs.push({ name: "" });
+      this.proyect.Portafolios.push({});
     },
     remove(index) {
-      this.proyect.inputs.splice(index, 1);
-      if(this.proyect.inputs.length==0)
-      this.mostrartext= false;
+      this.proyect.Portafolios.splice(index, 1);
     },
   },
 };
 </script>
+
 <style lang="scss">
+@media (max-width: 768px) {
+  #isMobile {
+    display: none;
+  }
+  .proyect-info {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: auto;
+    margin-left: 5%;
+    outline: 2px grey;
+    background: lightcyan;
+    color: dimgray;
+    text-align: center;
+  }
+  #AddText {
+    margin: auto;
+    margin-left: 5%;
+  }
+}
 </style>

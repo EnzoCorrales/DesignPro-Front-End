@@ -6,14 +6,9 @@
         <form @submit.prevent="modificarUsuario" enctype="multipart/form-data">
           <div class="mt-2 mb-3 flex justify-center align-center">
             <img
-              v-if="img != null && img == form.ImgPerfil"
-              :src="'data:image/jpg;base64,' + img"
+              v-if="form.ImgPerfil"
+              :src="'data:image/jpg;base64,' + form.ImgPerfil"
               class="h-8 w-8 mr-2 rounded-circle bg-white img-input"
-            />
-            <img
-              v-else
-              :src="img"
-              class="h-8 w-8 mr-2 rounded-circle bg-black img-input"
             />
             <input
               type="file"
@@ -236,16 +231,15 @@ export default {
         Nombre: "",
         Apellido: "",
         Correo: "",
-        FNac: "05/06/2020",
+        FNac: "",
         Pais: "",
         Profesion: "",
         Empresa: "",
-        ImgPerfil: null,
+        ImgPerfil: "",
         UrlWeb: "",
         Descripcion: "",
         Password: "",
       },
-      img: null,
       error: "",
     };
   },
@@ -254,8 +248,8 @@ export default {
       return this.$store.state.user;
     },
     fechaNac() {
-      let fecha = this.user.FNac.split("T");
-      return fecha[0];
+      let fecha = this.user.FNac.split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
     },
   },
   mounted() {
@@ -268,18 +262,21 @@ export default {
     this.form.UrlWeb = this.user.UrlWeb;
     this.form.Pais = this.user.Pais;
     this.form.Ciudad = this.user.Ciudad;
-    //this.form.FNac = this.fechaNac;
-    if (this.user.ImgPerfil != null)
-      this.form.ImgPerfil = this.img = this.user.ImgPerfil;
+    this.form.FNac = this.fechaNac;
+    if (this.user.ImgPerfil != null && this.user.ImgPerfil != "")
+      this.form.ImgPerfil = this.user.ImgPerfil;
   },
   methods: {
     imgUploaded(e) {
-      this.img = URL.createObjectURL(e.target.files[0]); // ACTIVA LA PREVIEW DE LA IMAGEN SUBIDA
-      imageToBase64(this.img) // CONVIERTE A BASE 64
+      let img = URL.createObjectURL(e.target.files[0]); // ACTIVA LA PREVIEW DE LA IMAGEN SUBIDA
+      imageToBase64(img) // CONVIERTE A BASE 64
         .then((res) => (this.form.ImgPerfil = res))
         .catch((error) => console.log(error));
     },
     async modificarUsuario() {
+      console.log(this.form);
+      let fecha = this.form.FNac.split("-");
+      this.form.FNac = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
       if (this.form.Password == "") this.form.Password = this.user.Password;
       if (this.form.Correo == "") this.form.Correo = this.user.Correo;
       await this.$store
