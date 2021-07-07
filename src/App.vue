@@ -243,7 +243,7 @@ export default {
     };
   },
   computed: {
-    user() {
+    user: function() {
       return this.$store.state.user;
     },
   },

@@ -78,6 +78,7 @@
         <input
           v-model="form.fNac"
           type="date"
+          value="2000/01/01"
           name="fNac"
           class="input mt-2"
           placeholder="Fecha de Nacimiento"
@@ -160,7 +161,6 @@ export default {
     register() {
       if (this.form.password !== this.form.password_repeat)
         this.error = "Las contraseñas no coinciden!";
-
       this.$store
         .dispatch("register", this.form)
         .then(() => {

@@ -14,4 +14,8 @@ export default {
     Get(id){
         return axios.get(RUTA_API + `/Get?id=${id}`);
     },
+
+    Create(data){
+        return axios.post(RUTA_API + '/Create',data) ;
+    },
 }
