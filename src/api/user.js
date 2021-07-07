@@ -59,6 +59,6 @@ export default {
    * @param {request} data
    */
    noSeguir(data) {
-    return axios.put(RUTA_API + "/NoSeguir", data);
+    return axios.post(RUTA_API + "/NoSeguir", data);
   },
 };
