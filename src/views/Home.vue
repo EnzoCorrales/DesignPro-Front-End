@@ -9,7 +9,7 @@
         <img
           class="h-10 w-10"
           src="https://pbs.twimg.com/profile_images/947786051434766336/P2XB90Pb_400x400.jpg"
-        >
+        />
       </div>
       <br />
       <div class="justify-between flex px-3">
@@ -115,16 +115,20 @@
           <!-- Seccion Comentarios -->
           <br />
           <div class="w-full">
-            <textarea rows="10" cols="100">
-Aqui pondria mis comentarios... Si tuviera algunos!!!!</textarea
-            >
+            <textarea
+              rows="10"
+              cols="100"
+              placeholder="Aqui pondria mis comentarios... Si tuviera algunos!!!!"
+            ></textarea>
           </div>
           <!-- Tags del proyecto -->
           <br />
           <div class="w-full">
-            <textarea rows="10" cols="100">
-Aqui pondria mis tags... Si tuviera algunas!!!!</textarea
-            >
+            <textarea
+              rows="10"
+              cols="100"
+              placeholder="Aqui pondria mis tags... Si tuviera algunas!!!!"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -153,9 +157,7 @@ export default {
   },
   mounted() {
     this.getall();
-
   },
-
   methods: {
     logout() {
       this.$store.dispatch("logout");
