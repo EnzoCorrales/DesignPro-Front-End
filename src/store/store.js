@@ -91,15 +91,6 @@ export const store = new Vuex.Store({
           });
       });
     },
-
-    createProyect: (context, data) => {
-      return new Promise((resolve, reject) => {
-        proyect.Create(data)
-        .then((res) => resolve(res.data))
-        .catch((e) => reject(e.response.data.Message));
-      }); 
-    },
-
     register: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
         user
@@ -175,6 +166,14 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         mensaje
           .getAll(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    createProyect: (context, data) => {
+      return new Promise((resolve, reject) => {
+        proyect
+          .Create(data)
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
       });

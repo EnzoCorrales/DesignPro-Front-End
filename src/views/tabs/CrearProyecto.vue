@@ -84,11 +84,7 @@
             required
           />
           <p>Etiquetas</p>
-          <input
-            type="text"
-            placeholder="Etiquetas"
-            v-model="Etiquetas"
-          />
+          <input type="text" placeholder="Etiquetas" v-model="Etiquetas" />
           <p>Descripcion</p>
           <input
             type="text"
@@ -129,11 +125,7 @@
                 />Diseño Grafico
               </li>
               <li>
-                <input
-                  value="3D"
-                  type="radio"
-                  v-model="proyect.Categoria"
-                />3D
+                <input value="3D" type="radio" v-model="proyect.Categoria" />3D
               </li>
               <li>
                 <input
@@ -165,7 +157,7 @@
 
 <script>
 import { VueEditor } from "vue2-editor";
-
+import moment from "moment";
 export default {
   components: {
     VueEditor,
@@ -180,18 +172,23 @@ export default {
         Categoria: "",
         Descripcion: "",
         FechaPub: null,
-        Tags: [ ],
+        Tags: [],
         Portafolios: [{}],
       },
       img: "",
     };
   },
   computed: {
-    user: function () {
+    user: function() {
       return this.$store.state.user;
     },
+    setFecha() {
+      let fecha = moment()
+        .format("L")
+        .split("/");
+      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+    },
   },
-
   methods: {
     onFileChange() {
       this.img = this.$refs.portada.files[0];
@@ -199,20 +196,15 @@ export default {
       reader.onload = (e) => {
         this.proyect.Portada = e.target.result;
       };
-    reader.readAsDataURL(this.img);
-
+      reader.readAsDataURL(this.img);
     },
-
     createProyect() {
-      const current = new Date();
       let array = this.Etiquetas.split(/[,#+_" "]/);
-      array.forEach(input => {
-        console.log("Contenido "+ input)
-        this.proyect.Tags.push({Tag: input})
+      array.forEach((input) => {
+        console.log("Contenido " + input);
+        this.proyect.Tags.push({ Tag: input });
       });
-      this.proyect.FechaPub = `${current.getDate()}/${
-        current.getMonth() + 1
-      }/${current.getFullYear()}`;
+      this.proyect.FechaPub = this.setFecha;
       this.proyect.IdAutor = this.user.Id;
       this.$store
         .dispatch("createProyect", this.proyect)
@@ -221,11 +213,9 @@ export default {
         })
         .catch((e) => (this.error = e));
     },
-
     add() {
       this.proyect.Portafolios.push({});
     },
-
     remove(index) {
       this.proyect.Portafolios.splice(index, 1);
     },
