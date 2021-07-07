@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
+import proyect from "@/api/proyecto";
 import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
@@ -37,6 +38,7 @@ export const store = new Vuex.Store({
   // Permiten modificar los datos del store
   mutations: {
     cargarStateUsuario: (state, data) => {
+      state.user.id = data.id;
       state.user.nombre = data.Nombre;
       state.user.apellido = data.Apellido;
       state.user.correo = data.Correo;
@@ -89,6 +91,15 @@ export const store = new Vuex.Store({
           });
       });
     },
+
+    createProyect: (context, data) => {
+      return new Promise((resolve, reject) => {
+        proyect.Create(data)
+        .then((res) => resolve(res.data))
+        .catch((e) => reject(e.response.data.Message));
+      }); 
+    },
+
     register: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
         user
@@ -96,8 +107,6 @@ export const store = new Vuex.Store({
           .then((res) => {
             const token = res.data.Token;
             const user = res.data.Usuario;
-            //console.log(res.data);
-            //console.log(token);
             sessionStorage.setItem("token", token);
             axios.defaults.headers.common = {
               Authorization: `Bearer ${token}`,
