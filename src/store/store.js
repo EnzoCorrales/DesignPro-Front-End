@@ -59,6 +59,9 @@ export const store = new Vuex.Store({
       sessionStorage.removeItem("user");
       state.user = {};
     },
+    seguir(state, idSeguido) {
+      state.user.Siguiendo.push(idSeguido);
+    },
     // TOKEN ============
     setToken(state, token) {
       sessionStorage.setItem("token", token);

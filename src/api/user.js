@@ -45,4 +45,20 @@ export default {
   delete(id, data) {
     return axios.delete(RUTA_API + `/${id}`, data);
   },
+  /**
+   * Seguir a otro usuario
+   * @param {int} id
+   * @param {request} data
+   */
+  seguir(data) {
+    return axios.put(RUTA_API + "/Seguir", data);
+  },
+  /**
+   * Dejar de seguir a otro usuario
+   * @param {int} id
+   * @param {request} data
+   */
+   noSeguir(data) {
+    return axios.put(RUTA_API + "/NoSeguir", data);
+  },
 };
