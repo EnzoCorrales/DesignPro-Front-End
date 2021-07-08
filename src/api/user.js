@@ -51,14 +51,14 @@ export default {
    * @param {request} data
    */
   seguir(data) {
-    return axios.put(RUTA_API + "/Seguir", data);
+    return axios.post(RUTA_API + "/Seguir", data);
   },
   /**
    * Dejar de seguir a otro usuario
    * @param {int} id
    * @param {request} data
    */
-   noSeguir(data) {
-    return axios.put(RUTA_API + "/NoSeguir", data);
+   dejarDeSeguir(data) {
+    return axios.post(RUTA_API + "/DejarDeSeguir", data);
   },
 };

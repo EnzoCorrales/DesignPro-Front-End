@@ -202,5 +202,14 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    // SEGUIMIENTO ===============
+    dejarDeSeguir: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .dejarDeSeguir(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
   },
 });

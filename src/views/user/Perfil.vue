@@ -40,10 +40,32 @@
           </svg>
         </button>
         <button
+        v-if="!siguiendo"
           class="btn btn-blue btn-follow ml-2 flex align-center"
           @click="seguir"
         >
           <span class="sm-none mr-2">Seguir</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
+        </button>
+        <button
+        v-else
+          class="btn btn-blue btn-follow ml-2 flex align-center"
+          @click="dejarDeSeguir"
+        >
+          <span class="sm-none mr-2">Dejar de seguir</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
@@ -140,6 +162,11 @@ export default {
   data() {
     return {
       perfil: {},
+      form: {
+        IdUsuario: "",
+        IdSeguidor: "",
+      },
+      siguiendo: false,
       showMensajeModal: false,
     };
   },
@@ -164,11 +191,22 @@ export default {
         .then((res) => (this.perfil = res))
         .catch(() => this.$router.push({ path: "/home" }));
     },
-    seguir() {
+     async seguir() {
       if (!this.auth) this.$router.push({ path: "/login" });
       else {
-        return this.auth;
+        this.form.IdSeguidor = this.user.Id;
+        this.form.IdUsuario = this.perfil.Id;
+        await this.$store
+        .dispatch("seguir", this.form)
+        .then(() => (this.siguiendo = true))
+        .catch(() => this.$router.push({ path: "/home" }));
       }
+    },
+    async dejarDeSeguir() {
+      await this.$store
+        .dispatch("dejarDeSeguir", this.form)
+        .then(() => (this.siguiendo = false))
+        .catch(() => this.$router.push({ path: "/home" }));
     },
     enviarMensaje() {
       if (!this.auth) this.$router.push({ path: "/login" });
