@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
-import proyect from "@/api/proyecto";
+//import proyect from "@/api/proyecto";
 import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
@@ -173,14 +173,24 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
-    createProyect: (context, data) => {
-      return new Promise((resolve, reject) => {
-        proyect
-          .Create(data)
+    // createProyect: (context, data) => {
+    //   return new Promise((resolve, reject) => {
+    //     proyect
+    //       .Create(data);
+    //     });
+    //   },
     seguir: (context, data) => {
       return new Promise((resolve, reject) => {
         user
           .seguir(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    dejarDeSeguir: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .dejarDeSeguir(data)
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
       });
