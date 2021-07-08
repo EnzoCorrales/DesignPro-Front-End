@@ -143,6 +143,7 @@
         Sitio:{{ perfil.UrlWeb }}
       </a>
     </div>
+    <Proyectos :id="$route.params.id"></Proyectos>
     <MensajeTab
       v-if="showMensajeModal"
       :perfil="perfil"
@@ -156,6 +157,7 @@
 export default {
   components: {
     MensajeTab: () => import("@/components/Mensajes/EnviarMensaje"),
+    Proyectos: () => import("@/components/proyectos/Proyectos"),
   },
   data() {
     return {
@@ -179,12 +181,12 @@ export default {
       return this.user.Id == this.$route.params.id ? true : false;
     },
   },
-  async mounted() {
-    await this.getperfil();
+  created() {
+    this.getPerfil();
   },
   methods: {
-    async getperfil() {
-      await this.$store
+    getPerfil() {
+      this.$store
         .dispatch("getUser", this.$route.params.id)
         .then((res) => (this.perfil = res))
         .catch(() => this.$router.push({ path: "/home" }));
@@ -208,7 +210,6 @@ export default {
     },
     enviarMensaje() {
       if (!this.auth) this.$router.push({ path: "/login" });
-
       this.showMensajeModal = true;
     },
     logout() {

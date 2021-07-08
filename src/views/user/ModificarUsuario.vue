@@ -67,17 +67,6 @@
             </div>
           </div>
           <div class="mb-2">
-            <label for="correo">Correo Electrónico</label>
-            <input
-              v-model="form.Correo"
-              class="input mt-2 block"
-              type="email"
-              name="correo"
-              maxlength="100"
-              :placeholder="user.Correo"
-            />
-          </div>
-          <div class="mb-2">
             <label for="descripcion">Describe tu perfil</label>
             <textarea
               v-model="form.Descripcion"
@@ -111,17 +100,6 @@
                 placeholder="En donde trabajas?"
               />
             </div>
-          </div>
-          <div class="mb-2">
-            <label for="fNac">Fecha de nacimiento</label>
-            <input
-              v-model="form.FNac"
-              class="input mt-2"
-              type="date"
-              pattern="\d{1,2}/\d{1,2}/\d{4}"
-              name="fNac"
-              required
-            />
           </div>
           <div class="mb-2">
             <label for="url">URL</label>
@@ -247,10 +225,6 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    fechaNac() {
-      let fecha = this.user.FNac.split("/");
-      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
-    },
   },
   mounted() {
     this.form.Id = this.user.Id;
@@ -262,7 +236,7 @@ export default {
     this.form.UrlWeb = this.user.UrlWeb;
     this.form.Pais = this.user.Pais;
     this.form.Ciudad = this.user.Ciudad;
-    this.form.FNac = this.fechaNac;
+    this.form.FNac = this.user.FNac;
     if (this.user.ImgPerfil != null && this.user.ImgPerfil != "")
       this.form.ImgPerfil = this.user.ImgPerfil;
   },
@@ -274,9 +248,6 @@ export default {
         .catch((error) => console.log(error));
     },
     async modificarUsuario() {
-      console.log(this.form);
-      let fecha = this.form.FNac.split("-");
-      this.form.FNac = fecha[2] + "-" + fecha[1] + "-" + fecha[0];
       if (this.form.Password == "") this.form.Password = this.user.Password;
       if (this.form.Correo == "") this.form.Correo = this.user.Correo;
       await this.$store
