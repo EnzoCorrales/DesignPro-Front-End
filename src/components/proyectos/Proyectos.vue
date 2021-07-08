@@ -1,0 +1,79 @@
+<template>
+  <div class="proyect-container max-w-xl">
+    <div v-if="proyectos.length" class="grid col-rows-5 gap-3">
+      <Proyecto v-for="(proy, i) in proyectos" :key="i" :proy="proy" />
+    </div>
+    <div
+      v-else
+      class="max-w-lg flex dir-col mx-auto justify-center align-center mt-10"
+    >
+      <h3 class="title m-0 pill">No hay ningún proyecto publicado!</h3>
+      <router-link v-if="auth" class="link mt-4" to="/crear-proyecto">
+        Agrega un proyecto nuevo
+      </router-link>
+    </div>
+    <Modal v-if="showProyectoModal" :proyecto="proyecto" />
+  </div>
+</template>
+
+<script>
+export default {
+  components: {
+    Proyecto: () => import("@/components/proyectos/Proyecto"),
+    Modal: () => import("@/components/proyectos/Modal"),
+  },
+  props: {
+    id: { type: String, default: null },
+  },
+  data() {
+    return {
+      proyectos: {},
+      showProyectoModal: false,
+      proyecto: {},
+    };
+  },
+  computed: {
+    auth() {
+      return this.$store.getters.isAuth;
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
+  mounted() {
+    // Si esta viendo el perfil de alguien, carga sus proyectos
+    if (this.id != null) this.getProyectosUsuario();
+    else this.getAllProyectos();
+  },
+  methods: {
+    // Carga los proyectos de un usuario
+    getProyectosUsuario() {
+      this.$store
+        .dispatch("getProyectosUsuario", this.id)
+        .then((res) => (this.proyectos = res))
+        .catch((e) => console.log(e));
+    },
+    // Carga todos los proyectos
+    getAllProyectos() {
+      this.$store
+        .dispatch("getAllProyectos")
+        .then((res) => (this.proyectos = res))
+        .catch((e) => console.log(e));
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+.proyect-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+}
+@media (max-width: 640px) {
+  .proyect-container {
+    margin: 2rem 0;
+  }
+}
+</style>

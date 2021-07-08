@@ -64,7 +64,7 @@ export default {
   },
   mounted() {
     this.auxMsg = this.msg;
-    this.auxMsg.Fecha = this.formatFecha(this.msg.Fecha);
+    //this.auxMsg.Fecha = this.formatFecha(this.msg.Fecha);
   },
   methods: {
     formatFecha(f) {
