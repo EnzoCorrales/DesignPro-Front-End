@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
-import proyect from "@/api/proyecto";
+import proyecto from "@/api/proyecto";
 import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
@@ -59,6 +59,9 @@ export const store = new Vuex.Store({
       sessionStorage.removeItem("user");
       state.user = {};
     },
+    seguir(state, idSeguido) {
+      state.user.Siguiendo.push(idSeguido);
+    },
     // TOKEN ============
     setToken(state, token) {
       sessionStorage.setItem("token", token);
@@ -71,6 +74,7 @@ export const store = new Vuex.Store({
   },
   // Donde se conecta a la BD y se realizan las mutaciones de los state
   actions: {
+    // USUARIO ===============
     login: ({ commit }, data) => {
       return new Promise((resolve, reject) => {
         user
@@ -143,6 +147,7 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    // MENSAJES ===============
     enviarMensaje: (context, data) => {
       return new Promise((resolve, reject) => {
         mensaje
@@ -170,10 +175,29 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    // PROYECTOS ===============
     createProyect: (context, data) => {
       return new Promise((resolve, reject) => {
-        proyect
-          .Create(data)
+        proyecto
+          .create(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getProyectosUsuario: (context, id) => {
+      console.log(id);
+      return new Promise((resolve, reject) => {
+        proyecto
+          .allFromUser(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getAllProyectos: () => {
+      console.log("coso");
+      return new Promise((resolve, reject) => {
+        proyecto
+          .getAll()
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
       });
