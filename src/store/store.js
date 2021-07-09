@@ -194,7 +194,6 @@ export const store = new Vuex.Store({
       });
     },
     getAllProyectos: () => {
-      console.log("coso");
       return new Promise((resolve, reject) => {
         proyecto
           .getAll()

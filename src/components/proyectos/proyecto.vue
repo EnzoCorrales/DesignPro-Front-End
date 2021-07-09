@@ -1,11 +1,11 @@
 <template>
   <div class="border shadow-sm card">
-    <div class="img-container">
+    <div class="img-container" @click="ShowOverlay()">
       <img v-if="proy.Portada" class="" :src="proy.Portada" />
     </div>
     <div class="body-container">
       <div class="flex justify-start">
-        <p class="title text-black" @click="mostrarOverlay(proy.Id)">
+        <p class="title text-black">
           {{ proy.Titulo }}
         </p>
       </div>
@@ -61,12 +61,18 @@ export default {
   props: {
     proy: { type: Object },
   },
+  methods: {
+    ShowOverlay() {
+      this.$emit("showOverlay",this.proy);
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .card {
-  max-height: auto;
+  height: auto;
+  width: 400px;
   text-overflow: hidden;
   cursor: pointer;
   &:hover {
@@ -74,8 +80,10 @@ export default {
   }
   .img-container {
     img {
-      min-width: 100%;
-      max-height: 250px;
+      height: 180px;
+      max-height: 180px;
+      width: 100%;
+      display: block;
     }
   }
   .body-container {
