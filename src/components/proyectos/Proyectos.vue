@@ -1,7 +1,7 @@
 <template>
   <div class="proyect-container max-w-xl">
     <div v-if="proyectos.length" class="grid col-rows-5 gap-3">
-      <Proyecto v-for="(proy, i) in proyectos" :key="i" :proy="proy" />
+      <Proyecto v-for="(proy, i) in proyectos" :key="i" :proy="proy" @showOverlay="ShowOverlay"/>
     </div>
     <div
       v-else
@@ -12,7 +12,7 @@
         Agrega un proyecto nuevo
       </router-link>
     </div>
-    <Modal v-if="showProyectoModal" :proyecto="proyecto" />
+    <Modal v-if="showProyectoModal" :proyect="proyecto" :user="user"  @close="close"/>
   </div>
 </template>
 
@@ -70,6 +70,14 @@ export default {
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },
+    ShowOverlay(proy){
+      console.log(proy)
+      this.showProyectoModal = !this.showProyectoModal;
+      this.proyecto = proy;
+    },
+    close(){
+      this.showProyectoModal = false;
+    }
   },
 };
 </script>

@@ -28,7 +28,7 @@
             <div>
               <router-link
                 id="Logo"
-                to="/"
+                to="/Home"
                 v-show="!mostrarsb"
                 class="title text-black fw-bold"
               >
