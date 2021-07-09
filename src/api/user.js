@@ -58,7 +58,14 @@ export default {
    * @param {int} id
    * @param {request} data
    */
-   dejarDeSeguir(data) {
+  dejarDeSeguir(data) {
     return axios.post(RUTA_API + "/DejarDeSeguir", data);
+  },
+  /**
+   * Obtiene todos los seguidos por ese usuario
+   * @param {int} id
+   */
+  getAllSiguiendo(id) {
+    return axios.get(RUTA_API + `/GetAllSiguiendo?id=${id}`);
   },
 };
