@@ -77,18 +77,16 @@
               </p>
             </div>
           </div>
-          <div id="info-propietario">
-            <!-- AUTOR -->
-            <div class="autor-info ma text-center">
-              <p class="mx-2">
-                Usuario:
-                <router-link :to="'/usuario/' + proyect.IdAutor">{{
-                  proyect.NombreAutor
-                }}</router-link
-                ><br />
-                Localidad {{ proyect.UbicacionAutor }}
-              </p>
-            </div>
+          <!-- AUTOR -->
+          <div class="autor-info ma text-center">
+            <p class="mx-2">
+              Usuario:
+              <router-link :to="'/usuario/' + proyect.IdAutor">{{
+                proyect.NombreAutor
+              }}</router-link
+              ><br />
+              Localidad {{ proyect.UbicacionAutor }}
+            </p>
           </div>
         </div>
       </div>
@@ -155,13 +153,10 @@
       </div>
       <!-- TAGS -->
       <div class="tags">
-        <div class="text-center pb-4">
-          <h1>Tags</h1>
-          <div v-for="(Eti, e) in proyect.Tags" :key="e">
-            <div class="etiqueta">
-              <p>{{ Eti.Tag }}</p>
-            </div>
-          </div>
+        <div class="tag">
+          <p v-for="(Eti, e) in proyect.Tags" :key="e">
+            #<b>{{ Eti.Tag }}</b>
+          </p>
         </div>
       </div>
     </div>
@@ -220,13 +215,12 @@ export default {
     }
   }
   .contenido-proyecto {
-    width: 80%;
     height: auto;
     &::v-deep.contenido {
       p {
         img {
-          width: auto;
-          max-width: 400px;
+          width: 200px;
+          max-width: 200px;
           min-width: 200px;
           height: auto;
         }
@@ -239,6 +233,22 @@ export default {
     padding: 2rem 3rem;
   }
   .tags {
+    margin-top: 3rem;
+    background-color: white;
+    text-align: left;
+    margin-bottom: 3rem;
+    padding: 5px;
+  }
+  .tag {
+    display: flex;
+    margin-left: 5px;
+    p {
+      background-color: whitesmoke;
+      border-radius: 10px;
+      border: solid 0.5px black;
+      padding-right: 5px;
+      margin-right: 10px;
+    }
   }
 }
 </style>
