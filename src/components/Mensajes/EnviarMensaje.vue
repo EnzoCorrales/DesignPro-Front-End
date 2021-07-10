@@ -105,7 +105,7 @@ export default {
         .catch((e) => console.log(e));
     },
     close() {
-      this.$emit("close", false);
+      this.$emit("close");
     },
   },
 };

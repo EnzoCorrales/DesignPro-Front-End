@@ -40,6 +40,7 @@
           </svg>
         </button>
         <button
+          v-if="!siguiendo"
           class="btn btn-blue btn-follow ml-2 flex align-center"
           @click="seguir"
         >
@@ -56,6 +57,27 @@
               stroke-linejoin="round"
               stroke-width="2"
               d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+            />
+          </svg>
+        </button>
+        <button
+          v-else
+          class="btn btn-unfollow ml-2 flex align-center"
+          @click="dejarDeSeguir"
+        >
+          <span class="sm-none mr-2">Dejar de seguir</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7a4 4 0 11-8 0 4 4 0 018 0zM9 14a6 6 0 00-6 6v1h12v-1a6 6 0 00-6-6zM21 12h-6"
             />
           </svg>
         </button>
@@ -106,12 +128,18 @@
         </button>
       </div>
     </div>
-    <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
+    <div
+      class="sub-profile align-center max-w-xl border px-5 py-3 ma cursor-default"
+    >
       <span v-if="perfil.Seguidores" class="mr-2 pill"
-        >Seguidores: {{ perfil.Seguidores.length }}</span
+        >Seguidores: {{ perfil.Seguidores }}</span
       >
-      <span class="mr-2 pill">Cantidad de visitas: N</span>
-      <span class="mr-2 pill">Valoraciones: K</span>
+      <span v-if="perfil.Visitas" class="mr-2 pill"
+        >Cantidad de visitas: {{ perfil.Visitas }}</span
+      >
+      <span v-if="perfil.Likes" class="mr-2 pill"
+        >Valoraciones: {{ perfil.Likes }}</span
+      >
       <a
         v-if="perfil.UrlWeb"
         class="pill text-black url-web"
@@ -140,6 +168,11 @@ export default {
   data() {
     return {
       perfil: {},
+      form: {
+        IdUsuario: "",
+        IdSeguidor: "",
+      },
+      siguiendo: false,
       showMensajeModal: false,
     };
   },
@@ -154,22 +187,61 @@ export default {
       return this.user.Id == this.$route.params.id ? true : false;
     },
   },
-  created() {
+  mounted() {
     this.getPerfil();
+    this.verificarSiguiendo();
+    //await this.getAllSiguiendo();
+  },
+  watch: {
+    $route(to, from) {
+      if (to.params.id != from.params.id) {
+        this.getPerfil();
+        this.verificarSiguiendo();
+      }
+    },
   },
   methods: {
-    getPerfil() {
-      this.$store
+    async getPerfil() {
+      await this.$store
         .dispatch("getUser", this.$route.params.id)
         .then((res) => (this.perfil = res))
         .catch(() => this.$router.push({ path: "/home" }));
     },
-    seguir() {
+    async seguir() {
       if (!this.auth) this.$router.push({ path: "/login" });
       else {
-        return this.auth;
+        this.form.IdSeguidor = this.user.Id;
+        this.form.IdUsuario = this.perfil.Id;
+        await this.$store
+          .dispatch("seguir", this.form)
+          .then(() => (this.siguiendo = true))
+          .catch(() => this.$router.push({ path: "/home" }));
       }
     },
+    async dejarDeSeguir() {
+      this.form.IdSeguidor = this.user.Id;
+      this.form.IdUsuario = this.perfil.Id;
+      await this.$store
+        .dispatch("dejarDeSeguir", this.form)
+        .then(() => (this.siguiendo = false))
+        .catch((e) => console.log(e));
+    },
+    verificarSiguiendo() {
+      this.$store
+        .dispatch("getAllSiguiendo", this.user.Id)
+        .then((res) => {
+          res.map((u) => {
+            if (this.$route.params.id == u.Id) this.siguiendo = true;
+          });
+        })
+        .catch(() => this.$router.push({ path: "/home" }));
+    },
+    // async getAllSiguiendo() {
+    //   await this.$store
+    //     .dispatch("getAllSiguiendo", this.$route.params.id)
+    //     .then((res) => (this.listaSiguiendo = res))
+    //     .catch((e) => console.log(e));
+    // },
     enviarMensaje() {
       if (!this.auth) this.$router.push({ path: "/login" });
       this.showMensajeModal = true;
@@ -190,18 +262,22 @@ export default {
   background-color: #dae8fc;
 }
 .btn-msg {
-  background-color: rgb(122, 151, 238);
+  background-color: #3498db;
 }
 .btn-logout {
-  background-color: rgb(219, 0, 0);
+  background-color: #e74c3c;
   margin-left: 10px;
+}
+.btn-unfollow {
+  background-color: #e74c3c;
 }
 @media (max-width: 640px) {
   .profile-container {
     padding: 2rem 10px;
   }
   .btn-logout,
-  .btn-follow {
+  .btn-follow,
+  .btn-unfollow {
     margin-top: 5px;
     margin-left: 0;
   }

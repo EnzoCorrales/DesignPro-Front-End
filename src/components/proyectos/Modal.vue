@@ -1,18 +1,29 @@
 <template>
-  <div>
-    <div class="overlay pt-4">
-      <!-- Todo lo que se relaccion con mostrar el proyecto seleccionado -->
-      <!-- Boton de salida del overlay -->
-      <div class="title ml-8 mr-8 text-white flex justify-between">
-        <div>
-          <h1>
-            {{ proyect.Titulo }}
-          </h1>
-          <h4>
-            {{ proyect.NombreAutor }}
-          </h4>
+  <div class="overlay pt-4">
+    <div class="max-w-xl mx-auto">
+      <!-- CABECERA -->
+      <div class="title mb-3 flex justify-between">
+        <div class="flex justify-between">
+          <div class="inline-flex mr-3">
+            <img
+              v-if="proyect.ImgAutor"
+              class="rounded-circle h-8 w-8"
+              :src="'data:image/jpg;base64,' + proyect.ImgAutor"
+            />
+            <img v-else class="rounded-circle h-8 w-8" src="/user.svg" />
+          </div>
+          <div class="inline-flex text-white">
+            <div>
+              <h3 class="m-0">
+                {{ proyect.Titulo }}
+              </h3>
+              <h4 class="m-0">
+                {{ proyect.NombreAutor }}
+              </h4>
+            </div>
+          </div>
         </div>
-        <div class="close-button-container mt-3" @click="$emit('close')">
+        <div class="close-button-container" @click="$emit('close')">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 text-white"
@@ -29,17 +40,14 @@
           </svg>
         </div>
       </div>
-      <div class="proyect title justify-center p-5 ">
-        <!-- Contenido del proyecto -->
+      <!-- CONTENIDO -->
+      <div class="proyect title justify-center p-5">
         <div class="contenido-proyecto text-center flex dir-col ma">
           <div v-for="(proy, i) in proyect.Portafolios" :key="i">
             <div class="contenido" v-html="proy.Contenido"></div>
           </div>
         </div>
-
-        <!-- Info sobre el Proyecto -->
         <div id="info-proyecto text-center">
-          <!-- Datos del proyecto -->
           <div class="data-proyecto ma text-center">
             <h3>{{ proyect.Titulo }}</h3>
             <div class="justify-center flex w-full">
@@ -69,9 +77,8 @@
               </p>
             </div>
           </div>
-          <p class="ml-8"><b>Fecha Publicacion:</b> {{ proyect.FechaPub }}</p>
           <div id="info-propietario">
-            <!-- Datos del Autor -->
+            <!-- AUTOR -->
             <div class="autor-info ma text-center">
               <p class="mx-2">
                 Usuario:
@@ -83,46 +90,76 @@
               </p>
             </div>
           </div>
-          <!-- Agregar Comentario -->
-          <div class="flex ml-8 mt-4">
-          <img :src="'data:image/jpg;base64,' + userLog.ImgPerfil" />
-          <div id="agregar-comentario">
-            <form>
-              <textarea
-                v-model="form.comentario"
-                type="text"
-                name="contenido"
-                class="p-1"
-                placeholder="Agrega aqui tu comentario!"
-                rows="10"
-                cols="100"
-              />
-              <br />
-              <button
-                type="submit"
-                class="btn btn-green mt-3"
-                @click.prevent="comentar"
-              >
-                Enviar Comentario!
-              </button>
-            </form>
+        </div>
+      </div>
+      <!-- COMENTARIOS Y PROPIETARIO -->
+      <div class="comentarios">
+        <p class="mt-0 mb-4">
+          <b>Fecha Publicacion:</b> {{ proyect.FechaPub }}
+        </p>
+        <!-- DATA AUTOR -->
+        <div class="flex">
+          <div class="inline-flex">
+            <img
+              v-if="proyect.ImgAutor"
+              class="rounded-circle h-10 w-10"
+              :src="'data:image/jpg;base64,' + proyect.ImgAutor"
+            />
+            <img v-else class="rounded-circle h-10 w-10" src="/user.svg" />
           </div>
-          </div>
-          <!-- Seccion Comentarios -->
-          <br />
-          <div v-for="(com, c) in proyect.Comentarios" :key="c">
-            <div class="comentario">
-              <p>{{ com.Contenido }}</p>
+          <div class="inline-flex align-center ml-3">
+            <div>
+              <h2 class="mt-0 mb-2">{{ proyect.NombreAutor }}</h2>
+              <p class="mb-0">
+                {{ proyect.UbicacionAutor }}
+              </p>
             </div>
           </div>
-          <!-- Tags del proyecto -->
-          <br />
-          <div class="text-center pb-4">
-            <h1>Tags</h1>
-            <div v-for="(Eti, e) in proyect.Tags" :key="e">
-              <div class="etiqueta">
-                <p>{{ Eti.Tag }}</p>
-              </div>
+        </div>
+        <hr class="my-4" />
+        <!-- SECCION COMENTARIOS -->
+        <div class="flex">
+          <div class="mr-3">
+            <img
+              v-if="proyect.ImgAutor"
+              class="rounded-circle h-8 w-8"
+              :src="'data:image/jpg;base64,' + proyect.ImgAutor"
+            />
+            <img v-else class="rounded-circle h-8 w-8" src="/user.svg" />
+          </div>
+          <form @submit.prevent="comentar">
+            <textarea
+              v-model="form.comentario"
+              class="p-2"
+              type="text"
+              name="contenido"
+              placeholder="Agrega un comentario..."
+              rows="10"
+              cols="100"
+            />
+            <div class="flex justify-end">
+              <button type="submit" class="btn btn-green mt-2">
+                Comentar
+              </button>
+            </div>
+          </form>
+        </div>
+        <hr class="my-4" v-if="proyect.Comentarios.length" />
+        <div
+          v-for="(com, c) in proyect.Comentarios"
+          :key="c"
+          class="comentario"
+        >
+          <p>{{ com.Contenido }}</p>
+        </div>
+      </div>
+      <!-- TAGS -->
+      <div class="tags">
+        <div class="text-center pb-4">
+          <h1>Tags</h1>
+          <div v-for="(Eti, e) in proyect.Tags" :key="e">
+            <div class="etiqueta">
+              <p>{{ Eti.Tag }}</p>
             </div>
           </div>
         </div>
@@ -155,23 +192,53 @@ export default {
     userLog() {
       return this.$store.state.user;
     },
-  }
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-.contenido-proyecto {
-  width: 80%;
-  height: auto;
-}
-::v-deep .contenido {
-  p {
-    img {
-      width: auto;
-      max-width: 400px;
-      min-width: 200px;
-      height: auto;
+.overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+  z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  overflow-x: hidden;
+  overflow-y: overlay;
+  .close-button-container {
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+    svg:hover {
+      color: red;
+      cursor: pointer;
     }
+  }
+  .contenido-proyecto {
+    width: 80%;
+    height: auto;
+    &::v-deep.contenido {
+      p {
+        img {
+          width: auto;
+          max-width: 400px;
+          min-width: 200px;
+          height: auto;
+        }
+      }
+    }
+  }
+  .comentarios {
+    margin-top: 3rem;
+    background-color: white;
+    padding: 2rem 3rem;
+  }
+  .tags {
   }
 }
 </style>
