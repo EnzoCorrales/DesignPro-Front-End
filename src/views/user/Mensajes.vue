@@ -3,7 +3,7 @@
     <!-- HAY MENSAJES -->
     <div
       v-if="mensajes.length"
-      class="max-w-lg flex dir-row mx-auto justify-between border mt-5 container"
+      class="max-w-xl flex dir-row mx-auto justify-between border mt-5 container"
     >
       <div class="list" @click="scrollToBottom">
         <MensajeBandeja
@@ -75,7 +75,8 @@ export default {
   methods: {
     setMensajeContent(data) {
       this.mensaje = data;
-      this.perfil.Id = data.IdUsuarioR;
+      this.perfil.Id = data.IdUsuarioE;
+      this.perfil.Nombre = data.NombreE;
     },
     async obtenerMensajes() {
       await this.$store
@@ -112,7 +113,7 @@ export default {
     border-right: 1px solid lightgray;
     display: flex;
     flex-direction: column;
-    min-width: 12rem;
+    min-width: 17rem;
   }
   .message {
     display: flex;
@@ -140,7 +141,7 @@ export default {
       padding: 10px;
       border-top: 1px solid lightgray;
       .btn-responder {
-        background: rgb(99, 179, 255);
+        background: rgb(77, 169, 255);
       }
     }
   }

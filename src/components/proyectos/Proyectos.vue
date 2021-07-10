@@ -1,18 +1,28 @@
 <template>
   <div class="proyect-container max-w-xl">
-    <div v-if="proyectos.length" class="grid col-rows-5 gap-3">
-      <Proyecto v-for="(proy, i) in proyectos" :key="i" :proy="proy" />
+    <div v-if="proyectos.length" class="grid col-rows-3 gap-3 mx-2">
+      <Proyecto
+        v-for="(proy, i) in proyectos"
+        :key="i"
+        :proy="proy"
+        @showOverlay="ShowOverlay"
+      />
     </div>
     <div
       v-else
-      class="max-w-lg flex dir-col mx-auto justify-center align-center mt-10"
+      class="max-w-lg flex dir-col mx-auto justify-center align-center mt-5"
     >
-      <h3 class="title m-0 pill">No hay ningún proyecto publicado!</h3>
-      <router-link v-if="auth" class="link mt-4" to="/crear-proyecto">
+      <h3 class="title m-0">No hay ningún proyecto publicado!</h3>
+      <router-link v-if="auth && itsMe" class="link mt-4" to="/crear-proyecto">
         Agrega un proyecto nuevo
       </router-link>
     </div>
-    <Modal v-if="showProyectoModal" :proyecto="proyecto" />
+    <Modal
+      v-if="showProyectoModal"
+      :proyect="proyecto"
+      :user="user"
+      @close="close"
+    />
   </div>
 </template>
 
@@ -32,12 +42,22 @@ export default {
       proyecto: {},
     };
   },
+  watch: {
+    id(nuevo, viejo) {
+      if (viejo != nuevo) {
+        this.getProyectosUsuario();
+      }
+    },
+  },
   computed: {
     auth() {
       return this.$store.getters.isAuth;
     },
     user() {
       return this.$store.state.user;
+    },
+    itsMe() {
+      return this.user.Id == this.$route.params.id ? true : false;
     },
   },
   mounted() {
@@ -60,6 +80,14 @@ export default {
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },
+    ShowOverlay(proy) {
+      console.log(proy);
+      this.showProyectoModal = !this.showProyectoModal;
+      this.proyecto = proy;
+    },
+    close() {
+      this.showProyectoModal = false;
+    },
   },
 };
 </script>
@@ -70,6 +98,10 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 2rem auto;
+  .link:hover {
+    font-weight: bold;
+    color: blue;
+  }
 }
 @media (max-width: 640px) {
   .proyect-container {

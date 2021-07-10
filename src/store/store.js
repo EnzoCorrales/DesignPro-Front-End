@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
 import proyecto from "@/api/proyecto";
+import comentario from "@/api/comentario";
 import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
@@ -12,9 +13,7 @@ export const store = new Vuex.Store({
   strict: true,
   // Variables globales
   state: {
-    // Obtiene el token local
     token: sessionStorage.getItem("token") || null,
-    // Este usuario de debe obtener de la BD
     user:
       JSON.parse(sessionStorage.getItem("user")) ||
       {
@@ -58,9 +57,6 @@ export const store = new Vuex.Store({
     removeUser(state) {
       sessionStorage.removeItem("user");
       state.user = {};
-    },
-    seguir(state, idSeguido) {
-      state.user.Siguiendo.push(idSeguido);
     },
     // TOKEN ============
     setToken(state, token) {
@@ -185,7 +181,6 @@ export const store = new Vuex.Store({
       });
     },
     getProyectosUsuario: (context, id) => {
-      console.log(id);
       return new Promise((resolve, reject) => {
         proyecto
           .allFromUser(id)
@@ -194,10 +189,52 @@ export const store = new Vuex.Store({
       });
     },
     getAllProyectos: () => {
-      console.log("coso");
       return new Promise((resolve, reject) => {
         proyecto
           .getAll()
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    // COMENTARIOS ===============
+    comentar: (context, data) => {
+      return new Promise((resolve, reject) => {
+        comentario
+          .create(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getComentariosProyecto: (context, id) => {
+      return new Promise((resolve, reject) => {
+        comentario
+          .getAll(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    //eliminarComentario: (context, data) => {},
+    // SEGUIMIENTO ===============
+    seguir: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .seguir(data)
+          .then(() => resolve(true))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    dejarDeSeguir: (context, data) => {
+      return new Promise((resolve, reject) => {
+        user
+          .dejarDeSeguir(data)
+          .then(() => resolve(true))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getAllSiguiendo: (context, id) => {
+      return new Promise((resolve, reject) => {
+        user
+          .getAllSiguiendo(id)
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
       });
