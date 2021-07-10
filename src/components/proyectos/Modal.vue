@@ -1,8 +1,8 @@
 <template>
-  <div class="overlay pt-4 title ma">
+  <div class="overlay ma">
     <div class="max-w-xl mx-auto">
       <!-- CABECERA -->
-      <div class=" titulo-proyecto title mb-3 flex justify-between">
+      <div class="titulo-proyecto title mb-3 flex justify-between">
         <div class="flex justify-between">
           <div class="inline-flex mr-3">
             <img
@@ -114,11 +114,12 @@
             />
             <img v-else class="rounded-circle h-8 w-8" src="/user.svg" />
           </div>
-          <form @submit.prevent="comentar">
+          <form @submit.prevent="comentar" class="flex dir-col w-fill">
             <textarea
               v-model="form.Contenido"
-              class="p-2 comentario-input"
+              class="p-2"
               type="text"
+              rows="10"
               name="contenido"
               placeholder="Agrega un comentario..."
             />
@@ -143,8 +144,11 @@
             />
             <img v-else class="rounded-circle h-7 w-7" src="/user.svg" />
           </div>
-          <div>
-            <strong>{{ com.Nombre }}</strong> - {{ fechaComentario(com.Fecha) }}
+          <div class="comentario-text">
+            <span>
+              <strong>{{ com.Nombre }}</strong> -
+              {{ fechaComentario(com.Fecha) }}
+            </span>
             <p class="mb-0">{{ com.Contenido }}</p>
           </div>
         </div>
@@ -232,6 +236,14 @@ export default {
   cursor: pointer; /* Add a pointer on hover */
   overflow-x: hidden;
   overflow-y: overlay;
+  .titulo-proyecto {
+    padding: 20px 15px 0 15px;
+    @media (max-width: 640px) {
+      width: 95%;
+      margin: auto;
+      padding: 10px 0;
+    }
+  }
   .close-button-container {
     display: flex;
     justify-items: flex-start;
@@ -239,6 +251,25 @@ export default {
     svg:hover {
       color: red;
       cursor: pointer;
+    }
+  }
+  .comentarios {
+    margin-top: 2rem;
+    background-color: white;
+    padding: 2rem 3rem;
+    overflow: hidden;
+    margin: auto;
+    @media (max-width: 640px) {
+      padding: 1rem;
+    }
+    .comentario-text {
+      @media (max-width: 640px) {
+        span,
+        strong,
+        p {
+          font-size: 14px;
+        }
+      }
     }
   }
 }

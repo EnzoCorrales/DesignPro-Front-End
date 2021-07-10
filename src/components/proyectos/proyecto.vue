@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     ShowOverlay() {
-      this.$emit("showOverlay",this.proy);
+      this.$emit("showOverlay", this.proy);
     },
   },
 };
@@ -72,7 +72,8 @@ export default {
 <style lang="scss" scoped>
 .card {
   height: auto;
-  width: 400px;
+  width: auto;
+  max-width: 400px;
   text-overflow: hidden;
   cursor: pointer;
   &:hover {

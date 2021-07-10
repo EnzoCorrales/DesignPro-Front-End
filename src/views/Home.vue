@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Proyectos></Proyectos>
-  </div>
+  <Proyectos></Proyectos>
 </template>
 
 <script>

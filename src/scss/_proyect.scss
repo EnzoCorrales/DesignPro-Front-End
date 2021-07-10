@@ -147,20 +147,15 @@
 .contenido p img {
   min-width: 500px;
   max-width: 500px;
-  min-height: 300px;
+  min-height: 90%;
 }
 .contenido iframe {
-  height: 300px;
+  height: 90%;
   min-width: 500px;
   max-width: 500px;
 }
-.comentarios {
-  margin-top: 3rem;
-  background-color: white;
-  padding: 2rem 3rem;
-}
 .tags {
-  margin-top: 3rem;
+  margin-top: 2rem;
   background-color: white;
   text-align: left;
   margin-bottom: 3rem;
@@ -180,18 +175,10 @@
     margin-left: 5px;
   }
 }
-.comentario-input {
-  width: 750px;
-  height: 200px;
-}
 
 @media (max-width: 426px) {
-  .titulo-proyecto {
-    width: 300px;
-    margin: auto;
-  }
   .proyect {
-    width: 300px;
+    width: 90%;
     overflow: hidden;
     margin: auto;
     padding: 20px;
@@ -219,19 +206,8 @@
   .contenido p {
     text-overflow: ellipsis;
   }
-  .comentarios {
-    width: 300px;
-    overflow: hidden;
-    margin: auto;
-    margin-top: 2rem;
-    padding: 20px;
-  }
-  .comentario-input {
-    width: 170px;
-    height: 100px;
-  }
   .tags {
-    width: 300px;
+    width: 90%;
     overflow: hidden;
     margin: auto;
     margin-top: 2rem;
