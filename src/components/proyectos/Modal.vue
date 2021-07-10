@@ -77,17 +77,6 @@
               </p>
             </div>
           </div>
-          <!-- AUTOR -->
-          <div class="autor-info ma text-center">
-            <p class="mx-2">
-              Usuario:
-              <router-link :to="'/usuario/' + proyect.IdAutor">{{
-                proyect.NombreAutor
-              }}</router-link
-              ><br />
-              Localidad {{ proyect.UbicacionAutor }}
-            </p>
-          </div>
         </div>
       </div>
       <!-- COMENTARIOS Y PROPIETARIO -->
@@ -119,15 +108,15 @@
         <div class="flex">
           <div class="mr-3">
             <img
-              v-if="proyect.ImgAutor"
+              v-if="user.ImgPerfil"
               class="rounded-circle h-8 w-8"
-              :src="'data:image/jpg;base64,' + proyect.ImgAutor"
+              :src="'data:image/jpg;base64,' + user.ImgPerfil"
             />
             <img v-else class="rounded-circle h-8 w-8" src="/user.svg" />
           </div>
           <form @submit.prevent="comentar">
             <textarea
-              v-model="form.comentario"
+              v-model="form.Contenido"
               class="p-2"
               type="text"
               name="contenido"
@@ -142,13 +131,24 @@
             </div>
           </form>
         </div>
-        <hr class="my-4" v-if="proyect.Comentarios.length" />
+        <hr class="my-4" v-if="comentarios.length" />
         <div
-          v-for="(com, c) in proyect.Comentarios"
-          :key="c"
-          class="comentario"
+          v-for="(com, i) in comentarios"
+          :key="i"
+          class="flex align-center p-2"
         >
-          <p>{{ com.Contenido }}</p>
+          <div class="mr-3">
+            <img
+              v-if="com.ImgAutor"
+              class="rounded-circle h-7 w-7"
+              :src="'data:image/jpg;base64,' + com.ImgAutor"
+            />
+            <img v-else class="rounded-circle h-7 w-7" src="/user.svg" />
+          </div>
+          <div>
+            <strong>{{ com.Nombre }}</strong> - {{ fechaComentario(com.Fecha) }}
+            <p class="mb-0">{{ com.Contenido }}</p>
+          </div>
         </div>
       </div>
       <!-- TAGS -->
@@ -164,28 +164,57 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   data() {
     return {
       form: {
-        comentario: "",
+        Contenido: "",
+        Fecha: "",
+        IdProyecto: this.proyect.Id,
+        IdUsuario: this.user.Id ? this.user.Id : null,
       },
+      comentarios: {},
     };
   },
   props: {
     proyect: { type: Object },
     user: { type: Object },
   },
-  methods: {
-    close() {
-      console.log(this.proyect + "HOLA");
-      this.$emit("close");
-    },
-    comentar() {},
-  },
   computed: {
-    userLog() {
-      return this.$store.state.user;
+    setFecha() {
+      return moment().format("L");
+    },
+  },
+  mounted() {
+    this.getComentarios();
+  },
+  methods: {
+    getComentarios() {
+      this.$store
+        .dispatch("getComentariosProyecto", this.proyect.Id)
+        .then((res) => {
+          this.comentarios = res.reverse();
+        })
+        .catch((e) => console.log(e));
+    },
+    comentar() {
+      this.form.Fecha = this.setFecha;
+      console.log(this.form);
+      this.$store
+        .dispatch("comentar", this.form)
+        .then(() => {
+          this.form.Contenido = "";
+          this.getComentarios();
+        })
+        .catch((e) => console.log(e));
+    },
+    fechaComentario(f) {
+      let fecha = f.split("T");
+      return fecha[0];
+    },
+    close() {
+      this.$emit("close");
     },
   },
 };
@@ -228,26 +257,26 @@ export default {
     }
   }
   .comentarios {
-    margin-top: 3rem;
+    margin-top: 2rem;
     background-color: white;
     padding: 2rem 3rem;
   }
   .tags {
-    margin-top: 3rem;
+    margin-top: 2rem;
     background-color: white;
     text-align: left;
     margin-bottom: 3rem;
     padding: 5px;
-  }
-  .tag {
-    display: flex;
-    margin-left: 5px;
-    p {
-      background-color: whitesmoke;
-      border-radius: 10px;
-      border: solid 0.5px black;
-      padding-right: 5px;
-      margin-right: 10px;
+    .tag {
+      display: flex;
+      margin-left: 5px;
+      p {
+        background-color: whitesmoke;
+        border-radius: 10px;
+        border: solid 0.5px black;
+        padding-right: 5px;
+        margin-right: 10px;
+      }
     }
   }
 }

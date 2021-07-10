@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import user from "@/api/user";
 import proyecto from "@/api/proyecto";
+import comentario from "@/api/comentario";
 import mensaje from "@/api/mensaje";
 
 Vue.use(Vuex);
@@ -195,6 +196,24 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    // COMENTARIOS ===============
+    comentar: (context, data) => {
+      return new Promise((resolve, reject) => {
+        comentario
+          .create(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getComentariosProyecto: (context, id) => {
+      return new Promise((resolve, reject) => {
+        comentario
+          .getAll(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    //eliminarComentario: (context, data) => {},
     // SEGUIMIENTO ===============
     seguir: (context, data) => {
       return new Promise((resolve, reject) => {
