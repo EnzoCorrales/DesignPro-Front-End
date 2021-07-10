@@ -196,27 +196,19 @@ export const store = new Vuex.Store({
       });
     },
     // SEGUIMIENTO ===============
-    seguir: ({ commit }, data) => {
+    seguir: (context, data) => {
       return new Promise((resolve, reject) => {
         user
           .seguir(data)
-          .then((res) => {
-            commit("setUserInfo", res.data.Usuario);
-            //commit("seguir", data);
-            resolve(true);
-          })
+          .then(() => resolve(true))
           .catch((e) => reject(e.response.data.Message));
       });
     },
-    dejarDeSeguir: ({ commit }, data) => {
-      console.log(data);
+    dejarDeSeguir: (context, data) => {
       return new Promise((resolve, reject) => {
         user
           .dejarDeSeguir(data)
-          .then((res) => {
-            commit("setUserInfo", res.data.Usuario);
-            resolve(true);
-          })
+          .then(() => resolve(true))
           .catch((e) => reject(e.response.data.Message));
       });
     },

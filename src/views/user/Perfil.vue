@@ -128,12 +128,18 @@
         </button>
       </div>
     </div>
-    <div class="sub-profile align-center max-w-xl border px-5 py-3 ma">
+    <div
+      class="sub-profile align-center max-w-xl border px-5 py-3 ma cursor-default"
+    >
       <span v-if="perfil.Seguidores" class="mr-2 pill"
-        >Seguidores: {{ perfil.Seguidores.length }}</span
+        >Seguidores: {{ perfil.Seguidores }}</span
       >
-      <span class="mr-2 pill">Cantidad de visitas: N</span>
-      <span class="mr-2 pill">Valoraciones: K</span>
+      <span v-if="perfil.Visitas" class="mr-2 pill"
+        >Cantidad de visitas: {{ perfil.Visitas }}</span
+      >
+      <span v-if="perfil.Likes" class="mr-2 pill"
+        >Valoraciones: {{ perfil.Likes }}</span
+      >
       <a
         v-if="perfil.UrlWeb"
         class="pill text-black url-web"
@@ -221,11 +227,14 @@ export default {
         .catch((e) => console.log(e));
     },
     verificarSiguiendo() {
-      if (this.user.Siguiendo.length) {
-        this.user.Siguiendo.map((u) => {
-          if (this.$route.params.id == u.IdUsuario) this.siguiendo = true;
-        });
-      }
+      this.$store
+        .dispatch("getAllSiguiendo", this.user.Id)
+        .then((res) => {
+          res.map((u) => {
+            if (this.$route.params.id == u.Id) this.siguiendo = true;
+          });
+        })
+        .catch(() => this.$router.push({ path: "/home" }));
     },
     // async getAllSiguiendo() {
     //   await this.$store
