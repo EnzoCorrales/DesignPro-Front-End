@@ -45,7 +45,7 @@
       </svg>
     </div>
     <div class="text-container ml-1">
-      <p class="m-0">- {{ auxMsg.Fecha }}</p>
+      <p class="m-0">{{ auxMsg.NombreE }} | {{ auxMsg.Fecha }}</p>
       <span>{{ auxMsg.Asunto }}</span>
     </div>
   </div>
@@ -64,12 +64,17 @@ export default {
   },
   mounted() {
     this.auxMsg = this.msg;
-    //this.auxMsg.Fecha = this.formatFecha(this.msg.Fecha);
+    this.auxMsg.NombreE = this.formatNombre(this.msg.NombreE);
+    this.auxMsg.Fecha = this.formatFecha(this.msg.Fecha);
   },
   methods: {
     formatFecha(f) {
-      let fecha = f.split("/");
-      return fecha[2] + "-" + fecha[1] + "-" + fecha[0];
+      let fecha = f.split("T");
+      return fecha[0] + " " + fecha[1];
+    },
+    formatNombre(n) {
+      let fecha = n.split(" ");
+      return fecha[0];
     },
     emitMensaje(message) {
       this.$emit("setMensaje", message);
@@ -120,8 +125,6 @@ export default {
     align-self: center;
     white-space: nowrap;
     overflow: hidden;
-    //text-overflow: ellipsis;
-    width: 10rem;
     p {
       font-size: 12px;
       text-overflow: ellipsis;

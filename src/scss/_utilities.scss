@@ -22,6 +22,13 @@ $cols: ("1", "2", "3", "4", "5");
     grid-template-columns: repeat(#{$col}, 1fr);
   }
 }
+@media (max-width: 1200px) {
+  @each $col in $cols {
+    .col-rows-#{$col} {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
 @media (max-width: 640px) {
   @each $col in $cols {
     .col-rows-#{$col} {
@@ -184,6 +191,9 @@ $heightWidth: (
 .h-full {
   width: 100%;
 }
+.w-fill {
+  width: -webkit-fill-available;
+}
 
 // Sombras
 .shadow-sm {
@@ -199,4 +209,7 @@ $heightWidth: (
 
 .pointer:hover {
   cursor: pointer;
+}
+.cursor-default {
+  cursor: default;
 }
