@@ -1,11 +1,3 @@
-.proyect {
-  background-color: white;
-  margin: auto;
-  margin-bottom: 2rem;
-  height: auto;
-  font-family: "Poppins", sans-serif;
-}
-
 .dropbox {
   outline: 2px dashed grey; /* the dash box */
   outline-offset: -10px;
@@ -127,21 +119,9 @@
   width: 10px;
 }
 
-.contenido-proyecto {
-  padding: 10px;
-  border: 1px solid black;
-  background: white;
-}
-
 .autor-info {
   margin-top: 5px;
   border: 1px solid black;
-}
-
-.data-proyecto {
-  margin-top: 5px;
-  border: 1px solid black;
-  padding: 10px;
 }
 
 .contenido p img {
@@ -154,41 +134,10 @@
   min-width: 500px;
   max-width: 500px;
 }
-.tags {
-  margin-top: 2rem;
-  background-color: white;
-  text-align: left;
-  margin-bottom: 3rem;
-  padding: 10px;
-}
-.tag {
-  width: 80%;
-  display: flex;
-  padding: 10px;
-  border: 1px solid black;
-  p {
-    background-color: whitesmoke;
-    border-radius: 10px;
-    border: solid 0.5px black;
-    padding: 5px;
-    margin-right: 5px;
-    margin-left: 5px;
-  }
-}
 
 @media (max-width: 426px) {
-  .proyect {
-    width: 90%;
-    overflow: hidden;
-    margin: auto;
-    padding: 20px;
-  }
-  .contenido-proyecto {
-    margin: 0px;
-    padding: 0px;
-  }
   .contenido {
-    width: 250px;
+    //width: 250px;
     text-align: center;
     margin: auto;
     padding: 5px;
@@ -205,24 +154,5 @@
   }
   .contenido p {
     text-overflow: ellipsis;
-  }
-  .tags {
-    width: 90%;
-    overflow: hidden;
-    margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 20px;
-  }
-  .tag {
-    p {
-      background-color: whitesmoke;
-      border-radius: 10px;
-      border: solid 0.5px black;
-      padding: 5px;
-      margin-right: 5px;
-      margin-left: 5px;
-      font-size: 10px;
-    }
   }
 }
