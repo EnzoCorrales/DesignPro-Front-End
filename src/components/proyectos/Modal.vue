@@ -1,8 +1,8 @@
 <template>
-  <div class="overlay pt-4">
+  <div class="overlay pt-4 title ma">
     <div class="max-w-xl mx-auto">
       <!-- CABECERA -->
-      <div class="title mb-3 flex justify-between">
+      <div class=" titulo-proyecto title mb-3 flex justify-between">
         <div class="flex justify-between">
           <div class="inline-flex mr-3">
             <img
@@ -128,12 +128,10 @@
           <form @submit.prevent="comentar">
             <textarea
               v-model="form.comentario"
-              class="p-2"
+              class="p-2 comentario-input"
               type="text"
               name="contenido"
               placeholder="Agrega un comentario..."
-              rows="10"
-              cols="100"
             />
             <div class="flex justify-end">
               <button type="submit" class="btn btn-green mt-2">
@@ -153,7 +151,7 @@
       </div>
       <!-- TAGS -->
       <div class="tags">
-        <div class="tag">
+        <div class="tag ma">
           <p v-for="(Eti, e) in proyect.Tags" :key="e">
             #<b>{{ Eti.Tag }}</b>
           </p>
@@ -212,42 +210,6 @@ export default {
     svg:hover {
       color: red;
       cursor: pointer;
-    }
-  }
-  .contenido-proyecto {
-    height: auto;
-    &::v-deep.contenido {
-      p {
-        img {
-          width: 200px;
-          max-width: 200px;
-          min-width: 200px;
-          height: auto;
-        }
-      }
-    }
-  }
-  .comentarios {
-    margin-top: 3rem;
-    background-color: white;
-    padding: 2rem 3rem;
-  }
-  .tags {
-    margin-top: 3rem;
-    background-color: white;
-    text-align: left;
-    margin-bottom: 3rem;
-    padding: 5px;
-  }
-  .tag {
-    display: flex;
-    margin-left: 5px;
-    p {
-      background-color: whitesmoke;
-      border-radius: 10px;
-      border: solid 0.5px black;
-      padding-right: 5px;
-      margin-right: 10px;
     }
   }
 }
