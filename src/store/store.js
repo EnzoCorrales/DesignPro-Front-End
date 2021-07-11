@@ -196,6 +196,46 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
+    verProyecto: (context, id) => {
+      return new Promise((resolve, reject) => {
+        proyecto
+          .view(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    getProyectosValorados: (context, id) => {
+      return new Promise((resolve, reject) => {
+        proyecto
+          .getProyectosValorados(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    likeProyecto: (context, data) => {
+      return new Promise((resolve, reject) => {
+        proyecto
+          .like(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    dislikeProyecto: (context, data) => {
+      return new Promise((resolve, reject) => {
+        proyecto
+          .dislike(data)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    eliminarProyecto: (context, id) => {
+      return new Promise((resolve, reject) => {
+        proyecto
+          .delete(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
     // COMENTARIOS ===============
     comentar: (context, data) => {
       return new Promise((resolve, reject) => {
@@ -213,7 +253,14 @@ export const store = new Vuex.Store({
           .catch((e) => reject(e.response.data.Message));
       });
     },
-    //eliminarComentario: (context, data) => {},
+    eliminarComentario: (context, id) => {
+      return new Promise((resolve, reject) => {
+        comentario
+          .delete(id)
+          .then((res) => resolve(res.data))
+          .catch((e) => reject(e.response.data.Message));
+      });
+    },
     // SEGUIMIENTO ===============
     seguir: (context, data) => {
       return new Promise((resolve, reject) => {

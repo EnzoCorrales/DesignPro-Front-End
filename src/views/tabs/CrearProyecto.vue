@@ -3,12 +3,11 @@
     <!-- Contenido del Proyecto -->
     <!-- <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving"> -->
     <h1 class="title text-center px-2">Upload Content</h1>
-    <form name="CrearProyecto " @submit.prevent="createProyect">
+    <form @submit.prevent="createProyect">
       <div
         class="text-center mx-12"
         v-for="(input, k) in proyect.Portafolios"
         :key="k"
-        id="AddText"
       >
         <vue-editor
           class="Proyect-Content my-3"
@@ -67,11 +66,7 @@
               required
             />
           </div>
-          <div
-            class="image-preview"
-            v-if="proyect.Portada.length > 0"
-            id="isMobile"
-          >
+          <div class="image-preview" v-if="proyect.Portada.length > 0">
             <img class="preview" :src="proyect.Portada" />
           </div>
         </div>
@@ -225,9 +220,6 @@ export default {
 
 <style lang="scss">
 @media (max-width: 768px) {
-  #isMobile {
-    display: none;
-  }
   .proyect-info {
     display: grid;
     grid-template-columns: 1fr;
@@ -237,10 +229,6 @@ export default {
     background: lightcyan;
     color: dimgray;
     text-align: center;
-  }
-  #AddText {
-    margin: auto;
-    margin-left: 5%;
   }
 }
 </style>
