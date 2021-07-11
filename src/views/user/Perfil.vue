@@ -129,7 +129,7 @@
       </div>
     </div>
     <div
-      class="sub-profile align-center max-w-xl border px-5 py-3 ma cursor-default"
+      class="sub-profile align-center max-w-xl border px-5 py-3 ma cursor-default gap-2"
     >
       <span v-if="perfil.Seguidores" class="mr-2 pill"
         >Seguidores: {{ perfil.Seguidores }}</span
@@ -146,7 +146,7 @@
         :href="perfil.UrlWeb"
         target="_blank"
       >
-        Sitio:{{ perfil.UrlWeb }}
+        Sitio: {{ perfil.UrlWeb }}
       </a>
     </div>
     <Proyectos :id="$route.params.id"></Proyectos>
@@ -190,7 +190,6 @@ export default {
   mounted() {
     this.getPerfil();
     this.verificarSiguiendo();
-    //await this.getAllSiguiendo();
   },
   watch: {
     $route(to, from) {
@@ -236,12 +235,6 @@ export default {
         })
         .catch(() => this.$router.push({ path: "/home" }));
     },
-    // async getAllSiguiendo() {
-    //   await this.$store
-    //     .dispatch("getAllSiguiendo", this.$route.params.id)
-    //     .then((res) => (this.listaSiguiendo = res))
-    //     .catch((e) => console.log(e));
-    // },
     enviarMensaje() {
       if (!this.auth) this.$router.push({ path: "/login" });
       this.showMensajeModal = true;
@@ -271,6 +264,20 @@ export default {
 .btn-unfollow {
   background-color: #e74c3c;
 }
+.sub-profile {
+  border-top: none;
+  line-height: 1.5;
+}
+.pill {
+  border-radius: 5px;
+  background-color: #eef4fd;
+  padding: 5px 10px;
+}
+.url-web {
+  &:hover {
+    color: blue;
+  }
+}
 @media (max-width: 640px) {
   .profile-container {
     padding: 2rem 10px;
@@ -289,20 +296,9 @@ export default {
     justify-content: flex-start;
   }
   .pill {
-    display: block;
-  }
-}
-.sub-profile {
-  border-top: none;
-  line-height: 1.5;
-}
-.pill {
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
-.url-web {
-  &:hover {
-    color: blue;
+    display: inline-block;
+    margin-bottom: 7px;
+    padding: 3px 7px;
   }
 }
 </style>

@@ -228,8 +228,8 @@
       <div class="tags">
         <strong>Tags:</strong>
         <div class="tag ma">
-          <p v-for="(Eti, e) in proyect.Tags" :key="e">
-            #<b>{{ Eti.Tag }}</b>
+          <p v-for="(t, e) in proyect.Tags" :key="e">
+            #<b>{{ t.Tag }}</b>
           </p>
         </div>
       </div>
@@ -371,7 +371,7 @@ export default {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
-  z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
+  z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
   overflow-x: hidden;
   overflow-y: overlay;
   .titulo-proyecto {

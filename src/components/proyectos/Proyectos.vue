@@ -35,6 +35,7 @@ export default {
   },
   props: {
     id: { type: String, default: null },
+    liked: { type: String, default: null },
   },
   data() {
     return {
@@ -63,8 +64,11 @@ export default {
   },
   mounted() {
     // Si esta viendo el perfil de alguien, carga sus proyectos
-    if (this.id != null) this.getProyectosUsuario();
-    else this.getAllProyectos();
+    this.id != null
+      ? this.getProyectosUsuario()
+      : this.liked
+      ? this.getProyectosValorados()
+      : this.getAllProyectos();
   },
   methods: {
     getProyectosUsuario() {
@@ -76,6 +80,12 @@ export default {
     getAllProyectos() {
       this.$store
         .dispatch("getAllProyectos")
+        .then((res) => (this.proyectos = res))
+        .catch((e) => console.log(e));
+    },
+    getProyectosValorados() {
+      this.$store
+        .dispatch("getProyectosValorados", this.liked)
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },

@@ -56,7 +56,10 @@
           </div>
         </div>
         <div class="flex w-49 justify-between" id="rightside">
-          <div class="flex justify-between align-center nowrap mr-4" id="tabs">
+          <div
+            class="flex justify-between align-center nowrap mr-4 z-10"
+            id="tabs"
+          >
             <form class="flex" v-show="!mostrarsb">
               <input
                 v-model="form.buscar"
@@ -197,7 +200,7 @@
       class="nowrap flex justify-end max-w-md relative ml-auto"
       v-show="mostrarnav"
     >
-      <div class="absolute bg-white shadow-sm border mt-2 mr-2">
+      <div class="absolute bg-white shadow-sm border mt-2 mr-2 z-10">
         <ul class="mx-4 p-0" @click="mostrarnav = !mostrarnav">
           <li class="mb-2">
             <router-link :to="'/usuario/' + user.Id" class="title text-black">
