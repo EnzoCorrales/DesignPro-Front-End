@@ -35,7 +35,7 @@ export default {
   },
   props: {
     id: { type: String, default: null },
-    liked: { type: String, default: null },
+    liked: { type: Number, default: null },
   },
   data() {
     return {
