@@ -5,6 +5,7 @@
         v-for="(proy, i) in proyectos"
         :key="i"
         :proy="proy"
+        :user="user"
         @showOverlay="ShowOverlay"
       />
     </div>
@@ -13,7 +14,7 @@
       class="max-w-lg flex dir-col mx-auto justify-center align-center mt-5"
     >
       <h3 class="title m-0">No hay ningún proyecto publicado!</h3>
-      <router-link v-if="auth && itsMe" class="link mt-4" to="/crear-proyecto">
+      <router-link v-if="auth" class="link mt-4" to="/crear-proyecto">
         Agrega un proyecto nuevo
       </router-link>
     </div>
@@ -38,8 +39,8 @@ export default {
   data() {
     return {
       proyectos: {},
-      showProyectoModal: false,
       proyecto: {},
+      showProyectoModal: false,
     };
   },
   watch: {
@@ -66,14 +67,12 @@ export default {
     else this.getAllProyectos();
   },
   methods: {
-    // Carga los proyectos de un usuario
     getProyectosUsuario() {
       this.$store
         .dispatch("getProyectosUsuario", this.id)
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },
-    // Carga todos los proyectos
     getAllProyectos() {
       this.$store
         .dispatch("getAllProyectos")
@@ -81,7 +80,6 @@ export default {
         .catch((e) => console.log(e));
     },
     ShowOverlay(proy) {
-      console.log(proy);
       this.showProyectoModal = !this.showProyectoModal;
       this.proyecto = proy;
     },

@@ -43,11 +43,6 @@ const routes = [
     component: () => import("../views/tabs/CrearProyecto.vue"),
   },
   {
-    path: "/mis-proyectos",
-    name: "MisProyectos",
-    component: () => import("../views/tabs/MisProyectos.vue"),
-  },
-  {
     path: "/proyectos-valorados",
     name: "ProyectosValorados",
     component: () => import("../views/tabs/ProyectosValorados.vue"),

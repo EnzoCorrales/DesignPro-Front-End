@@ -55,10 +55,11 @@
           <div class="data-proyecto ma text-center">
             <h2 class="mb-2 mt-1">{{ proyect.Titulo }}</h2>
             <div class="justify-center flex align-center w-full mb-1">
-              <div class="flex align-center pointer">
+              <div class="flex align-center pointer" @click="valoracion()">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5 mr-1"
+                  :class="{ 'text-blue': valorado }"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -71,7 +72,7 @@
                   />
                 </svg>
                 <p class="m-0">
-                  {{ proyect.Likes }}
+                  {{ likes }}
                 </p>
               </div>
               <div class="flex align-center mx-3">
@@ -96,7 +97,7 @@
                   />
                 </svg>
                 <p class="m-0">
-                  {{ proyect.Visitas }}
+                  {{ proyect.Visitas + 1 }}
                 </p>
               </div>
               <div class="flex align-center">
@@ -146,7 +147,7 @@
         </div>
         <hr class="my-4" />
         <!-- SECCION COMENTARIOS -->
-        <div class="flex">
+        <div v-if="auth" class="flex">
           <div class="mr-3 img-user">
             <img
               v-if="user.ImgPerfil"
@@ -157,7 +158,7 @@
           </div>
           <form @submit.prevent="comentar" class="flex dir-col w-fill">
             <textarea
-              v-model="form.Contenido"
+              v-model="formComentario.Contenido"
               class="p-2"
               type="text"
               rows="8"
@@ -171,26 +172,55 @@
             </div>
           </form>
         </div>
+        <div class="text-center" v-else>
+          <router-link
+            class="text-blue text-lg btn-login-comentario"
+            to="/login"
+            >Inicia sesión para comentar!</router-link
+          >
+        </div>
         <hr class="my-4" v-if="comentarios.length" />
         <div
           v-for="(com, i) in comentarios"
           :key="i"
-          class="flex align-center p-2"
+          class="flex align-center justify-between p-2 caja-comentario"
         >
-          <div class="mr-3">
-            <img
-              v-if="com.ImgAutor"
-              class="rounded-circle h-7 w-7"
-              :src="'data:image/jpg;base64,' + com.ImgAutor"
-            />
-            <img v-else class="rounded-circle h-7 w-7" src="/user.svg" />
+          <div class="flex align-center">
+            <div class="mr-3">
+              <img
+                v-if="com.ImgAutor"
+                class="rounded-circle h-7 w-7"
+                :src="'data:image/jpg;base64,' + com.ImgAutor"
+              />
+              <img v-else class="rounded-circle h-7 w-7" src="/user.svg" />
+            </div>
+            <div class="comentario-text">
+              <span>
+                <strong>{{ com.Nombre }}</strong> -
+                {{ fechaComentario(com.Fecha) }}
+              </span>
+              <p class="mb-0">{{ com.Contenido }}</p>
+            </div>
           </div>
-          <div class="comentario-text">
-            <span>
-              <strong>{{ com.Nombre }}</strong> -
-              {{ fechaComentario(com.Fecha) }}
-            </span>
-            <p class="mb-0">{{ com.Contenido }}</p>
+          <div
+            v-if="user && com.IdUsuario == user.Id"
+            class="btn-eliminar"
+            @click="eliminarComentario(com.Id)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
+            </svg>
           </div>
         </div>
       </div>
@@ -212,13 +242,20 @@ import moment from "moment";
 export default {
   data() {
     return {
-      form: {
+      formComentario: {
         Contenido: "",
         Fecha: "",
         IdProyecto: this.proyect.Id,
         IdUsuario: this.user.Id ? this.user.Id : null,
       },
+      formValoracion: {
+        IdUsuario: null,
+        IdProyecto: null,
+      },
+      likes: 0,
       comentarios: {},
+      valorado: false,
+      valoradoDesdeAntes: false,
     };
   },
   props: {
@@ -226,14 +263,24 @@ export default {
     user: { type: Object },
   },
   computed: {
+    auth() {
+      return this.$store.getters.isAuth;
+    },
     setFecha() {
       return moment().format("L");
     },
   },
   mounted() {
     this.getComentarios();
+    this.setVisita();
+    if (this.auth) this.getProyectosValorados();
   },
   methods: {
+    setVisita() {
+      this.$store
+        .dispatch("verProyecto", this.proyect.Id)
+        .catch((e) => console.log(e));
+    },
     getComentarios() {
       this.$store
         .dispatch("getComentariosProyecto", this.proyect.Id)
@@ -243,19 +290,69 @@ export default {
         .catch((e) => console.log(e));
     },
     comentar() {
-      this.form.Fecha = this.setFecha;
-      console.log(this.form);
+      this.formComentario.Fecha = this.setFecha;
       this.$store
-        .dispatch("comentar", this.form)
+        .dispatch("comentar", this.formComentario)
         .then(() => {
-          this.form.Contenido = "";
+          this.formComentario.Contenido = "";
           this.getComentarios();
         })
+        .catch((e) => console.log(e));
+    },
+    eliminarComentario(id) {
+      this.$store
+        .dispatch("eliminarComentario", id)
+        .then(() => this.getComentarios())
         .catch((e) => console.log(e));
     },
     fechaComentario(f) {
       let fecha = f.split("T");
       return fecha[0];
+    },
+    getProyectosValorados() {
+      this.likes = this.proyect.Likes;
+      this.$store
+        .dispatch("getProyectosValorados", this.user.Id)
+        .then((res) => {
+          if (res.length) {
+            res.forEach((p) => {
+              if (p.Id == this.proyect.Id)
+                this.valorado = this.valoradoDesdeAntes = true;
+            });
+          }
+        })
+        .catch((e) => console.log(e));
+    },
+    valoracion() {
+      if (!this.auth) this.$router.push({ path: "/login" });
+      else {
+        this.formValoracion.IdUsuario = this.user.Id;
+        this.formValoracion.IdProyecto = this.proyect.Id;
+        !this.valorado ? this.like() : this.dislike();
+      }
+    },
+    like() {
+      this.$store
+        .dispatch("likeProyecto", this.formValoracion)
+        .then(() => {
+          this.valorado = true;
+          this.likeCounter(1);
+        })
+        .catch((e) => console.log(e));
+    },
+    dislike() {
+      this.$store
+        .dispatch("dislikeProyecto", { data: this.formValoracion })
+        .then(() => {
+          this.valorado = false;
+          this.likeCounter(0);
+        })
+        .catch((e) => console.log(e));
+    },
+    likeCounter(nro) {
+      if (nro == 0) nro = this.valoradoDesdeAntes ? -1 : 0;
+      if (nro == 1) nro = this.valoradoDesdeAntes ? 0 : 1;
+      this.likes = this.proyect.Likes + nro;
     },
     close() {
       this.$emit("close");
@@ -339,6 +436,31 @@ export default {
         p {
           font-size: 14px;
         }
+      }
+    }
+    .caja-comentario {
+      .btn-eliminar {
+        display: none;
+        cursor: pointer;
+        padding: 7px;
+        background-color: rgb(243, 243, 243);
+        color: rgb(54, 54, 54);
+        border-radius: 8px;
+        &:hover {
+          background-color: rgb(216, 216, 216);
+          color: black;
+        }
+      }
+      &:hover .btn-eliminar {
+        display: flex;
+        align-items: center;
+      }
+    }
+    .btn-login-comentario {
+      padding: 5px 10px;
+      border-radius: 8px;
+      &:hover {
+        background-color: rgb(216, 216, 216);
       }
     }
   }
