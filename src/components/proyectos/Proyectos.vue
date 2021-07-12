@@ -1,5 +1,5 @@
 <template>
-  <div class="proyect-container max-w-xl">
+  <div class="proyect-container max-w-xl title">
     <div v-if="proyectos.length" class="grid col-rows-3 gap-3 mx-2">
       <Proyecto
         v-for="(proy, i) in proyectos"

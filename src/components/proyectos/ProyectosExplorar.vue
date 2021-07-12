@@ -134,12 +134,15 @@ export default {
       if (orden == "valor") {
         console.log(this.proyectos);
         if (this.proyectosFiltrados.length) {
+          console.log("entre");
           this.proyectosFiltrados.sort((a, b) => {
-            return parseFloat(a.Valoraciones.lenght) - parseFloat(b.Valoraciones.lenght);
+            return parseFloat(a.Likes) - parseFloat(b.Likes);
           });
         } else {
+          console.log("entre2");
           this.proyectos.sort(function(a, b) {
-            return parseFloat(b.Valoraciones.length) - parseFloat(a.Valoraciones.length);
+            console.log("valor a: " + a.Valoracion + "valor b: " + b.Valoracion);
+            return parseFloat(b.Likes) - parseFloat(a.Likes);
           });
         }
       }
@@ -149,10 +152,12 @@ export default {
     },
     // Busca en los proyectos
     buscarProyectos(buscar) {
-      console.log(buscar);
       this.$store
       .dispatch("Busqueda", buscar)
-      .then((res) => (this.proyectos = res))
+      .then((res) => {
+        if(this.proyectosFiltrados.length) this.proyectosFiltrados = res;
+          else this.proyectos = res;
+        })
       .catch((e) => console.log(e));
     },
 
