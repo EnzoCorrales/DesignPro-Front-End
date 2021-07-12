@@ -110,6 +110,9 @@
         <Proyectos :condicion="condicion" ref="proyectos"></Proyectos>
       </div>
     </div>
+    <div class="proyectos-filtrados">
+      <Proyectos></Proyectos>
+    </div>
   </div>
 </template>
 
