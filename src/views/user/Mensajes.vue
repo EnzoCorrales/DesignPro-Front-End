@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="title">
     <!-- HAY MENSAJES -->
     <div
       v-if="mensajes.length"

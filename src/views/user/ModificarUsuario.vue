@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-center justify-center dir-col mt-4">
+  <div class="flex align-center justify-center dir-col mt-4 title">
     <div class="max-w-xl mx-auto p-3 mb-4 form-cont">
       <div class="internal p-4">
         <h2 class="mt-0 title text-center">Información personal</h2>

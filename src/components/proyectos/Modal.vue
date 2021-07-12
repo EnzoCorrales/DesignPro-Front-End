@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay ma">
+  <div class="overlay ma title">
     <div class="max-w-xl mx-auto">
       <!-- CABECERA -->
       <div class="titulo-proyecto title mb-3 flex justify-between">
@@ -405,7 +405,15 @@ export default {
     }
     .contenido-proyecto {
       padding: 10px;
+      @media (max-width: 640px) {
+        &::v-deep img {
+          max-width: 300px;
+          max-height: 300px;
+        }
+      }
     }
+
+    
     .portada-proyecto {
       width: 100%;
       max-height: 600px;
