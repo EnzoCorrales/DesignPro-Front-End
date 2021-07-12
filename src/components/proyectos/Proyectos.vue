@@ -8,6 +8,7 @@
         v-for="(proy, i) in proyectos"
         :key="i"
         :proy="proy"
+        :user="user"
         @showOverlay="ShowOverlay"
       />
     </div>
@@ -30,7 +31,7 @@
       class="max-w-lg flex dir-col mx-auto justify-center align-center mt-5"
     >
       <h3 class="title m-0">No hay ningún proyecto publicado!</h3>
-      <router-link v-if="auth && itsMe" class="link mt-4" to="/crear-proyecto">
+      <router-link v-if="auth" class="link mt-4" to="/crear-proyecto">
         Agrega un proyecto nuevo
       </router-link>
     </div>
@@ -51,13 +52,14 @@ export default {
   },
   props: {
     id: { type: String, default: null },
+    liked: { type: Number, default: null },
     condicion: { type: String, default: null },
   },
   data() {
     return {
       proyectos: {},
-      showProyectoModal: false,
       proyecto: {},
+      showProyectoModal: false,
       proyectosFiltrados: [],
     };
   },
@@ -81,11 +83,13 @@ export default {
   },
   mounted() {
     // Si esta viendo el perfil de alguien, carga sus proyectos
-    if (this.id != null) this.getProyectosUsuario();
-    else this.getAllProyectos();
+    this.id != null
+      ? this.getProyectosUsuario()
+      : this.liked
+      ? this.getProyectosValorados()
+      : this.getAllProyectos();
   },
   methods: {
-    // Carga los proyectos de un usuario
     getProyectosUsuario() {
       this.$store
         .dispatch("getProyectosUsuario", this.id)
@@ -137,8 +141,13 @@ export default {
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },
+    getProyectosValorados() {
+      this.$store
+        .dispatch("getProyectosValorados", this.liked)
+        .then((res) => (this.proyectos = res))
+        .catch((e) => console.log(e));
+    },
     ShowOverlay(proy) {
-      console.log(proy);
       this.showProyectoModal = !this.showProyectoModal;
       this.proyecto = proy;
     },
