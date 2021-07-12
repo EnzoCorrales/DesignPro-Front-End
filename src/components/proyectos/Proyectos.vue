@@ -1,6 +1,9 @@
 <template>
-  <div class="proyect-container max-w-xl">
-    <div v-if="proyectos.length" class="grid col-rows-3 gap-3 mx-2">
+  <div class="proyect-container ">
+    <div
+      v-if="proyectos.length && this.condicion == null"
+      class="grid col-rows-4 gap-3 mx-2"
+    >
       <Proyecto
         v-for="(proy, i) in proyectos"
         :key="i"
@@ -10,7 +13,21 @@
       />
     </div>
     <div
-      v-else
+      v-if="proyectosFiltrados.length && this.condicion != null"
+      class="grid col-rows-4 gap-3 mx-2"
+    >
+      <Proyecto
+        v-for="(proy, i) in proyectosFiltrados"
+        :key="i"
+        :proy="proy"
+        @showOverlay="ShowOverlay"
+      />
+    </div>
+    <div
+      v-if="
+        !proyectos.length ||
+          (!proyectosFiltrados.length && this.condicion != null)
+      "
       class="max-w-lg flex dir-col mx-auto justify-center align-center mt-5"
     >
       <h3 class="title m-0">No hay ningún proyecto publicado!</h3>
@@ -36,12 +53,14 @@ export default {
   props: {
     id: { type: String, default: null },
     liked: { type: Number, default: null },
+    condicion: { type: String, default: null },
   },
   data() {
     return {
       proyectos: {},
       proyecto: {},
       showProyectoModal: false,
+      proyectosFiltrados: [],
     };
   },
   watch: {
@@ -77,6 +96,45 @@ export default {
         .then((res) => (this.proyectos = res))
         .catch((e) => console.log(e));
     },
+    // Filtra los proyectos
+    filtrarProyectos(cond) {
+      var pfiltrados = [];
+      this.proyectos.forEach(function(proy) {
+        if (proy.Categoria == cond) {
+          pfiltrados.push(proy);
+        }
+      });
+      this.proyectosFiltrados = pfiltrados;
+    },
+    // Ordena los proyectos
+    ordenarProyectos(orden) {
+      if (orden == "fecha") {
+        if (this.proyectosFiltrados.length) {
+          this.proyectosFiltrados.sort((a, b) => {
+            return parseFloat(a.FechaPub) - parseFloat(b.FechaPub);
+          });
+        } else {
+          this.proyectos.sort(function(a, b) {
+            return parseFloat(a.FechaPub) - parseFloat(b.FechaPub);
+          });
+        }
+      }
+      if (orden == "valor") {
+        if (this.proyectosFiltrados.length) {
+          this.proyectosFiltrados.sort((a, b) => {
+            return parseFloat(a.Likes) - parseFloat(b.Likes);
+          });
+        } else {
+          this.proyectos.sort(function(a, b) {
+            return parseFloat(a.Likes) - parseFloat(b.Likes);
+          });
+        }
+      }
+      if (orden == null) {
+        this.getAllProyectos();
+      }
+    },
+    // Carga todos los proyectos
     getAllProyectos() {
       this.$store
         .dispatch("getAllProyectos")
