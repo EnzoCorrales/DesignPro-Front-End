@@ -1,4 +1,4 @@
-<template>
+np<template>
   <div class="border shadow-sm card relative">
     <div class="img-container" @click="ShowOverlay()">
       <img v-if="proy.Portada" class="" :src="proy.Portada" />
