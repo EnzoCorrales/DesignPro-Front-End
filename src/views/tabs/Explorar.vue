@@ -2,11 +2,18 @@
   <div class="main-content justify-between flex title">
     <div class="side-bar p-2">
       <div class="ordenar">
+        <h2>Ordenar por Fecha</h2>
         <li>
           <button v-on:click="SetOrden('fecha')" class="btn-filter">
-            Ordenar por Fecha
+            Mayor a menor
           </button>
         </li>
+        <li>
+          <button v-on:click="SetOrden('fecha2')" class="btn-filter">
+            Menor a mayor
+          </button>
+        </li>
+        <br/>
         <li>
           <button v-on:click="SetOrden('valor')" class="btn-filter">
             Ordenar por Valoracion
@@ -87,6 +94,7 @@ export default {
       this.$refs.proyectos.filtrarProyectos(cond);
     },
     SetOrden(orden) {
+      console.log(orden);
       this.$refs.proyectos.ordenarProyectos(orden);
     },
   },

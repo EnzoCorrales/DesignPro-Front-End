@@ -108,25 +108,38 @@ export default {
     },
     // Ordena los proyectos
     ordenarProyectos(orden) {
+      console.log(orden);
       if (orden == "fecha") {
         if (this.proyectosFiltrados.length) {
           this.proyectosFiltrados.sort((a, b) => {
-            return parseFloat(a.FechaPub) - parseFloat(b.FechaPub);
+            return  Date.parse(a.FechaPub) -  Date.parse(b.FechaPub);
           });
         } else {
           this.proyectos.sort(function(a, b) {
-            return parseFloat(a.FechaPub) - parseFloat(b.FechaPub);
+            return Date.parse(a.FechaPub) - Date.parse(b.FechaPub);
+          });
+        }
+      }
+      if (orden == "fecha2") {
+        if (this.proyectosFiltrados.length) {
+          this.proyectosFiltrados.sort((a, b) => {
+            return  Date.parse(b.FechaPub) -  Date.parse(a.FechaPub);
+          });
+        } else {
+          this.proyectos.sort(function(a, b) {
+            return Date.parse(b.FechaPub) - Date.parse(a.FechaPub);
           });
         }
       }
       if (orden == "valor") {
+        console.log(this.proyectos);
         if (this.proyectosFiltrados.length) {
           this.proyectosFiltrados.sort((a, b) => {
-            return parseFloat(a.Likes) - parseFloat(b.Likes);
+            return parseFloat(a.Valoraciones.lenght) - parseFloat(b.Valoraciones.lenght);
           });
         } else {
           this.proyectos.sort(function(a, b) {
-            return parseFloat(a.Likes) - parseFloat(b.Likes);
+            return parseFloat(b.Valoraciones.length) - parseFloat(a.Valoraciones.length);
           });
         }
       }
