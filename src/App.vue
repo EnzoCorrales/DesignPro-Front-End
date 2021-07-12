@@ -57,87 +57,9 @@
         </div>
         <div class="flex w-49 justify-between" id="rightside">
           <div
-            class="flex justify-between align-center nowrap mr-4 z-10"
-            id="tabs"
-          >
-            <form class="flex" v-show="!mostrarsb">
-              <input
-                v-model="form.buscar"
-                type="text"
-                name="buscar"
-                class="input mr-2"
-                placeholder="Search"
-              />
-              <button type="submit" class="btn btn-red">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
-          </div>
-          <div class="flex">
-            <form id="Buscador" class="flex" v-show="mostrarsb">
-              <input
-                v-model="form.buscar"
-                type="text"
-                name="buscar"
-                class="input w-9 mr-2"
-                placeholder="Search"
-              />
-              <button id="lupasearch" type="submit" class="btn btn-red">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
-            <div
-              id="lupa-falsa"
-              class="btn btn-red"
-              v-show="!mostrarsb"
-              @click="mostrarSB()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-          </div>
-          <div
             v-if="$store.getters.isAuth"
             v-show="!mostrarsb"
-            class="flex align-center px-2 btn-profile ml-3"
+            class="flex align-center p-2 btn-profile ml-3"
             @click="mostrarnav = !mostrarnav"
           >
             <svg

@@ -42,3 +42,55 @@
   margin: 10px 5px 0px 5px;
   text-overflow: ellipsis;
 }
+
+@media screen and (max-width:600px){
+  .SearchBar{
+    margin-left: 10%;
+  }
+
+  .side-bar{
+    width: 95%;
+    margin: 1rem auto;
+    height: auto;
+    padding: 0;
+    h2{
+      text-align:center;
+    }
+    hr{
+      width: 90%;
+      margin: 1rem auto;
+    }
+  }
+  
+  .ordenar li{
+    display: inline-block;
+    .btn-filter{
+      font-size: 15px;
+      margin: 0 2px 3px 2px;
+      padding: 2px;
+      height: auto;
+      border-radius: 10px;
+    }
+  }
+  .categorias li{
+    display: inline-block;
+    margin-bottom: 10px;
+    .btn-filter{
+      font-size: 15px;
+      margin: 0 2px 3px 2px;
+      padding: 2px;
+      height: auto;
+      border-radius: 10px;
+    }
+  }
+
+  .proyectos-filtrados{
+    margin: 10px 0 0 0 ;
+  }
+  .main-content{
+    display: block;
+    width: 95%;
+    margin: auto;
+  }
+
+}
