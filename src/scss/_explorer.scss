@@ -1,12 +1,15 @@
-.main-content {
-  width: 100%;
-  list-style: none;
-}
-
 .SearchBar{
   width: 300px;
   padding: 10px;
-  margin-bottom: 15px;
+  form{
+    width:100%;
+    align-items: center;
+  }
+}
+
+.main-content {
+  width: 100%;
+  list-style: none;
 }
 
 .side-bar {
@@ -43,9 +46,12 @@
   text-overflow: ellipsis;
 }
 
-@media screen and (max-width:600px){
+@media (max-width:600px){
   .SearchBar{
-    margin-left: 10%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
   }
 
   .side-bar{
@@ -92,5 +98,4 @@
     width: 95%;
     margin: auto;
   }
-
 }

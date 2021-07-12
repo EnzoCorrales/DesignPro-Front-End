@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="SearchBar w-3 h-3 inline-block">
+    <div class="SearchBar inline-block">
       <form class="flex" v-show="!mostrarsb" @submit.prevent="buscador">
         <input
           v-model="form.buscar"
@@ -41,7 +41,7 @@
               Menor a mayor
             </button>
           </li>
-          <br />
+          <hr />
           <li>
             <button v-on:click="SetOrden('valor')" class="btn-filter">
               Ordenar por Valoracion
@@ -109,9 +109,6 @@
       <div class="proyectos-filtrados">
         <Proyectos :condicion="condicion" ref="proyectos"></Proyectos>
       </div>
-    </div>
-    <div class="proyectos-filtrados">
-      <Proyectos></Proyectos>
     </div>
   </div>
 </template>

@@ -78,7 +78,7 @@
             </svg>
             {{ user.Nombre }}
           </div>
-          <div v-else class="flex mx-3 sesion">
+          <div v-else class="flex mx-3  sesion">
             <router-link to="/login" class="block btn btn-green mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -166,6 +166,23 @@
             </router-link>
           </li>
           <hr />
+          <li class="mb-2">
+            <router-link to="/explorar" class="title text-black">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Explorar
+            </router-link>
+          </li>
           <li class="mb-2">
             <router-link to="/crear-proyecto" class="title text-black">
               <svg
@@ -286,7 +303,10 @@ nav {
 
 @media (min-width: 1000px) {
   nav div {
-    max-width: 80%;
+    max-width: 75%;
+  }
+  .sesion {
+    max-width: 100%;
   }
   #mobile-tabs,
   .log-svg,
@@ -319,9 +339,6 @@ nav {
   }
 }
 @media (max-width: 600px) {
-  .sesion {
-    display: none;
-  }
   #Buscador {
     margin-right: 10px;
   }
