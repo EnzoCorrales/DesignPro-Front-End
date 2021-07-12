@@ -5,6 +5,7 @@ import user from "@/api/user";
 import proyecto from "@/api/proyecto";
 import comentario from "@/api/comentario";
 import mensaje from "@/api/mensaje";
+import buscador from "@/api/buscar";
 
 Vue.use(Vuex);
 
@@ -210,6 +211,13 @@ export const store = new Vuex.Store({
           .getProyectosValorados(id)
           .then((res) => resolve(res.data))
           .catch((e) => reject(e.response.data.Message));
+      });
+    },
+    Busqueda: (context, buscar) => {
+      return new Promise((resolve, reject) => {
+        buscador.Busqueda(buscar)
+        .then((res) => resolve(res.data))
+        .catch((e) => reject(e.response.data.Message));
       });
     },
     likeProyecto: (context, data) => {
