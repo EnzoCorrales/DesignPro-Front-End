@@ -1,5 +1,5 @@
 <template>
-  <div class="flex align-center justify-center dir-col">
+  <div class="flex align-center justify-center dir-col title">
     <div
       class="
         mt-5

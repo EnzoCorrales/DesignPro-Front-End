@@ -57,87 +57,9 @@
         </div>
         <div class="flex w-49 justify-between" id="rightside">
           <div
-            class="flex justify-between align-center nowrap mr-4 z-10"
-            id="tabs"
-          >
-            <form class="flex" v-show="!mostrarsb">
-              <input
-                v-model="form.buscar"
-                type="text"
-                name="buscar"
-                class="input mr-2"
-                placeholder="Search"
-              />
-              <button type="submit" class="btn btn-red">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
-          </div>
-          <div class="flex">
-            <form id="Buscador" class="flex" v-show="mostrarsb">
-              <input
-                v-model="form.buscar"
-                type="text"
-                name="buscar"
-                class="input w-9 mr-2"
-                placeholder="Search"
-              />
-              <button id="lupasearch" type="submit" class="btn btn-red">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </button>
-            </form>
-            <div
-              id="lupa-falsa"
-              class="btn btn-red"
-              v-show="!mostrarsb"
-              @click="mostrarSB()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-          </div>
-          <div
             v-if="$store.getters.isAuth"
             v-show="!mostrarsb"
-            class="flex align-center px-2 btn-profile ml-3"
+            class="flex align-center p-2 btn-profile ml-3"
             @click="mostrarnav = !mostrarnav"
           >
             <svg
@@ -156,7 +78,7 @@
             </svg>
             {{ user.Nombre }}
           </div>
-          <div v-else class="flex mx-3 sesion">
+          <div v-else class="flex mx-3  sesion">
             <router-link to="/login" class="block btn btn-green mr-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -244,6 +166,23 @@
             </router-link>
           </li>
           <hr />
+          <li class="mb-2">
+            <router-link to="/explorar" class="title text-black">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 mr-2"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Explorar
+            </router-link>
+          </li>
           <li class="mb-2">
             <router-link to="/crear-proyecto" class="title text-black">
               <svg
@@ -364,7 +303,10 @@ nav {
 
 @media (min-width: 1000px) {
   nav div {
-    max-width: 80%;
+    max-width: 75%;
+  }
+  .sesion {
+    max-width: 100%;
   }
   #mobile-tabs,
   .log-svg,
@@ -397,9 +339,6 @@ nav {
   }
 }
 @media (max-width: 600px) {
-  .sesion {
-    display: none;
-  }
   #Buscador {
     margin-right: 10px;
   }
